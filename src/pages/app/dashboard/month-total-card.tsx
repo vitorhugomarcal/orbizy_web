@@ -1,0 +1,44 @@
+import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { ChevronsDown, ChevronsUp, PiggyBank, ReceiptText } from "lucide-react"
+
+export function MonthTotalCard() {
+  return (
+    <Card className="col-span-6 lg:col-span-3">
+      <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-base font-semibold">Receitas</CardTitle>
+        <ChevronsUp className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
+      </CardHeader>
+      <CardContent className="space-y-1 gap-4">
+        <span className="text-2xl font-bold tracking-tight">47.624,00</span>
+        <p className="text-xs text-muted-foreground">
+          <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
+          relação ao ano anterior
+        </p>
+      </CardContent>
+      <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-base font-semibold">Despesas</CardTitle>
+        <ChevronsDown className="h-4 w-4 text-destructive" />
+      </CardHeader>
+      <CardContent className="space-y-1 gap-4">
+        <span className="text-2xl font-bold tracking-tight">R$ 19.325,60</span>
+        <p className="text-xs text-muted-foreground">
+          <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
+          relação ao ano anterior
+        </p>
+      </CardContent>
+      <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
+        <CardTitle className="text-base font-semibold">
+          Resultado líquido
+        </CardTitle>
+        <PiggyBank className="h-4 w-4 text-muted-foreground" />
+      </CardHeader>
+      <CardContent className="space-y-1 gap-4">
+        <span className="text-2xl font-bold tracking-tight">R$ 28.298,40</span>
+        <p className="text-xs text-muted-foreground">
+          <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
+          relação ao ano anterior
+        </p>
+      </CardContent>
+    </Card>
+  )
+}
