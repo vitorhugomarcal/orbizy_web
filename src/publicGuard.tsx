@@ -1,4 +1,4 @@
-import { Navigate, Outlet } from "react-router"
+import { Navigate } from "react-router"
 import { useQuery } from "@tanstack/react-query"
 import { getProfile } from "./api/get-Profile"
 import { AuthLayout } from "./pages/_layouts/auth"

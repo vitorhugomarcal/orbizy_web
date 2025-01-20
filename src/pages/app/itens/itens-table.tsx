@@ -128,7 +128,7 @@ export const columns: ColumnDef<TableProps>[] = [
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Editar</DropdownMenuItem>
-            <DropdownMenuItem>Excluir</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => payment}>Excluir</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

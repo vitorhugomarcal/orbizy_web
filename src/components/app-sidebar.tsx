@@ -33,7 +33,6 @@ import {
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
 import { ModeToggle } from "./mode-toggle"
-import Logo from "@/assets/Logo"
 import { useQuery } from "@tanstack/react-query"
 import { getProfile } from "@/api/get-Profile"
 import NewLogo from "@/assets/newLogo"

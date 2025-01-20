@@ -22,8 +22,6 @@ import {
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
   DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
@@ -133,7 +131,7 @@ export const columns: ColumnDef<TableData>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Editar</DropdownMenuItem>
             <DropdownMenuItem>Ver</DropdownMenuItem>
-            <DropdownMenuItem>Excluir</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => payment}>Excluir</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

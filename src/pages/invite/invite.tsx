@@ -8,13 +8,7 @@ import { Input } from "@/components/ui/input"
 
 import { useMutation, useQuery } from "@tanstack/react-query"
 import NewLogo from "@/assets/newLogo"
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
+
 import { ModeToggle } from "@/components/mode-toggle"
 import { useNavigate, useSearchParams } from "react-router"
 import { InvitedRegister } from "@/api/client/invited-register"
@@ -61,23 +55,15 @@ export function Invite() {
     return <div>Código de convite inválido</div>
   }
 
-  const { data: inviteCode, isLoading } = useQuery({
+  const { data: inviteCode } = useQuery({
     queryKey: ["inviteCode", code],
     queryFn: () => checkInvite({ code }),
   })
 
-  const {
-    control,
-    register,
-    handleSubmit,
-    watch,
-    reset,
-    setValue,
-    getValues,
-    formState: { isSubmitting },
-  } = useForm<SignInForm>({
-    // resolver: zodResolver(signInForm),
-  })
+  const { control, handleSubmit, watch, reset, setValue, getValues } =
+    useForm<SignInForm>({
+      // resolver: zodResolver(signInForm),
+    })
 
   const [openModalType, setOpenModalType] = useState(false)
   const [openModalCPF, setOpenModalCPF] = useState(false)
@@ -90,7 +76,6 @@ export function Invite() {
   })
 
   const cnpj = watch("cnpj")
-  const cpf = watch("cpf")
   const type = watch("type")
   const cep = watch("cep")
 

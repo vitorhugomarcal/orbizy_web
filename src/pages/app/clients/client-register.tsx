@@ -27,7 +27,6 @@ import axios from "axios"
 import { Link } from "lucide-react"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
-import { Navigate, useNavigate } from "react-router"
 import { toast } from "sonner"
 import { z } from "zod"
 import { formatPhone } from "@/ultils/formatPhone"
@@ -190,7 +189,7 @@ export function ClientRegister() {
 
   async function handleSubmit(data: RegisterForm) {
     try {
-      const response = await post({ ...data })
+      await post({ ...data })
       toast.success("Cadastro realizado com sucesso!")
       setOpenModalAddress(false)
     } catch (error) {

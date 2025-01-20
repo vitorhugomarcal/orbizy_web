@@ -4,10 +4,8 @@ import {
   BreadcrumbList,
   BreadcrumbPage,
 } from "@/components/ui/breadcrumb"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
-import { DollarSign } from "lucide-react"
 import { Helmet } from "react-helmet-async"
 import { MonthEstimatesCard } from "./month-estimates-card"
 import { ClientCard } from "./client-card"

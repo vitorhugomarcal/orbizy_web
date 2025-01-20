@@ -131,7 +131,7 @@ export const columns: ColumnDef<TableData>[] = [
           <DropdownMenuContent align="end">
             <DropdownMenuItem>Editar</DropdownMenuItem>
             <DropdownMenuItem>Ver</DropdownMenuItem>
-            <DropdownMenuItem>Excluir</DropdownMenuItem>
+            <DropdownMenuItem onClick={() => payment}>Excluir</DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>
       )

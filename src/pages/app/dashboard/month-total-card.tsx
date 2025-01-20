@@ -1,5 +1,5 @@
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
-import { ChevronsDown, ChevronsUp, PiggyBank, ReceiptText } from "lucide-react"
+import { ChevronsDown, ChevronsUp, PiggyBank } from "lucide-react"
 
 export function MonthTotalCard() {
   return (
