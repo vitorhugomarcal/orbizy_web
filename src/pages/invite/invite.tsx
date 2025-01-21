@@ -47,6 +47,12 @@ const signInForm = z.object({
 
 type SignInForm = z.infer<typeof signInForm>
 
+const MobileDrawerContent = ({ children }: any) => (
+  <DrawerContent className="h-[98dvh] overflow-y-auto">
+    <div className="mx-auto w-full max-w-sm pb-24">{children}</div>
+  </DrawerContent>
+)
+
 export function Invite() {
   const [searchParams] = useSearchParams()
   const code = searchParams.get("code")
@@ -152,7 +158,7 @@ export function Invite() {
   }
 
   return (
-    <>
+    <div className="flex flex-col min-h-[100dvh]">
       <Helmet title="Cadastro de Cliente" />
       <div className="flex-col flex w-full h-full justify-between">
         {inviteCode ? (
@@ -167,125 +173,127 @@ export function Invite() {
               <DrawerTrigger asChild>
                 <Button className="w-full">Iniciar o meu cadastro</Button>
               </DrawerTrigger>
-              <DrawerContent>
-                <div className="mx-auto w-full max-w-sm">
-                  <DrawerHeader>
-                    <DrawerTitle>Novo cliente</DrawerTitle>
-                    <DrawerDescription>
-                      Selecione o tipo de contrato.
-                    </DrawerDescription>
-                  </DrawerHeader>
+              <MobileDrawerContent>
+                <DrawerContent>
+                  <div className="mx-auto w-full max-w-sm">
+                    <DrawerHeader className="sticky top-0 bg-background z-10">
+                      <DrawerTitle>Novo cliente</DrawerTitle>
+                      <DrawerDescription>
+                        Selecione o tipo de contrato.
+                      </DrawerDescription>
+                    </DrawerHeader>
 
-                  <div className=" flex gap-2 my-4 mx-4">
-                    <Button
-                      className="flex w-full"
-                      variant={type === "física" ? "default" : "secondary"}
-                      onClick={() => {
-                        reset({
-                          type: "",
-                          cnpj: "",
-                          name: "",
-                          company_name: "",
-                          cpf: "",
-                          email_address: "",
-                          phone: "",
-                          cep: "",
-                          address: "",
-                          address_number: "",
-                          neighborhood: "",
-                          city: "",
-                          state: "",
-                        })
-                        setValue("type", "física")
-                      }}
-                    >
-                      Pessoa física
-                    </Button>
-                    <Button
-                      className="flex w-full"
-                      variant={type === "jurídica" ? "default" : "secondary"}
-                      onClick={() => {
-                        reset({
-                          type: "",
-                          cnpj: "",
-                          name: "",
-                          company_name: "",
-                          cpf: "",
-                          email_address: "",
-                          phone: "",
-                          cep: "",
-                          address: "",
-                          address_number: "",
-                          neighborhood: "",
-                          city: "",
-                          state: "",
-                        })
-                        setValue("type", "jurídica")
-                      }}
-                    >
-                      Pessoa jurídica
-                    </Button>
+                    <div className=" flex gap-2 my-4 mx-4">
+                      <Button
+                        className="flex w-full"
+                        variant={type === "física" ? "default" : "secondary"}
+                        onClick={() => {
+                          reset({
+                            type: "",
+                            cnpj: "",
+                            name: "",
+                            company_name: "",
+                            cpf: "",
+                            email_address: "",
+                            phone: "",
+                            cep: "",
+                            address: "",
+                            address_number: "",
+                            neighborhood: "",
+                            city: "",
+                            state: "",
+                          })
+                          setValue("type", "física")
+                        }}
+                      >
+                        Pessoa física
+                      </Button>
+                      <Button
+                        className="flex w-full"
+                        variant={type === "jurídica" ? "default" : "secondary"}
+                        onClick={() => {
+                          reset({
+                            type: "",
+                            cnpj: "",
+                            name: "",
+                            company_name: "",
+                            cpf: "",
+                            email_address: "",
+                            phone: "",
+                            cep: "",
+                            address: "",
+                            address_number: "",
+                            neighborhood: "",
+                            city: "",
+                            state: "",
+                          })
+                          setValue("type", "jurídica")
+                        }}
+                      >
+                        Pessoa jurídica
+                      </Button>
+                    </div>
+
+                    {type === "física" ? (
+                      <div className="mx-4">
+                        <Controller
+                          control={control}
+                          render={({ field: { onChange, onBlur, value } }) => (
+                            <Input
+                              value={formatCPF(value || "")}
+                              onBlur={onBlur}
+                              placeholder="CPF do cliente"
+                              onChange={(e) => {
+                                onChange(formatCPF(e.target.value))
+                              }}
+                              // onSubmit={checkClient}
+                            />
+                          )}
+                          name="cpf"
+                        />
+                      </div>
+                    ) : type === "jurídica" ? (
+                      <div className="mx-4">
+                        <Controller
+                          control={control}
+                          render={({ field: { onChange, onBlur, value } }) => (
+                            <Input
+                              value={formatCNPJ(value || "")}
+                              onBlur={onBlur}
+                              placeholder="CNPJ do cliente"
+                              onChange={(e) => {
+                                onChange(formatCNPJ(e.target.value))
+                              }}
+                              onSubmit={checkClient}
+                            />
+                          )}
+                          name="cnpj"
+                        />
+                      </div>
+                    ) : (
+                      <></>
+                    )}
+
+                    <DrawerFooter className="sticky bottom-0 bg-background mt-auto">
+                      <Button
+                        onClick={() => {
+                          setOpenModalType(false)
+                          selectedType === "física"
+                            ? setOpenModalCPF(true)
+                            : selectedType === "jurídica"
+                            ? checkClient()
+                            : toast.error("Selecione o tipo de contrato")
+                        }}
+                      >
+                        Próximo
+                      </Button>
+                      <DrawerClose asChild>
+                        <Button variant="outline">Cancelar</Button>
+                      </DrawerClose>
+                    </DrawerFooter>
                   </div>
-
-                  {type === "física" ? (
-                    <div className="mx-4">
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={formatCPF(value || "")}
-                            onBlur={onBlur}
-                            placeholder="CPF do cliente"
-                            onChange={(e) => {
-                              onChange(formatCPF(e.target.value))
-                            }}
-                            // onSubmit={checkClient}
-                          />
-                        )}
-                        name="cpf"
-                      />
-                    </div>
-                  ) : type === "jurídica" ? (
-                    <div className="mx-4">
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={formatCNPJ(value || "")}
-                            onBlur={onBlur}
-                            placeholder="CNPJ do cliente"
-                            onChange={(e) => {
-                              onChange(formatCNPJ(e.target.value))
-                            }}
-                            onSubmit={checkClient}
-                          />
-                        )}
-                        name="cnpj"
-                      />
-                    </div>
-                  ) : (
-                    <></>
-                  )}
-
-                  <DrawerFooter>
-                    <Button
-                      onClick={() => {
-                        setOpenModalType(false)
-                        selectedType === "física"
-                          ? setOpenModalCPF(true)
-                          : selectedType === "jurídica"
-                          ? checkClient()
-                          : toast.error("Selecione o tipo de contrato")
-                      }}
-                    >
-                      Próximo
-                    </Button>
-                    <DrawerClose asChild>
-                      <Button variant="outline">Cancelar</Button>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </div>
-              </DrawerContent>
+                </DrawerContent>
+              </MobileDrawerContent>
             </Drawer>
 
             <Drawer open={openModalCPF} onOpenChange={setOpenModalCPF}>
@@ -611,6 +619,6 @@ export function Invite() {
           Cadastro de clientes © VHMarcal - {new Date().getFullYear()}
         </footer>
       </div>
-    </>
+    </div>
   )
 }
