@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Substitua por sua branch principal, se diferente
+      - main # Substitua pela sua branch principal, se for diferente
 
 permissions:
   contents: write # Necessário para publicar no GitHub Pages
