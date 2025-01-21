@@ -32,15 +32,7 @@ export function SignIn() {
     try {
       await auth({ email: data.email })
 
-      toast.success(
-        "Enviamos um link de autenticação para o seu e-mail."
-        //   , {
-        //   action: {
-        //     label: "Reenviar",
-        //     onClick: () => handleSignIn(data),
-        //   },
-        // }
-      )
+      toast.success("Enviamos um link de autenticação para o seu e-mail.")
     } catch (error) {
       console.log(error)
       toast.error("Parece que você ainda não tem acesso ao Orbizy Desktop")
