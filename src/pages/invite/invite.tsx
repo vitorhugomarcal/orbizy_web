@@ -171,7 +171,7 @@ export function Invite() {
             <div className="flex justify-end">
               <ModeToggle />
             </div>
-            <div className="flex flex-col flex-1 items-center justify-center gap-6">
+            <div className="flex flex-col max-w-xs flex-1 items-center justify-center gap-6">
               <NewLogo />
               <Drawer open={openModalType} onOpenChange={setOpenModalType}>
                 <DrawerTrigger asChild>
