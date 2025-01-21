@@ -2,8 +2,8 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # ou sua branch principal
-  workflow_dispatch: # permite executar o workflow manualmente
+    branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: read
@@ -48,9 +48,12 @@ jobs:
       - name: Install dependencies
         run: pnpm install
 
+      # Criar arquivo .env.production antes do build
+      - name: Create .env.production
+        run: |
+          echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env.production
+
       - name: Build project
-        env:
-          VITE_API_URL: ${{ secrets.VITE_API_URL }}
         run: pnpm build
 
       - name: Create CNAME file
