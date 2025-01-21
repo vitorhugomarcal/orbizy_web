@@ -17,13 +17,13 @@ export function InviteLayout() {
         <LoginVector2 className="absolute z-10 w-full h-full right-[7.5%]" />
         <LoginVector0 className="absolute z-30 top-0 right-0 h-[300px] w-[420px]" />
         <div className="md:pl-10 xl:pl-0 relative z-40 w-7/12 xl:w-5/12">
-          <h1 className="hidden mb-3 text-base font-bold leading-normal text-left text-primary-foreground xl:text-3xl xl:leading-6 md:none lg:block ">
+          <h1 className="hidden mb-3 font-bold leading-normal text-left text-primary-foreground xl:text-3xl xl:leading-6 md:none lg:block ">
             Cadastro simples para novos clientes
           </h1>
-          <p className="hidden text-sm font-light not-italic leading-normal text-left text-primary-foreground xl:text-base xl:leading-6 md:none lg:block">
+          {/* <p className="hidden text-sm font-light not-italic leading-normal text-left text-primary-foreground xl:text-base xl:leading-6 md:none lg:block">
             Ajudando você a rastrear despesas, registrar pagamentos e gerar
             belas faturas e orçamentos.
-          </p>
+          </p> */}
         </div>
       </div>
     </div>

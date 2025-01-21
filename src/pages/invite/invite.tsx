@@ -600,7 +600,7 @@ export function Invite() {
               <div className=" flex flex-col w-full items-center space-y-4 mt-8">
                 <h1 className="font-medium text-lg">Convite inválido!</h1>
                 <p className="text-xs font-light">
-                  Solicite um novo link para o seu cadastro!
+                  Solicite um novo link para realizar o seu cadastro!
                 </p>
               </div>
             </div>
