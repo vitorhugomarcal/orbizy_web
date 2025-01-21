@@ -55,22 +55,19 @@ export function Invite() {
 
   if (!code) {
     return (
-      <div className="flex flex-col h-full w-full justify-between gap-8">
-        <div className="flex justify-end">
+      <div className="flex flex-col w-full h-full">
+        <div className="flex justify-end mb-6">
           <ModeToggle />
         </div>
-        <div className="flex flex-col flex-1 items-center justify-center gap-6">
+        <div className="flex-1 flex flex-col items-center justify-center">
           <NewLogo />
-          <div className="flex flex-col items-center space-y-4">
+          <div className="text-center space-y-2">
             <h1 className="font-medium text-lg">Convite inválido!</h1>
             <p className="text-xs font-light">
               Solicite um novo link para o seu cadastro!
             </p>
           </div>
         </div>
-        <footer className="text-center text-sm text-muted-foreground">
-          Cadastro de clientes © VHMarcal - {new Date().getFullYear()}
-        </footer>
       </div>
     )
   }
@@ -165,19 +162,17 @@ export function Invite() {
   return (
     <>
       <Helmet title="Cadastro de Cliente" />
-      <div className="flex flex-col h-full w-full justify-between gap-8">
+      <div className="flex flex-col w-full h-full">
         {inviteCode ? (
           <>
-            <div className="flex justify-end">
+            <div className="flex justify-end mb-6">
               <ModeToggle />
             </div>
-            <div className="flex flex-col max-w-xs flex-1 items-center justify-center gap-6">
+            <div className="flex-1 flex flex-col items-center justify-center">
               <NewLogo />
               <Drawer open={openModalType} onOpenChange={setOpenModalType}>
                 <DrawerTrigger asChild>
-                  <Button className="w-full max-w-xs">
-                    Iniciar o meu cadastro
-                  </Button>
+                  <Button className="w-64">Iniciar o meu cadastro</Button>
                 </DrawerTrigger>
                 <DrawerContent className="h-[85vh] overflow-y-auto">
                   <div className="mx-auto w-full max-w-sm">
