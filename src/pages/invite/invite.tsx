@@ -26,9 +26,7 @@ import {
 import { formatCPF } from "@/ultils/formatCPF"
 import { formatCNPJ } from "@/ultils/formatCNPJ"
 import { useState } from "react"
-import axios from "axios"
 import { formatPhone } from "@/ultils/formatPhone"
-import { App } from "@/app"
 import { api } from "@/lib/axios"
 
 const signInForm = z.object({
