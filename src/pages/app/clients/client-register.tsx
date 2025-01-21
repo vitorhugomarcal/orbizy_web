@@ -23,13 +23,13 @@ import {
 import { formatCNPJ } from "@/ultils/formatCNPJ"
 import { formatCPF } from "@/ultils/formatCPF"
 import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
-import axios from "axios"
 import { Link } from "lucide-react"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
 import { formatPhone } from "@/ultils/formatPhone"
+import { api } from "@/lib/axios"
 
 const signInForm = z.object({
   type: z.string(),
@@ -139,7 +139,7 @@ export function ClientRegister() {
           (client) => client.cnpj === cnpj?.replace(/[\(\)\s\-./\\]/g, "")
         )
         if (checkClientExists === undefined) {
-          const { data } = await axios.get(
+          const { data } = await api.get(
             `api/v1/cnpj/${cnpj?.replace(/[\(\)\s\-./\\]/g, "")}`
           )
           if (data) {
@@ -167,7 +167,7 @@ export function ClientRegister() {
   }
 
   async function getAddress() {
-    const { data } = await axios.get(`/cep/ws/${cep}/json/`)
+    const { data } = await api.get(`/cep/ws/${cep}/json/`)
 
     if (data && data.logradouro) {
       const currentValues = getValuesClient()
