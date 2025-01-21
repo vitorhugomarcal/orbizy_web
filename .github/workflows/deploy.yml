@@ -3,7 +3,7 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches:
-      - main # Substitua pela sua branch principal, se for diferente
+      - main # Substitua pela sua branch principal, se necessário
 
 permissions:
   contents: write # Necessário para publicar no GitHub Pages
@@ -17,26 +17,25 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
-      # Step 2: Set up Node.js
-      - name: Setup Node.js
+      # Step 2: Set up Node.js and install pnpm
+      - name: Setup Node.js and pnpm
         uses: actions/setup-node@v3
         with:
           node-version: 18 # Use uma versão compatível com seu projeto
-          cache: "pnpm" # Cache para dependências do pnpm
+          cache: "pnpm"
 
-      # Step 3: Install pnpm
       - name: Install pnpm
-        run: npm install -g pnpm
+        run: corepack enable && corepack prepare pnpm@latest --activate
 
-      # Step 4: Install dependencies
+      # Step 3: Install dependencies
       - name: Install dependencies
         run: pnpm install
 
-      # Step 5: Build the project
+      # Step 4: Build the project
       - name: Build
         run: pnpm build
 
-      # Step 6: Deploy to GitHub Pages
+      # Step 5: Deploy to GitHub Pages
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
