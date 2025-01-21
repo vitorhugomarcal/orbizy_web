@@ -6,7 +6,7 @@ import { LoginVector0 } from "@/assets/frame"
 
 export function InviteLayout() {
   return (
-    <div className="grid min-h-screen grid-cols-12 overflow-y-hidden antialiased">
+    <div className="grid h-screen grid-cols-12 overflow-y-hidden antialiased">
       <div className="fixed inset-0 z-50 flex flex-col items-end justify-start w-full px-4 py-6 pointer-events-none sm:p-6" />
       <div className="flex items-center justify-center w-full max-w-sm col-span-12 p-4 mx-auto text-foreground md:p-8 md:col-span-6 lg:col-span-4 flex-2">
         <Outlet />

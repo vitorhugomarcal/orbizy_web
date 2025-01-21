@@ -170,7 +170,11 @@ export function Invite() {
             </div>
             <div className="flex-1 flex flex-col items-center justify-center">
               <NewLogo />
-              <Drawer open={openModalType} onOpenChange={setOpenModalType}>
+              <Drawer
+                open={openModalType}
+                onOpenChange={setOpenModalType}
+                direction="top"
+              >
                 <DrawerTrigger asChild>
                   <Button className="w-64">Iniciar o meu cadastro</Button>
                 </DrawerTrigger>
