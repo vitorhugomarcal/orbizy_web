@@ -10,6 +10,10 @@ export default defineConfig({
     },
   },
   server: {
+    headers: {
+      "Permissions-Policy":
+        "interest-cohort=(), private-state-token-redemption=(), private-state-token-issuance=(), browsing-topics=()",
+    },
     proxy: {
       "/api": {
         target: "https://receitaws.com.br",
