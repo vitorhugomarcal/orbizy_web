@@ -19,13 +19,13 @@ export default defineConfig({
       "/api": {
         target: "https://receitaws.com.br",
         changeOrigin: true,
-        secure: false, // Se necessário, desabilite a verificação SSL
+        secure: true, // Se necessário, desabilite a verificação SSL
         rewrite: (path) => path.replace(/^\/api/, ""),
       },
       "/cep": {
         target: "https://viacep.com.br",
         changeOrigin: true,
-        secure: false, // Se necessário, desabilite a verificação SSL
+        secure: true, // Se necessário, desabilite a verificação SSL
         rewrite: (path) => path.replace(/^\/cep/, ""),
       },
     },

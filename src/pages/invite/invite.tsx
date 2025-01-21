@@ -28,6 +28,8 @@ import { formatCNPJ } from "@/ultils/formatCNPJ"
 import { useState } from "react"
 import axios from "axios"
 import { formatPhone } from "@/ultils/formatPhone"
+import { App } from "@/app"
+import { api } from "@/lib/axios"
 
 const signInForm = z.object({
   type: z.string(),
@@ -84,7 +86,7 @@ export function Invite() {
   const navigate = useNavigate()
 
   async function getAddress() {
-    const { data } = await axios.get(`/cep/ws/${cep}/json/`)
+    const { data } = await api.get(`/cep/ws/${cep}/json/`)
 
     if (data && data.logradouro) {
       const currentValues = getValues()
@@ -123,7 +125,7 @@ export function Invite() {
 
   async function checkClient() {
     if (type === "jurídica") {
-      const { data } = await axios.get(
+      const { data } = await api.get(
         `/api/v1/cnpj/${cnpj?.replace(/[\(\)\s\-./\\]/g, "")}`
       )
       if (data) {
