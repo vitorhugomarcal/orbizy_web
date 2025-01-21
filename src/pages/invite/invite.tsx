@@ -51,25 +51,8 @@ export function Invite() {
   const [searchParams] = useSearchParams()
   const code = searchParams.get("code")
 
-  const navigate = useNavigate()
-
   if (!code) {
-    return (
-      <div className="flex flex-col w-full h-full">
-        <div className="flex justify-end mb-6">
-          <ModeToggle />
-        </div>
-        <div className="flex-1 flex flex-col items-center justify-center">
-          <NewLogo />
-          <div className="text-center space-y-2">
-            <h1 className="font-medium text-lg">Convite inválido!</h1>
-            <p className="text-xs font-light">
-              Solicite um novo link para o seu cadastro!
-            </p>
-          </div>
-        </div>
-      </div>
-    )
+    return <div>Código de convite inválido</div>
   }
 
   const { data: inviteCode } = useQuery({
@@ -78,7 +61,9 @@ export function Invite() {
   })
 
   const { control, handleSubmit, watch, reset, setValue, getValues } =
-    useForm<SignInForm>()
+    useForm<SignInForm>({
+      // resolver: zodResolver(signInForm),
+    })
 
   const [openModalType, setOpenModalType] = useState(false)
   const [openModalCPF, setOpenModalCPF] = useState(false)
@@ -93,7 +78,10 @@ export function Invite() {
   const cnpj = watch("cnpj")
   const type = watch("type")
   const cep = watch("cep")
+
   const selectedType = watch("type")
+
+  const navigate = useNavigate()
 
   async function getAddress() {
     const { data } = await api.get(`/cep/ws/${cep}/json/`)
@@ -159,400 +147,357 @@ export function Invite() {
     }
   }
 
+  if (!code) {
+    return <div>Código de convite inválido ou expirado</div>
+  }
+
   return (
     <>
       <Helmet title="Cadastro de Cliente" />
-      <div className="flex flex-col w-full h-full">
+      <div className="flex-col flex w-full h-full justify-between">
         {inviteCode ? (
-          <>
-            <div className="flex justify-end mb-6">
+          <div className="flex flex-col min-h-screen justify-center">
+            <div className="flex justify-end">
               <ModeToggle />
             </div>
-            <div className="flex-1 flex flex-col items-center justify-center">
+            <div className="flex w-full justify-center items-center">
               <NewLogo />
-              <Drawer
-                open={openModalType}
-                onOpenChange={setOpenModalType}
-                direction="top"
-              >
-                <DrawerTrigger asChild>
-                  <Button className="w-64">Iniciar o meu cadastro</Button>
-                </DrawerTrigger>
-                <DrawerContent className="h-[85vh] overflow-y-auto">
-                  <div className="mx-auto w-full max-w-sm">
-                    <DrawerHeader className="sticky top-0 bg-background z-10">
-                      <DrawerTitle>Novo cliente</DrawerTitle>
-                      <DrawerDescription>
-                        Selecione o tipo de contrato.
-                      </DrawerDescription>
-                    </DrawerHeader>
+            </div>
+            <Drawer open={openModalType} onOpenChange={setOpenModalType}>
+              <DrawerTrigger asChild>
+                <Button className="w-full">Iniciar o meu cadastro</Button>
+              </DrawerTrigger>
+              <DrawerContent>
+                <div className="mx-auto w-full max-w-sm">
+                  <DrawerHeader>
+                    <DrawerTitle>Novo cliente</DrawerTitle>
+                    <DrawerDescription>
+                      Selecione o tipo de contrato.
+                    </DrawerDescription>
+                  </DrawerHeader>
 
-                    <div className="space-y-4 px-4">
-                      <div className="flex gap-2">
-                        <Button
-                          className="flex-1"
-                          variant={type === "física" ? "default" : "secondary"}
-                          onClick={() => {
-                            reset({
-                              type: "",
-                              cnpj: "",
-                              name: "",
-                              company_name: "",
-                              cpf: "",
-                              email_address: "",
-                              phone: "",
-                              cep: "",
-                              address: "",
-                              address_number: "",
-                              neighborhood: "",
-                              city: "",
-                              state: "",
-                            })
-                            setValue("type", "física")
-                          }}
-                        >
-                          Pessoa física
-                        </Button>
-                        <Button
-                          className="flex-1"
-                          variant={
-                            type === "jurídica" ? "default" : "secondary"
-                          }
-                          onClick={() => {
-                            reset({
-                              type: "",
-                              cnpj: "",
-                              name: "",
-                              company_name: "",
-                              cpf: "",
-                              email_address: "",
-                              phone: "",
-                              cep: "",
-                              address: "",
-                              address_number: "",
-                              neighborhood: "",
-                              city: "",
-                              state: "",
-                            })
-                            setValue("type", "jurídica")
-                          }}
-                        >
-                          Pessoa jurídica
-                        </Button>
-                      </div>
+                  <div className=" flex gap-2 my-4 mx-4">
+                    <Button
+                      className="flex w-full"
+                      variant={type === "física" ? "default" : "secondary"}
+                      onClick={() => {
+                        reset({
+                          type: "",
+                          cnpj: "",
+                          name: "",
+                          company_name: "",
+                          cpf: "",
+                          email_address: "",
+                          phone: "",
+                          cep: "",
+                          address: "",
+                          address_number: "",
+                          neighborhood: "",
+                          city: "",
+                          state: "",
+                        })
+                        setValue("type", "física")
+                      }}
+                    >
+                      Pessoa física
+                    </Button>
+                    <Button
+                      className="flex w-full"
+                      variant={type === "jurídica" ? "default" : "secondary"}
+                      onClick={() => {
+                        reset({
+                          type: "",
+                          cnpj: "",
+                          name: "",
+                          company_name: "",
+                          cpf: "",
+                          email_address: "",
+                          phone: "",
+                          cep: "",
+                          address: "",
+                          address_number: "",
+                          neighborhood: "",
+                          city: "",
+                          state: "",
+                        })
+                        setValue("type", "jurídica")
+                      }}
+                    >
+                      Pessoa jurídica
+                    </Button>
+                  </div>
 
-                      {type === "física" ? (
-                        <div className="space-y-4">
-                          <Controller
-                            control={control}
-                            render={({
-                              field: { onChange, onBlur, value },
-                            }) => (
-                              <Input
-                                value={formatCPF(value || "")}
-                                onBlur={onBlur}
-                                placeholder="CPF do cliente"
-                                onChange={(e) => {
-                                  onChange(formatCPF(e.target.value))
-                                }}
-                                // onSubmit={checkClient}
-                              />
-                            )}
-                            name="cpf"
+                  {type === "física" ? (
+                    <div className="mx-4">
+                      <Controller
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <Input
+                            value={formatCPF(value || "")}
+                            onBlur={onBlur}
+                            placeholder="CPF do cliente"
+                            onChange={(e) => {
+                              onChange(formatCPF(e.target.value))
+                            }}
+                            // onSubmit={checkClient}
                           />
-                        </div>
-                      ) : type === "jurídica" ? (
-                        <div className="space-y-4">
-                          <Controller
-                            control={control}
-                            render={({
-                              field: { onChange, onBlur, value },
-                            }) => (
-                              <Input
-                                value={formatCNPJ(value || "")}
-                                onBlur={onBlur}
-                                placeholder="CNPJ do cliente"
-                                onChange={(e) => {
-                                  onChange(formatCNPJ(e.target.value))
-                                }}
-                                onSubmit={checkClient}
-                              />
-                            )}
-                            name="cnpj"
+                        )}
+                        name="cpf"
+                      />
+                    </div>
+                  ) : type === "jurídica" ? (
+                    <div className="mx-4">
+                      <Controller
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <Input
+                            value={formatCNPJ(value || "")}
+                            onBlur={onBlur}
+                            placeholder="CNPJ do cliente"
+                            onChange={(e) => {
+                              onChange(formatCNPJ(e.target.value))
+                            }}
+                            onSubmit={checkClient}
                           />
-                        </div>
-                      ) : (
-                        <></>
+                        )}
+                        name="cnpj"
+                      />
+                    </div>
+                  ) : (
+                    <></>
+                  )}
+
+                  <DrawerFooter>
+                    <Button
+                      onClick={() => {
+                        setOpenModalType(false)
+                        selectedType === "física"
+                          ? setOpenModalCPF(true)
+                          : selectedType === "jurídica"
+                          ? checkClient()
+                          : toast.error("Selecione o tipo de contrato")
+                      }}
+                    >
+                      Próximo
+                    </Button>
+                    <DrawerClose asChild>
+                      <Button variant="outline">Cancelar</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+
+            <Drawer open={openModalCPF} onOpenChange={setOpenModalCPF}>
+              <DrawerContent>
+                <div className="mx-auto w-full max-w-sm">
+                  <DrawerHeader>
+                    <DrawerTitle>Novo cliente</DrawerTitle>
+                    <DrawerDescription>
+                      Preencha todos os dados da pessoa física.
+                    </DrawerDescription>
+                  </DrawerHeader>
+
+                  <div className=" flex flex-col gap-2 my-4 mx-4">
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={value}
+                          onBlur={onBlur}
+                          placeholder="Nome do cliente"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
+                        />
                       )}
-                    </div>
-
-                    <DrawerFooter className="sticky bottom-0 bg-background mt-auto">
-                      <Button
-                        onClick={() => {
-                          setOpenModalType(false)
-                          selectedType === "física"
-                            ? setOpenModalCPF(true)
-                            : selectedType === "jurídica"
-                            ? checkClient()
-                            : toast.error("Selecione o tipo de contrato")
-                        }}
-                      >
-                        Próximo
-                      </Button>
-                      <DrawerClose asChild>
-                        <Button variant="outline">Cancelar</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
-                  </div>
-                </DrawerContent>
-              </Drawer>
-
-              <Drawer open={openModalCPF} onOpenChange={setOpenModalCPF}>
-                <DrawerContent>
-                  <div className="mx-auto w-full max-w-sm">
-                    <DrawerHeader>
-                      <DrawerTitle>Novo cliente</DrawerTitle>
-                      <DrawerDescription>
-                        Preencha todos os dados da pessoa física.
-                      </DrawerDescription>
-                    </DrawerHeader>
-
-                    <div className=" flex flex-col gap-2 my-4 mx-4">
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder="Nome do cliente"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="name"
-                      />
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder="E-mail do cliente"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="email_address"
-                      />
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={formatPhone(value)}
-                            onBlur={onBlur}
-                            placeholder="Telefone do cliente"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="phone"
-                      />
-                    </div>
-
-                    <DrawerFooter>
-                      <Button
-                        onClick={() => {
-                          setOpenModalCPF(false)
-                          setOpenModalCEP(true)
-                        }}
-                      >
-                        Próximo
-                      </Button>
-                    </DrawerFooter>
-                  </div>
-                </DrawerContent>
-              </Drawer>
-
-              <Drawer open={openModalCNPJ} onOpenChange={setOpenModalCNPJ}>
-                <DrawerContent>
-                  <div className="mx-auto w-full max-w-sm">
-                    <DrawerHeader>
-                      <DrawerTitle>Novo cliente</DrawerTitle>
-                      <DrawerDescription>
-                        Preencha todos os dados da pessoa jurídica.
-                      </DrawerDescription>
-                    </DrawerHeader>
-
-                    <div className=" flex flex-col gap-2 my-4 mx-4">
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder="Nome da empresa"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="company_name"
-                      />
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder="Nome do cliente"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="name"
-                      />
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder="E-mail do cliente"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="email_address"
-                      />
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={formatPhone(value)}
-                            onBlur={onBlur}
-                            placeholder="Telefone do cliente"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="phone"
-                      />
-                    </div>
-
-                    <DrawerFooter>
-                      <Button
-                        onClick={() => {
-                          setOpenModalCNPJ(false)
-                          setOpenModalCEP(true)
-                        }}
-                      >
-                        Próximo
-                      </Button>
-                    </DrawerFooter>
-                  </div>
-                </DrawerContent>
-              </Drawer>
-
-              <Drawer open={openModalCEP} onOpenChange={setOpenModalCEP}>
-                <DrawerContent>
-                  <div className="mx-auto w-full max-w-sm">
-                    <DrawerHeader>
-                      <DrawerTitle>Localização</DrawerTitle>
-                      <DrawerDescription>
-                        Preencha o CEP para localizar o endereço.
-                      </DrawerDescription>
-                    </DrawerHeader>
-
-                    <div className=" flex flex-col gap-2 my-4 mx-4">
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder="CEP do cliente"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="cep"
-                      />
-                    </div>
-
-                    <DrawerFooter>
-                      <Button onClick={getAddress}>Buscar pelo CEP</Button>
-                    </DrawerFooter>
-                  </div>
-                </DrawerContent>
-              </Drawer>
-
-              <Drawer
-                open={openModalAddress}
-                onOpenChange={setOpenModalAddress}
-              >
-                <DrawerContent>
-                  <div className="mx-auto w-full max-w-sm">
-                    <DrawerHeader>
-                      <DrawerTitle>Endereço</DrawerTitle>
-                      <DrawerDescription>
-                        Complete o endereço.
-                      </DrawerDescription>
-                    </DrawerHeader>
-
-                    <div className=" flex flex-col gap-2 my-4 mx-4">
-                      <Controller
-                        control={control}
-                        render={({ field: { onChange, onBlur, value } }) => (
-                          <Input
-                            value={value}
-                            onBlur={onBlur}
-                            placeholder="CEP do cliente"
-                            onChange={(e) => {
-                              onChange(e.target.value)
-                            }}
-                          />
-                        )}
-                        name="cep"
-                      />
-                      <div className="flex">
-                        <Controller
-                          control={control}
-                          render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                              value={value}
-                              onBlur={onBlur}
-                              disabled
-                              placeholder="Rua"
-                              onChange={(e) => {
-                                onChange(e.target.value)
-                              }}
-                            />
-                          )}
-                          name="address"
+                      name="name"
+                    />
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={value}
+                          onBlur={onBlur}
+                          placeholder="E-mail do cliente"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
                         />
-                        <Controller
-                          control={control}
-                          render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                              value={value}
-                              onBlur={onBlur}
-                              placeholder="Número"
-                              onChange={(e) => {
-                                onChange(e.target.value)
-                              }}
-                              className="w-1/4"
-                            />
-                          )}
-                          name="address_number"
+                      )}
+                      name="email_address"
+                    />
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={formatPhone(value)}
+                          onBlur={onBlur}
+                          placeholder="Telefone do cliente"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
                         />
-                      </div>
+                      )}
+                      name="phone"
+                    />
+                  </div>
+
+                  <DrawerFooter>
+                    <Button
+                      onClick={() => {
+                        setOpenModalCPF(false)
+                        setOpenModalCEP(true)
+                      }}
+                    >
+                      Próximo
+                    </Button>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+
+            <Drawer open={openModalCNPJ} onOpenChange={setOpenModalCNPJ}>
+              <DrawerContent>
+                <div className="mx-auto w-full max-w-sm">
+                  <DrawerHeader>
+                    <DrawerTitle>Novo cliente</DrawerTitle>
+                    <DrawerDescription>
+                      Preencha todos os dados da pessoa jurídica.
+                    </DrawerDescription>
+                  </DrawerHeader>
+
+                  <div className=" flex flex-col gap-2 my-4 mx-4">
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={value}
+                          onBlur={onBlur}
+                          placeholder="Nome da empresa"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
+                        />
+                      )}
+                      name="company_name"
+                    />
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={value}
+                          onBlur={onBlur}
+                          placeholder="Nome do cliente"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
+                        />
+                      )}
+                      name="name"
+                    />
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={value}
+                          onBlur={onBlur}
+                          placeholder="E-mail do cliente"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
+                        />
+                      )}
+                      name="email_address"
+                    />
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={formatPhone(value)}
+                          onBlur={onBlur}
+                          placeholder="Telefone do cliente"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
+                        />
+                      )}
+                      name="phone"
+                    />
+                  </div>
+
+                  <DrawerFooter>
+                    <Button
+                      onClick={() => {
+                        setOpenModalCNPJ(false)
+                        setOpenModalCEP(true)
+                      }}
+                    >
+                      Próximo
+                    </Button>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+
+            <Drawer open={openModalCEP} onOpenChange={setOpenModalCEP}>
+              <DrawerContent>
+                <div className="mx-auto w-full max-w-sm">
+                  <DrawerHeader>
+                    <DrawerTitle>Localização</DrawerTitle>
+                    <DrawerDescription>
+                      Preencha o CEP para localizar o endereço.
+                    </DrawerDescription>
+                  </DrawerHeader>
+
+                  <div className=" flex flex-col gap-2 my-4 mx-4">
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={value}
+                          onBlur={onBlur}
+                          placeholder="CEP do cliente"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
+                        />
+                      )}
+                      name="cep"
+                    />
+                  </div>
+
+                  <DrawerFooter>
+                    <Button onClick={getAddress}>Buscar pelo CEP</Button>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+
+            <Drawer open={openModalAddress} onOpenChange={setOpenModalAddress}>
+              <DrawerContent>
+                <div className="mx-auto w-full max-w-sm">
+                  <DrawerHeader>
+                    <DrawerTitle>Endereço</DrawerTitle>
+                    <DrawerDescription>Complete o endereço.</DrawerDescription>
+                  </DrawerHeader>
+
+                  <div className=" flex flex-col gap-2 my-4 mx-4">
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={value}
+                          onBlur={onBlur}
+                          placeholder="CEP do cliente"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
+                        />
+                      )}
+                      name="cep"
+                    />
+                    <div className="flex">
                       <Controller
                         control={control}
                         render={({ field: { onChange, onBlur, value } }) => (
@@ -560,59 +505,89 @@ export function Invite() {
                             value={value}
                             onBlur={onBlur}
                             disabled
-                            placeholder="Bairro"
+                            placeholder="Rua"
                             onChange={(e) => {
                               onChange(e.target.value)
                             }}
                           />
                         )}
-                        name="neighborhood"
+                        name="address"
                       />
-                      <div className="flex">
-                        <Controller
-                          control={control}
-                          render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                              value={value}
-                              onBlur={onBlur}
-                              disabled
-                              placeholder="Cidade"
-                              onChange={(e) => {
-                                onChange(e.target.value)
-                              }}
-                            />
-                          )}
-                          name="city"
-                        />
-                        <Controller
-                          control={control}
-                          render={({ field: { onChange, onBlur, value } }) => (
-                            <Input
-                              value={value}
-                              onBlur={onBlur}
-                              disabled
-                              placeholder="Estado"
-                              onChange={(e) => {
-                                onChange(e.target.value)
-                              }}
-                              className="w-1/4"
-                            />
-                          )}
-                          name="state"
-                        />
-                      </div>
+                      <Controller
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <Input
+                            value={value}
+                            onBlur={onBlur}
+                            placeholder="Número"
+                            onChange={(e) => {
+                              onChange(e.target.value)
+                            }}
+                            className="w-1/4"
+                          />
+                        )}
+                        name="address_number"
+                      />
                     </div>
-
-                    <DrawerFooter>
-                      <Button onClick={handleSubmit(handleRegister)}>
-                        Cadastrar
-                      </Button>
-                    </DrawerFooter>
+                    <Controller
+                      control={control}
+                      render={({ field: { onChange, onBlur, value } }) => (
+                        <Input
+                          value={value}
+                          onBlur={onBlur}
+                          disabled
+                          placeholder="Bairro"
+                          onChange={(e) => {
+                            onChange(e.target.value)
+                          }}
+                        />
+                      )}
+                      name="neighborhood"
+                    />
+                    <div className="flex">
+                      <Controller
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <Input
+                            value={value}
+                            onBlur={onBlur}
+                            disabled
+                            placeholder="Cidade"
+                            onChange={(e) => {
+                              onChange(e.target.value)
+                            }}
+                          />
+                        )}
+                        name="city"
+                      />
+                      <Controller
+                        control={control}
+                        render={({ field: { onChange, onBlur, value } }) => (
+                          <Input
+                            value={value}
+                            onBlur={onBlur}
+                            disabled
+                            placeholder="Estado"
+                            onChange={(e) => {
+                              onChange(e.target.value)
+                            }}
+                            className="w-1/4"
+                          />
+                        )}
+                        name="state"
+                      />
+                    </div>
                   </div>
-                </DrawerContent>
-              </Drawer>
-            </div>
-          </>
+
+                  <DrawerFooter>
+                    <Button onClick={handleSubmit(handleRegister)}>
+                      Cadastrar
+                    </Button>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+          </div>
         ) : (
           <>
             <div className="flex flex-col justify-center">
@@ -631,7 +606,8 @@ export function Invite() {
             </div>
           </>
         )}
-        <footer className="p-4 text-center text-sm text-muted-foreground">
+
+        <footer className="flex w-full items-center justify-center text-sm font-light text-muted-foreground">
           Cadastro de clientes © VHMarcal - {new Date().getFullYear()}
         </footer>
       </div>
