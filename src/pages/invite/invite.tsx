@@ -162,11 +162,11 @@ export function Invite() {
       <Helmet title="Cadastro de Cliente" />
       <div className="flex-col flex w-full h-full justify-between">
         {inviteCode ? (
-          <div className="flex flex-col min-h-screen justify-center">
+          <div className="flex-1 flex flex-col justify-center p-4">
             <div className="flex justify-end">
               <ModeToggle />
             </div>
-            <div className="flex w-full justify-center items-center">
+            <div className="flex w-full justify-center items-center mb-6">
               <NewLogo />
             </div>
             <Drawer open={openModalType} onOpenChange={setOpenModalType}>
@@ -175,17 +175,17 @@ export function Invite() {
               </DrawerTrigger>
               <MobileDrawerContent>
                 <DrawerContent>
-                  <div className="mx-auto w-full max-w-sm">
-                    <DrawerHeader className="sticky top-0 bg-background z-10">
-                      <DrawerTitle>Novo cliente</DrawerTitle>
-                      <DrawerDescription>
-                        Selecione o tipo de contrato.
-                      </DrawerDescription>
-                    </DrawerHeader>
+                  <DrawerHeader className="sticky top-0 bg-background z-10">
+                    <DrawerTitle>Novo cliente</DrawerTitle>
+                    <DrawerDescription>
+                      Selecione o tipo de contrato.
+                    </DrawerDescription>
+                  </DrawerHeader>
 
-                    <div className=" flex gap-2 my-4 mx-4">
+                  <div className="space-y-4 px-4">
+                    <div className="flex gap-2">
                       <Button
-                        className="flex w-full"
+                        className="flex-1"
                         variant={type === "física" ? "default" : "secondary"}
                         onClick={() => {
                           reset({
@@ -209,7 +209,7 @@ export function Invite() {
                         Pessoa física
                       </Button>
                       <Button
-                        className="flex w-full"
+                        className="flex-1"
                         variant={type === "jurídica" ? "default" : "secondary"}
                         onClick={() => {
                           reset({
@@ -235,7 +235,7 @@ export function Invite() {
                     </div>
 
                     {type === "física" ? (
-                      <div className="mx-4">
+                      <div className="space-y-4">
                         <Controller
                           control={control}
                           render={({ field: { onChange, onBlur, value } }) => (
@@ -253,7 +253,7 @@ export function Invite() {
                         />
                       </div>
                     ) : type === "jurídica" ? (
-                      <div className="mx-4">
+                      <div className="space-y-4">
                         <Controller
                           control={control}
                           render={({ field: { onChange, onBlur, value } }) => (
@@ -273,25 +273,25 @@ export function Invite() {
                     ) : (
                       <></>
                     )}
-
-                    <DrawerFooter className="sticky bottom-0 bg-background mt-auto">
-                      <Button
-                        onClick={() => {
-                          setOpenModalType(false)
-                          selectedType === "física"
-                            ? setOpenModalCPF(true)
-                            : selectedType === "jurídica"
-                            ? checkClient()
-                            : toast.error("Selecione o tipo de contrato")
-                        }}
-                      >
-                        Próximo
-                      </Button>
-                      <DrawerClose asChild>
-                        <Button variant="outline">Cancelar</Button>
-                      </DrawerClose>
-                    </DrawerFooter>
                   </div>
+
+                  <DrawerFooter className="sticky bottom-0 bg-background mt-auto">
+                    <Button
+                      onClick={() => {
+                        setOpenModalType(false)
+                        selectedType === "física"
+                          ? setOpenModalCPF(true)
+                          : selectedType === "jurídica"
+                          ? checkClient()
+                          : toast.error("Selecione o tipo de contrato")
+                      }}
+                    >
+                      Próximo
+                    </Button>
+                    <DrawerClose asChild>
+                      <Button variant="outline">Cancelar</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
                 </DrawerContent>
               </MobileDrawerContent>
             </Drawer>
@@ -615,7 +615,7 @@ export function Invite() {
           </>
         )}
 
-        <footer className="flex w-full items-center justify-center text-sm font-light text-muted-foreground">
+        <footer className="p-4 text-center text-sm text-muted-foreground">
           Cadastro de clientes © VHMarcal - {new Date().getFullYear()}
         </footer>
       </div>
