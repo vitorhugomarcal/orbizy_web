@@ -84,7 +84,7 @@ export function Invite() {
   const navigate = useNavigate()
 
   async function getAddress() {
-    const { data } = await axios.get(`https://viacep.com.br/ws/${cep}/json/`)
+    const { data } = await axios.get(`/cep/ws/${cep}/json/`)
 
     if (data && data.logradouro) {
       const currentValues = getValues()
@@ -124,10 +124,7 @@ export function Invite() {
   async function checkClient() {
     if (type === "jurídica") {
       const { data } = await axios.get(
-        `https://receitaws.com.br/v1/cnpj/${cnpj?.replace(
-          /[\(\)\s\-./\\]/g,
-          ""
-        )}`
+        `/api/v1/cnpj/${cnpj?.replace(/[\(\)\s\-./\\]/g, "")}`
       )
       if (data) {
         const currentValues = getValues()
