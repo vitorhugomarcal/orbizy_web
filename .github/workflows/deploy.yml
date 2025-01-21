@@ -2,7 +2,7 @@ name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: ["main"] # Ajuste para sua branch principal
+    branches: ["main"]
   workflow_dispatch:
 
 permissions:
@@ -51,13 +51,17 @@ jobs:
       - name: Build project
         run: pnpm build
 
+      # Adiciona um arquivo 404.html que redireciona para index.html
+      - name: Create 404 page
+        run: cp dist/index.html dist/404.html
+
       - name: Setup Pages
         uses: actions/configure-pages@v4
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
-          path: "./dist" # Ajuste para o diretório de build do seu projeto
+          path: "./dist"
 
   deploy:
     environment:
