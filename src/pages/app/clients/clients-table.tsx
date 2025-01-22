@@ -37,6 +37,17 @@ import { Skeleton } from "@/components/ui/skeleton"
 import { formatPhone } from "@/ultils/formatPhone"
 import { removeClient } from "@/api/client/remove-Client"
 import { toast } from "sonner"
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
 
 export type TableProps = {
   id: string
@@ -157,11 +168,28 @@ export const columns: ColumnDef<TableProps>[] = [
             </Button>
           </DropdownMenuTrigger>
           <DropdownMenuContent align="end">
+            <DropdownMenuItem>Detalhes</DropdownMenuItem>
             <DropdownMenuItem>Editar</DropdownMenuItem>
-            <DropdownMenuItem>Ver</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => handleSubmit(client.id)}>
-              Excluir
-            </DropdownMenuItem>
+            <AlertDialog>
+              <AlertDialogTrigger asChild>
+                <DropdownMenuItem>Excluir</DropdownMenuItem>
+              </AlertDialogTrigger>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    This action cannot be undone. This will permanently delete
+                    your account and remove your data from our servers.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancel</AlertDialogCancel>
+                  <AlertDialogAction onClick={() => handleSubmit(client.id)}>
+                    Continue
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
           </DropdownMenuContent>
         </DropdownMenu>
       )
