@@ -10,9 +10,12 @@ export function MonthTotalCard() {
   })
 
   const revenueAmount = invoices?.length
-    ? invoices
-        .filter((invoice) => invoice.status === "APPROVED")
-        .reduce((total, invoice) => total + invoice.total, 0)
+    ? Number(
+        invoices
+          .filter((invoice) => invoice.status === "APPROVED")
+          .reduce((total, invoice) => total + Number(invoice.total), 0)
+          .toFixed(2)
+      )
     : 0
 
   console.log(revenueAmount)
