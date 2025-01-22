@@ -172,7 +172,7 @@ export const columns: ColumnDef<TableProps>[] = [
             <DropdownMenuItem>Editar</DropdownMenuItem>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <DropdownMenuItem asChild>Excluir</DropdownMenuItem>
+                <Button variant={"ghost"}>Excluir</Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
