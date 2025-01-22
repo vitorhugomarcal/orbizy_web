@@ -1,7 +1,16 @@
+import { getInvoices, type GetInvoiceProps } from "@/api/get-Invoices"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { useQuery } from "@tanstack/react-query"
 import { ChevronsDown, ChevronsUp, PiggyBank } from "lucide-react"
 
 export function MonthTotalCard() {
+  const { data: invoices } = useQuery<GetInvoiceProps[]>({
+    queryKey: ["invoices"],
+    queryFn: getInvoices,
+  })
+
+  console.log(invoices)
+
   return (
     <Card className="col-span-6 lg:col-span-3">
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
