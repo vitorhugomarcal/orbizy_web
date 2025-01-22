@@ -47,6 +47,15 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import {
+  Drawer,
+  DrawerClose,
+  DrawerContent,
+  DrawerDescription,
+  DrawerFooter,
+  DrawerHeader,
+  DrawerTitle,
+} from "@/components/ui/drawer"
 
 export type TableProps = {
   id: string
@@ -136,7 +145,8 @@ export const columns: ColumnDef<TableProps>[] = [
     enableHiding: false,
     cell: ({ row }) => {
       const client = row.original
-      const [open, setOpen] = React.useState(false)
+      const [openDialog, setOpenDialog] = React.useState(false)
+      const [openDetails, setOpenDetails] = React.useState(false)
 
       const queryClient = useQueryClient() // Adicione esta linha
 
@@ -169,15 +179,16 @@ export const columns: ColumnDef<TableProps>[] = [
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end">
-              <DropdownMenuItem>Detalhes</DropdownMenuItem>
-              <DropdownMenuItem>Editar</DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setOpen(true)}>
+              <DropdownMenuItem onClick={() => setOpenDetails(true)}>
+                Detalhes
+              </DropdownMenuItem>
+              <DropdownMenuItem onClick={() => setOpenDialog(true)}>
                 Excluir
               </DropdownMenuItem>
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <AlertDialog open={open} onOpenChange={setOpen}>
+          <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
             <AlertDialogContent>
               <AlertDialogHeader>
                 <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
@@ -194,6 +205,26 @@ export const columns: ColumnDef<TableProps>[] = [
               </AlertDialogFooter>
             </AlertDialogContent>
           </AlertDialog>
+
+          <Drawer open={openDetails} onOpenChange={setOpenDetails}>
+            <DrawerContent>
+              <div className="mx-auto w-full max-w-sm">
+                <DrawerHeader>
+                  <DrawerTitle>Move Goal</DrawerTitle>
+                  <DrawerDescription>
+                    Set your daily activity goal.
+                  </DrawerDescription>
+                </DrawerHeader>
+                <div className="grid gap-4 py-4"></div>
+                <DrawerFooter>
+                  <Button>Submit</Button>
+                  <DrawerClose asChild>
+                    <Button variant="outline">Cancel</Button>
+                  </DrawerClose>
+                </DrawerFooter>
+              </div>
+            </DrawerContent>
+          </Drawer>
         </>
       )
     },

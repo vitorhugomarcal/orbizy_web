@@ -1,10 +1,11 @@
 import { getInvoices, type GetInvoiceProps } from "@/api/get-Invoices"
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Skeleton } from "@/components/ui/skeleton"
 import { useQuery } from "@tanstack/react-query"
 import { ChevronsDown, ChevronsUp, PiggyBank } from "lucide-react"
 
 export function MonthTotalCard() {
-  const { data: invoices } = useQuery<GetInvoiceProps[]>({
+  const { data: invoices, isLoading } = useQuery<GetInvoiceProps[]>({
     queryKey: ["invoices"],
     queryFn: getInvoices,
   })
@@ -37,9 +38,13 @@ export function MonthTotalCard() {
         <ChevronsUp className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
       </CardHeader>
       <CardContent className="space-y-1 gap-4">
-        <span className="text-2xl font-bold tracking-tight">
-          {formatCurrency(revenueAmount)}
-        </span>
+        {isLoading ? (
+          <Skeleton className="h-8 w-full" />
+        ) : (
+          <span className="text-2xl font-bold tracking-tight">
+            {formatCurrency(revenueAmount)}
+          </span>
+        )}
         {/* <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior
