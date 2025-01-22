@@ -55,9 +55,13 @@ export function MonthTotalCard() {
         <ChevronsDown className="h-4 w-4 text-destructive" />
       </CardHeader>
       <CardContent className="space-y-1 gap-4">
-        <span className="text-2xl font-bold tracking-tight">
-          {formatCurrency(overdueAmount)}
-        </span>
+        {isLoading ? (
+          <Skeleton className="h-8 w-full" />
+        ) : (
+          <span className="text-2xl font-bold tracking-tight">
+            {formatCurrency(overdueAmount)}
+          </span>
+        )}
         {/* <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior
@@ -70,9 +74,14 @@ export function MonthTotalCard() {
         <PiggyBank className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1 gap-4">
-        <span className="text-2xl font-bold tracking-tight">
-          {formatCurrency(resultAmount)}
-        </span>
+        {isLoading ? (
+          <Skeleton className="h-8 w-full" />
+        ) : (
+          <span className="text-2xl font-bold tracking-tight">
+            {formatCurrency(resultAmount)}
+          </span>
+        )}
+
         {/* <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior

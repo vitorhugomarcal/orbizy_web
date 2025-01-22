@@ -210,10 +210,8 @@ export const columns: ColumnDef<TableProps>[] = [
             <DrawerContent>
               <div className="mx-auto w-full max-w-sm">
                 <DrawerHeader>
-                  <DrawerTitle>Move Goal</DrawerTitle>
-                  <DrawerDescription>
-                    Set your daily activity goal.
-                  </DrawerDescription>
+                  <DrawerTitle>{client.name}</DrawerTitle>
+                  <DrawerDescription>{client.phone}</DrawerDescription>
                 </DrawerHeader>
                 <div className="grid gap-4 py-4"></div>
                 <DrawerFooter>
