@@ -11,7 +11,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table"
-import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import { ArrowUpDown, ChevronDown, MoreHorizontal, Trash2 } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
@@ -172,7 +172,10 @@ export const columns: ColumnDef<TableProps>[] = [
             <DropdownMenuItem>Editar</DropdownMenuItem>
             <AlertDialog>
               <AlertDialogTrigger asChild>
-                <Button variant={"ghost"}>Excluir</Button>
+                <Button variant={"ghost"} className="w-full font-light text-xs">
+                  <Trash2 className="h-4 w-4 fill-red-600" />
+                  Excluir
+                </Button>
               </AlertDialogTrigger>
               <AlertDialogContent>
                 <AlertDialogHeader>
