@@ -15,6 +15,8 @@ export function MonthTotalCard() {
         .reduce((total, invoice) => total + invoice.total, 0)
     : 0
 
+  console.log(revenueAmount)
+
   const overdueAmount = 0
   const resultAmount = revenueAmount - overdueAmount
 
@@ -35,10 +37,10 @@ export function MonthTotalCard() {
         <span className="text-2xl font-bold tracking-tight">
           {formatCurrency(revenueAmount)}
         </span>
-        <p className="text-xs text-muted-foreground">
+        {/* <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior
-        </p>
+        </p> */}
       </CardContent>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-base font-semibold">Despesas</CardTitle>
@@ -48,10 +50,10 @@ export function MonthTotalCard() {
         <span className="text-2xl font-bold tracking-tight">
           {formatCurrency(overdueAmount)}
         </span>
-        <p className="text-xs text-muted-foreground">
+        {/* <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior
-        </p>
+        </p> */}
       </CardContent>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
         <CardTitle className="text-base font-semibold">
@@ -63,10 +65,10 @@ export function MonthTotalCard() {
         <span className="text-2xl font-bold tracking-tight">
           {formatCurrency(resultAmount)}
         </span>
-        <p className="text-xs text-muted-foreground">
+        {/* <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior
-        </p>
+        </p> */}
       </CardContent>
     </Card>
   )
