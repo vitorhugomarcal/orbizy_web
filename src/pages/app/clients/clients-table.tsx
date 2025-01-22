@@ -63,6 +63,7 @@ export type TableProps = {
   name: string
   phone: string
   email: string
+  clientInfo?: GetClientProps
 }
 
 export const columns: ColumnDef<TableProps>[] = [
@@ -211,7 +212,10 @@ export const columns: ColumnDef<TableProps>[] = [
               <div className="mx-auto w-full max-w-sm">
                 <DrawerHeader>
                   <DrawerTitle>{client.name}</DrawerTitle>
-                  <DrawerDescription>{client.phone}</DrawerDescription>
+                  <DrawerDescription>
+                    {client.clientInfo?.address},{" "}
+                    {client.clientInfo?.address_number}{" "}
+                  </DrawerDescription>
                 </DrawerHeader>
                 <div className="grid gap-4 py-4"></div>
                 <DrawerFooter>
