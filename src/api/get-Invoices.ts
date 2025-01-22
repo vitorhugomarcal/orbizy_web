@@ -19,5 +19,6 @@ export async function getInvoices() {
   if (!data) {
     return []
   }
+
   return data
 }

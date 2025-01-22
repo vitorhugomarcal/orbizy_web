@@ -9,7 +9,12 @@ export function MonthTotalCard() {
     queryFn: getInvoices,
   })
 
-  console.log(invoices)
+  const formattedRevenue = invoices?.length
+    ? new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+      }).format(invoices.reduce((total, invoice) => total + invoice.total, 0))
+    : "R$ 0,00"
 
   return (
     <Card className="col-span-6 lg:col-span-3">
@@ -18,7 +23,9 @@ export function MonthTotalCard() {
         <ChevronsUp className="h-4 w-4 text-emerald-500 dark:text-emerald-400" />
       </CardHeader>
       <CardContent className="space-y-1 gap-4">
-        <span className="text-2xl font-bold tracking-tight">47.624,00</span>
+        <span className="text-2xl font-bold tracking-tight">
+          {formattedRevenue}
+        </span>
         <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior
