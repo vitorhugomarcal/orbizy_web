@@ -9,12 +9,21 @@ export function MonthTotalCard() {
     queryFn: getInvoices,
   })
 
-  const formattedRevenue = invoices?.length
-    ? new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(invoices.reduce((total, invoice) => total + invoice.total, 0))
-    : "R$ 0,00"
+  const revenueAmount = invoices?.length
+    ? invoices
+        .filter((invoice) => invoice.status === "APPROVED")
+        .reduce((total, invoice) => total + invoice.total, 0)
+    : 0
+
+  const overdueAmount = 0
+  const resultAmount = revenueAmount - overdueAmount
+
+  const formatCurrency = (amount: number) => {
+    return new Intl.NumberFormat("pt-BR", {
+      style: "currency",
+      currency: "BRL",
+    }).format(amount)
+  }
 
   return (
     <Card className="col-span-6 lg:col-span-3">
@@ -24,7 +33,7 @@ export function MonthTotalCard() {
       </CardHeader>
       <CardContent className="space-y-1 gap-4">
         <span className="text-2xl font-bold tracking-tight">
-          {formattedRevenue}
+          {formatCurrency(revenueAmount)}
         </span>
         <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
@@ -36,7 +45,9 @@ export function MonthTotalCard() {
         <ChevronsDown className="h-4 w-4 text-destructive" />
       </CardHeader>
       <CardContent className="space-y-1 gap-4">
-        <span className="text-2xl font-bold tracking-tight">R$ 19.325,60</span>
+        <span className="text-2xl font-bold tracking-tight">
+          {formatCurrency(overdueAmount)}
+        </span>
         <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior
@@ -49,7 +60,9 @@ export function MonthTotalCard() {
         <PiggyBank className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1 gap-4">
-        <span className="text-2xl font-bold tracking-tight">R$ 28.298,40</span>
+        <span className="text-2xl font-bold tracking-tight">
+          {formatCurrency(resultAmount)}
+        </span>
         <p className="text-xs text-muted-foreground">
           <span className="text-emerald-500 dark:text-emerald-400">+4%</span> em
           relação ao ano anterior
