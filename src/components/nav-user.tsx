@@ -27,6 +27,7 @@ import {
 } from "@/components/ui/sidebar"
 import { Button } from "./ui/button"
 import { api } from "@/lib/axios"
+import { useNavigate } from "react-router"
 
 export interface ProfileProps {
   user: {
@@ -44,8 +45,11 @@ export interface ProfileProps {
 export function NavUser({ user }: ProfileProps) {
   const { isMobile } = useSidebar()
 
+  const navigate = useNavigate()
+
   async function signOut() {
     await api.get("/signout")
+    navigate("/sign-in")
   }
 
   return (
