@@ -25,6 +25,8 @@ import {
   SidebarMenuItem,
   useSidebar,
 } from "@/components/ui/sidebar"
+import { Button } from "./ui/button"
+import { api } from "@/lib/axios"
 
 export interface ProfileProps {
   user: {
@@ -41,6 +43,10 @@ export interface ProfileProps {
 
 export function NavUser({ user }: ProfileProps) {
   const { isMobile } = useSidebar()
+
+  async function signOut() {
+    await api.get("/signout")
+  }
 
   return (
     <SidebarMenu>
@@ -103,10 +109,12 @@ export function NavUser({ user }: ProfileProps) {
               </DropdownMenuItem>
             </DropdownMenuGroup>
             <DropdownMenuSeparator />
-            <DropdownMenuItem>
-              <LogOut />
-              Log out
-            </DropdownMenuItem>
+            <Button onClick={signOut} asChild>
+              <DropdownMenuItem>
+                <LogOut />
+                Log out
+              </DropdownMenuItem>
+            </Button>
           </DropdownMenuContent>
         </DropdownMenu>
       </SidebarMenuItem>
