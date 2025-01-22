@@ -57,13 +57,12 @@ import {
   DrawerTitle,
 } from "@/components/ui/drawer"
 
-export type TableProps = {
+export interface TableProps extends GetClientProps {
   id: string
   amount: number
   name: string
   phone: string
   email: string
-  clientInfo?: GetClientProps
 }
 
 export const columns: ColumnDef<TableProps>[] = [
@@ -213,8 +212,7 @@ export const columns: ColumnDef<TableProps>[] = [
                 <DrawerHeader>
                   <DrawerTitle>{client.name}</DrawerTitle>
                   <DrawerDescription>
-                    {client.clientInfo?.address},{" "}
-                    {client.clientInfo?.address_number}{" "}
+                    {client.address}, {client.address_number}
                   </DrawerDescription>
                 </DrawerHeader>
                 <div className="grid gap-4 py-4"></div>
@@ -251,6 +249,21 @@ export function ClientsTable() {
     if (!clients) return []
 
     return clients.map((client: GetClientProps) => ({
+      error: client.error,
+      createdAt: client.createdAt,
+      company_id: client.company_id,
+      email_address: client.email_address,
+      type: client.type,
+      cnpj: client.cnpj,
+      city: client.city,
+      cep: client.cep,
+      address: client.address,
+      neighborhood: client.neighborhood,
+      address_number: client.address_number,
+      company_name: client.company_name,
+      cpf: client.cpf,
+      state: client.state,
+      invoice: client.invoice,
       id: client.id,
       name: client.name,
       email: client.email_address,
