@@ -43,11 +43,21 @@ export function Company() {
           )}
         </div>
         <div className="mt-4">
-          <Label htmlFor="cnpj">CNPJ da empresa</Label>
+          {company?.cnpj ? (
+            <Label htmlFor="cnpj">CNPJ da empresa</Label>
+          ) : (
+            <Label htmlFor="cpf">CPF</Label>
+          )}
           {isLoading ? (
             <Skeleton className="h-10 w-full" />
           ) : (
-            <Input id="cnpj" type="text" placeholder={company?.cnpj} />
+            <>
+              {company?.cnpj ? (
+                <Input id="cnpj" type="text" placeholder={company?.cnpj} />
+              ) : (
+                <Input id="cpf" type="text" placeholder={company?.cpf} />
+              )}
+            </>
           )}
         </div>
         <div className="mt-4">

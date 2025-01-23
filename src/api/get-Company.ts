@@ -3,6 +3,7 @@ import { api } from "@/lib/axios"
 export interface GetCompanyProps {
   id: string
   cnpj: string
+  cpf: string
   phone: string
   state: string
   city: string
