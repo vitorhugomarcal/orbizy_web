@@ -71,10 +71,10 @@ export function Company() {
             />
           )}
         </div>
-        <p className="font-light text-sm items-center">
-          Edição somente pelo aplicativo!
-        </p>
       </div>
+      <p className="font-light text-sm items-center">
+        Edição somente pelo aplicativo!
+      </p>
     </div>
   )
 }

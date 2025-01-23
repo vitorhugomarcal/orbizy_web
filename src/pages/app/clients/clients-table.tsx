@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -12,31 +11,10 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import * as React from "react"
 
-import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-import { Input } from "@/components/ui/input"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
 import { getClients, type GetClientProps } from "@/api/client/get-Clients"
-import { Skeleton } from "@/components/ui/skeleton"
-import { formatPhone } from "@/ultils/formatPhone"
 import { removeClient } from "@/api/client/remove-Client"
-import { toast } from "sonner"
 import {
   AlertDialog,
   AlertDialogAction,
@@ -47,6 +25,8 @@ import {
   AlertDialogHeader,
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
+import { Button } from "@/components/ui/button"
+import { Checkbox } from "@/components/ui/checkbox"
 import {
   Drawer,
   DrawerClose,
@@ -56,6 +36,26 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer"
+import {
+  DropdownMenu,
+  DropdownMenuCheckboxItem,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu"
+import { Input } from "@/components/ui/input"
+import { Skeleton } from "@/components/ui/skeleton"
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableHead,
+  TableHeader,
+  TableRow,
+} from "@/components/ui/table"
+import { formatPhone } from "@/ultils/formatPhone"
+import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { toast } from "sonner"
 
 export interface TableProps extends GetClientProps {
   id: string
@@ -135,7 +135,7 @@ export const columns: ColumnDef<TableProps>[] = [
       const formatted = new Intl.NumberFormat("pt-BR", {
         style: "currency",
         currency: "BRL",
-      }).format(amount)
+      }).format(Number(amount))
 
       return <div className="text-right font-medium">{formatted}</div>
     },
@@ -153,7 +153,6 @@ export const columns: ColumnDef<TableProps>[] = [
       const { mutateAsync: remove } = useMutation({
         mutationFn: removeClient,
         onSuccess: () => {
-          // Invalidar a query 'clients' após remover com sucesso
           queryClient.invalidateQueries({ queryKey: ["clients"] })
         },
       })
@@ -269,7 +268,7 @@ export function ClientsTable() {
       email: client.email_address,
       phone: formatPhone(client.phone),
       amount: client.invoice.reduce((acc, invoice) => {
-        return acc + invoice.total
+        return acc + Number(invoice.total)
       }, 0),
     }))
   }, [clients])
