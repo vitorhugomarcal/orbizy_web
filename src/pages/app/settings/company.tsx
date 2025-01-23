@@ -4,6 +4,7 @@ import { Label } from "@/components/ui/label"
 import { Skeleton } from "@/components/ui/skeleton"
 import { formatCNPJ } from "@/ultils/formatCNPJ"
 import { formatCPF } from "@/ultils/formatCPF"
+import { formatPhone } from "@/ultils/formatPhone"
 import { useQuery } from "@tanstack/react-query"
 
 export function Company() {
@@ -25,12 +26,7 @@ export function Company() {
           Orçamentos e outros documentos criados.
         </p>
       </div>
-      <div className="mt-8 grid grid-cols-1 md:grid-cols-2">
-        <div>
-          <Label htmlFor="picture">Logotipo da empresa</Label>
-          <Input id="picture" type="file" />
-        </div>
-      </div>
+
       <div className="grid grid-cols-1 gap-4 mt-4 md:grid-cols-2">
         <div className="mt-4">
           <Label htmlFor="company_name">Nome da empresa</Label>
@@ -40,6 +36,7 @@ export function Company() {
             <Input
               id="company_name"
               type="text"
+              disabled
               placeholder={company?.company_name}
             />
           )}
@@ -52,6 +49,7 @@ export function Company() {
             <Input
               id="cnpj"
               type="text"
+              disabled
               placeholder={
                 company?.cnpj.length === 14
                   ? formatCNPJ(company.cnpj)
@@ -65,9 +63,17 @@ export function Company() {
           {isLoading ? (
             <Skeleton className="h-10 w-full" />
           ) : (
-            <Input id="phone" type="text" placeholder={company?.phone} />
+            <Input
+              id="phone"
+              disabled
+              type="text"
+              placeholder={formatPhone(company!.phone)}
+            />
           )}
         </div>
+        <p className="font-light text-sm items-center">
+          Edição somente pelo aplicativo!
+        </p>
       </div>
     </div>
   )
