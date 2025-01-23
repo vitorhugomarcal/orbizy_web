@@ -2,6 +2,8 @@ import { getCompany } from "@/api/get-Company"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Skeleton } from "@/components/ui/skeleton"
+import { formatCNPJ } from "@/ultils/formatCNPJ"
+import { formatCPF } from "@/ultils/formatCPF"
 import { useQuery } from "@tanstack/react-query"
 
 export function Company() {
@@ -43,21 +45,19 @@ export function Company() {
           )}
         </div>
         <div className="mt-4">
-          {company?.cnpj ? (
-            <Label htmlFor="cnpj">CNPJ da empresa</Label>
-          ) : (
-            <Label htmlFor="cpf">CPF</Label>
-          )}
+          <Label htmlFor="cnpj">CNPJ/CPF da empresa</Label>
           {isLoading ? (
             <Skeleton className="h-10 w-full" />
           ) : (
-            <>
-              {company?.cnpj ? (
-                <Input id="cnpj" type="text" placeholder={company?.cnpj} />
-              ) : (
-                <Input id="cpf" type="text" placeholder={company?.cpf} />
-              )}
-            </>
+            <Input
+              id="cnpj"
+              type="text"
+              placeholder={
+                company?.cnpj.length === 14
+                  ? formatCNPJ(company.cnpj)
+                  : formatCPF(company!.cnpj)
+              }
+            />
           )}
         </div>
         <div className="mt-4">
