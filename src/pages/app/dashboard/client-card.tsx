@@ -6,6 +6,8 @@ import { Users } from "lucide-react"
 export function ClientCard() {
   const clientCard = useGetClientsMonth()
 
+  console.log("CARD =>", clientCard)
+
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
