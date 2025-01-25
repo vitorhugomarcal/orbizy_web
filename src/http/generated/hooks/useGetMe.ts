@@ -2,26 +2,12 @@ import client from '@kubb/plugin-client/clients/axios'
 import type { GetMeQueryResponse } from '../models/GetMe.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
+import { getMe } from '../clients/getMe.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getMeQueryKey = () => [{ url: '/me' }] as const
 
 export type GetMeQueryKey = ReturnType<typeof getMeQueryKey>
-
-/**
- * {@link /me}
- */
-export async function getMe(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
-  const { client: request = client, ...requestConfig } = config
-
-  const res = await request<GetMeQueryResponse, ResponseErrorConfig<Error>, unknown>({
-    method: 'GET',
-    url: `/me`,
-    baseURL: 'https://api.orbizy.app',
-    ...requestConfig,
-  })
-  return res.data
-}
 
 export function getMeQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getMeQueryKey()

@@ -2,30 +2,13 @@ import client from '@kubb/plugin-client/clients/axios'
 import type { GetClientsByClientIdQueryResponse, GetClientsByClientIdPathParams } from '../models/GetClientsByClientId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
+import { getClientsByClientId } from '../clients/getClientsByClientId.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getClientsByClientIdQueryKey = ({ clientId }: { clientId: GetClientsByClientIdPathParams['clientId'] }) =>
   [{ url: '/clients/:clientId', params: { clientId: clientId } }] as const
 
 export type GetClientsByClientIdQueryKey = ReturnType<typeof getClientsByClientIdQueryKey>
-
-/**
- * {@link /clients/:clientId}
- */
-export async function getClientsByClientId(
-  { clientId }: { clientId: GetClientsByClientIdPathParams['clientId'] },
-  config: Partial<RequestConfig> & { client?: typeof client } = {},
-) {
-  const { client: request = client, ...requestConfig } = config
-
-  const res = await request<GetClientsByClientIdQueryResponse, ResponseErrorConfig<Error>, unknown>({
-    method: 'GET',
-    url: `/clients/${clientId}`,
-    baseURL: 'https://api.orbizy.app',
-    ...requestConfig,
-  })
-  return res.data
-}
 
 export function getClientsByClientIdQueryOptions(
   { clientId }: { clientId: GetClientsByClientIdPathParams['clientId'] },

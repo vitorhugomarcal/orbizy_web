@@ -1,4 +1,5 @@
 import { defineConfig } from "@kubb/core"
+import { pluginClient } from "@kubb/plugin-client"
 import { pluginOas } from "@kubb/plugin-oas"
 import { pluginReactQuery } from "@kubb/plugin-react-query"
 import { pluginTs } from "@kubb/plugin-ts"
@@ -36,6 +37,10 @@ export default defineConfig(() => {
           baseURL: process.env.VITE_API_URL || "https://api.orbizy.app",
           dataReturnType: "data",
         },
+      }),
+      pluginClient({
+        client: "axios",
+        baseURL: process.env.VITE_API_URL || "https://api.orbizy.app",
       }),
     ],
   }

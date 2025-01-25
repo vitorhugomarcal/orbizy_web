@@ -6,31 +6,12 @@ import type {
 } from '../models/PutClientUpdateByClientId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
+import { putClientUpdateByClientId } from '../clients/putClientUpdateByClientId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const putClientUpdateByClientIdMutationKey = () => [{ url: '/client/update/{clientId}' }] as const
 
 export type PutClientUpdateByClientIdMutationKey = ReturnType<typeof putClientUpdateByClientIdMutationKey>
-
-/**
- * {@link /client/update/:clientId}
- */
-export async function putClientUpdateByClientId(
-  { clientId }: { clientId: PutClientUpdateByClientIdPathParams['clientId'] },
-  data?: PutClientUpdateByClientIdMutationRequest,
-  config: Partial<RequestConfig<PutClientUpdateByClientIdMutationRequest>> & { client?: typeof client } = {},
-) {
-  const { client: request = client, ...requestConfig } = config
-
-  const res = await request<PutClientUpdateByClientIdMutationResponse, ResponseErrorConfig<Error>, PutClientUpdateByClientIdMutationRequest>({
-    method: 'PUT',
-    url: `/client/update/${clientId}`,
-    baseURL: 'https://api.orbizy.app',
-    data,
-    ...requestConfig,
-  })
-  return res.data
-}
 
 /**
  * {@link /client/update/:clientId}

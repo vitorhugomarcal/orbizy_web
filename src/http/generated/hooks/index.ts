@@ -35,66 +35,44 @@ export type { PutCompanyUpdateByCompanyIdMutationKey } from './usePutCompanyUpda
 export type { PutItensUpdateByItemIdMutationKey } from './usePutItensUpdateByItemId.ts'
 export type { PutMeUpdateMutationKey } from './usePutMeUpdate.ts'
 export type { PutSupplierUpdateBySupplierIdMutationKey } from './usePutSupplierUpdateBySupplierId.ts'
-export { deleteClientRemoveByClientIdMutationKey, deleteClientRemoveByClientId, useDeleteClientRemoveByClientId } from './useDeleteClientRemoveByClientId.ts'
-export {
-  deleteCompanyRemoveByCompanyIdMutationKey,
-  deleteCompanyRemoveByCompanyId,
-  useDeleteCompanyRemoveByCompanyId,
-} from './useDeleteCompanyRemoveByCompanyId.ts'
-export {
-  deleteEstimateRemoveByEstimateIdMutationKey,
-  deleteEstimateRemoveByEstimateId,
-  useDeleteEstimateRemoveByEstimateId,
-} from './useDeleteEstimateRemoveByEstimateId.ts'
-export { deleteItensRemoveByItemIdMutationKey, deleteItensRemoveByItemId, useDeleteItensRemoveByItemId } from './useDeleteItensRemoveByItemId.ts'
-export {
-  deleteSupplierRemoveBySupplierIdMutationKey,
-  deleteSupplierRemoveBySupplierId,
-  useDeleteSupplierRemoveBySupplierId,
-} from './useDeleteSupplierRemoveBySupplierId.ts'
-export { deleteUnitRemoveByUnitIdMutationKey, deleteUnitRemoveByUnitId, useDeleteUnitRemoveByUnitId } from './useDeleteUnitRemoveByUnitId.ts'
-export { getAuthVerifyQueryKey, getAuthVerify, getAuthVerifyQueryOptions, useGetAuthVerify } from './useGetAuthVerify.ts'
-export { getClientsQueryKey, getClients, getClientsQueryOptions, useGetClients } from './useGetClients.ts'
-export { getClientsByClientIdQueryKey, getClientsByClientId, getClientsByClientIdQueryOptions, useGetClientsByClientId } from './useGetClientsByClientId.ts'
-export { getClientsMonthQueryKey, getClientsMonth, getClientsMonthQueryOptions, useGetClientsMonth } from './useGetClientsMonth.ts'
-export { getCompanyQueryKey, getCompany, getCompanyQueryOptions, useGetCompany } from './useGetCompany.ts'
-export { getEstimateQueryKey, getEstimate, getEstimateQueryOptions, useGetEstimate } from './useGetEstimate.ts'
-export {
-  getInviteValidateByCodeQueryKey,
-  getInviteValidateByCode,
-  getInviteValidateByCodeQueryOptions,
-  useGetInviteValidateByCode,
-} from './useGetInviteValidateByCode.ts'
-export { getItensQueryKey, getItens, getItensQueryOptions, useGetItens } from './useGetItens.ts'
-export { getItensByItemIdQueryKey, getItensByItemId, getItensByItemIdQueryOptions, useGetItensByItemId } from './useGetItensByItemId.ts'
-export { getMeQueryKey, getMe, getMeQueryOptions, useGetMe } from './useGetMe.ts'
-export { getSignoutQueryKey, getSignout, getSignoutQueryOptions, useGetSignout } from './useGetSignout.ts'
-export { getSupplierCompanyQueryKey, getSupplierCompany, getSupplierCompanyQueryOptions, useGetSupplierCompany } from './useGetSupplierCompany.ts'
+export { deleteClientRemoveByClientIdMutationKey, useDeleteClientRemoveByClientId } from './useDeleteClientRemoveByClientId.ts'
+export { deleteCompanyRemoveByCompanyIdMutationKey, useDeleteCompanyRemoveByCompanyId } from './useDeleteCompanyRemoveByCompanyId.ts'
+export { deleteEstimateRemoveByEstimateIdMutationKey, useDeleteEstimateRemoveByEstimateId } from './useDeleteEstimateRemoveByEstimateId.ts'
+export { deleteItensRemoveByItemIdMutationKey, useDeleteItensRemoveByItemId } from './useDeleteItensRemoveByItemId.ts'
+export { deleteSupplierRemoveBySupplierIdMutationKey, useDeleteSupplierRemoveBySupplierId } from './useDeleteSupplierRemoveBySupplierId.ts'
+export { deleteUnitRemoveByUnitIdMutationKey, useDeleteUnitRemoveByUnitId } from './useDeleteUnitRemoveByUnitId.ts'
+export { getAuthVerifyQueryKey, getAuthVerifyQueryOptions, useGetAuthVerify } from './useGetAuthVerify.ts'
+export { getClientsQueryKey, getClientsQueryOptions, useGetClients } from './useGetClients.ts'
+export { getClientsByClientIdQueryKey, getClientsByClientIdQueryOptions, useGetClientsByClientId } from './useGetClientsByClientId.ts'
+export { getClientsMonthQueryKey, getClientsMonthQueryOptions, useGetClientsMonth } from './useGetClientsMonth.ts'
+export { getCompanyQueryKey, getCompanyQueryOptions, useGetCompany } from './useGetCompany.ts'
+export { getEstimateQueryKey, getEstimateQueryOptions, useGetEstimate } from './useGetEstimate.ts'
+export { getInviteValidateByCodeQueryKey, getInviteValidateByCodeQueryOptions, useGetInviteValidateByCode } from './useGetInviteValidateByCode.ts'
+export { getItensQueryKey, getItensQueryOptions, useGetItens } from './useGetItens.ts'
+export { getItensByItemIdQueryKey, getItensByItemIdQueryOptions, useGetItensByItemId } from './useGetItensByItemId.ts'
+export { getMeQueryKey, getMeQueryOptions, useGetMe } from './useGetMe.ts'
+export { getSignoutQueryKey, getSignoutQueryOptions, useGetSignout } from './useGetSignout.ts'
+export { getSupplierCompanyQueryKey, getSupplierCompanyQueryOptions, useGetSupplierCompany } from './useGetSupplierCompany.ts'
 export {
   getSupplierCompanyBySupplierIdQueryKey,
-  getSupplierCompanyBySupplierId,
   getSupplierCompanyBySupplierIdQueryOptions,
   useGetSupplierCompanyBySupplierId,
 } from './useGetSupplierCompanyBySupplierId.ts'
-export { getUnitsQueryKey, getUnits, getUnitsQueryOptions, useGetUnits } from './useGetUnits.ts'
-export { postAuthMagicLinkMutationKey, postAuthMagicLink, usePostAuthMagicLink } from './usePostAuthMagicLink.ts'
-export { postClientRegisterMutationKey, postClientRegister, usePostClientRegister } from './usePostClientRegister.ts'
-export { postCompanyRegisterMutationKey, postCompanyRegister, usePostCompanyRegister } from './usePostCompanyRegister.ts'
-export { postEstimateCreateMutationKey, postEstimateCreate, usePostEstimateCreate } from './usePostEstimateCreate.ts'
-export { postInviteClientByCompanyIdMutationKey, postInviteClientByCompanyId, usePostInviteClientByCompanyId } from './usePostInviteClientByCompanyId.ts'
-export { postInvitedClientRegisterMutationKey, postInvitedClientRegister, usePostInvitedClientRegister } from './usePostInvitedClientRegister.ts'
-export { postItensCreateMutationKey, postItensCreate, usePostItensCreate } from './usePostItensCreate.ts'
-export { postMeCreateMutationKey, postMeCreate, usePostMeCreate } from './usePostMeCreate.ts'
-export { postSessionsMutationKey, postSessions, usePostSessions } from './usePostSessions.ts'
-export { postSupplierRegisterMutationKey, postSupplierRegister, usePostSupplierRegister } from './usePostSupplierRegister.ts'
-export { postUnitCompanyCreateMutationKey, postUnitCompanyCreate, usePostUnitCompanyCreate } from './usePostUnitCompanyCreate.ts'
-export { postUnitCreateMutationKey, postUnitCreate, usePostUnitCreate } from './usePostUnitCreate.ts'
-export { putClientUpdateByClientIdMutationKey, putClientUpdateByClientId, usePutClientUpdateByClientId } from './usePutClientUpdateByClientId.ts'
-export { putCompanyUpdateByCompanyIdMutationKey, putCompanyUpdateByCompanyId, usePutCompanyUpdateByCompanyId } from './usePutCompanyUpdateByCompanyId.ts'
-export { putItensUpdateByItemIdMutationKey, putItensUpdateByItemId, usePutItensUpdateByItemId } from './usePutItensUpdateByItemId.ts'
-export { putMeUpdateMutationKey, putMeUpdate, usePutMeUpdate } from './usePutMeUpdate.ts'
-export {
-  putSupplierUpdateBySupplierIdMutationKey,
-  putSupplierUpdateBySupplierId,
-  usePutSupplierUpdateBySupplierId,
-} from './usePutSupplierUpdateBySupplierId.ts'
+export { getUnitsQueryKey, getUnitsQueryOptions, useGetUnits } from './useGetUnits.ts'
+export { postAuthMagicLinkMutationKey, usePostAuthMagicLink } from './usePostAuthMagicLink.ts'
+export { postClientRegisterMutationKey, usePostClientRegister } from './usePostClientRegister.ts'
+export { postCompanyRegisterMutationKey, usePostCompanyRegister } from './usePostCompanyRegister.ts'
+export { postEstimateCreateMutationKey, usePostEstimateCreate } from './usePostEstimateCreate.ts'
+export { postInviteClientByCompanyIdMutationKey, usePostInviteClientByCompanyId } from './usePostInviteClientByCompanyId.ts'
+export { postInvitedClientRegisterMutationKey, usePostInvitedClientRegister } from './usePostInvitedClientRegister.ts'
+export { postItensCreateMutationKey, usePostItensCreate } from './usePostItensCreate.ts'
+export { postMeCreateMutationKey, usePostMeCreate } from './usePostMeCreate.ts'
+export { postSessionsMutationKey, usePostSessions } from './usePostSessions.ts'
+export { postSupplierRegisterMutationKey, usePostSupplierRegister } from './usePostSupplierRegister.ts'
+export { postUnitCompanyCreateMutationKey, usePostUnitCompanyCreate } from './usePostUnitCompanyCreate.ts'
+export { postUnitCreateMutationKey, usePostUnitCreate } from './usePostUnitCreate.ts'
+export { putClientUpdateByClientIdMutationKey, usePutClientUpdateByClientId } from './usePutClientUpdateByClientId.ts'
+export { putCompanyUpdateByCompanyIdMutationKey, usePutCompanyUpdateByCompanyId } from './usePutCompanyUpdateByCompanyId.ts'
+export { putItensUpdateByItemIdMutationKey, usePutItensUpdateByItemId } from './usePutItensUpdateByItemId.ts'
+export { putMeUpdateMutationKey, usePutMeUpdate } from './usePutMeUpdate.ts'
+export { putSupplierUpdateBySupplierIdMutationKey, usePutSupplierUpdateBySupplierId } from './usePutSupplierUpdateBySupplierId.ts'

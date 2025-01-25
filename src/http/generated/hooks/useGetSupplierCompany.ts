@@ -2,26 +2,12 @@ import client from '@kubb/plugin-client/clients/axios'
 import type { GetSupplierCompanyQueryResponse } from '../models/GetSupplierCompany.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
+import { getSupplierCompany } from '../clients/getSupplierCompany.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getSupplierCompanyQueryKey = () => [{ url: '/supplier/company' }] as const
 
 export type GetSupplierCompanyQueryKey = ReturnType<typeof getSupplierCompanyQueryKey>
-
-/**
- * {@link /supplier/company}
- */
-export async function getSupplierCompany(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
-  const { client: request = client, ...requestConfig } = config
-
-  const res = await request<GetSupplierCompanyQueryResponse, ResponseErrorConfig<Error>, unknown>({
-    method: 'GET',
-    url: `/supplier/company`,
-    baseURL: 'https://api.orbizy.app',
-    ...requestConfig,
-  })
-  return res.data
-}
 
 export function getSupplierCompanyQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getSupplierCompanyQueryKey()

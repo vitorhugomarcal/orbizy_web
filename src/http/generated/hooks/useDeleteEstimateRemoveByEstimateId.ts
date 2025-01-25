@@ -5,29 +5,12 @@ import type {
 } from '../models/DeleteEstimateRemoveByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
+import { deleteEstimateRemoveByEstimateId } from '../clients/deleteEstimateRemoveByEstimateId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const deleteEstimateRemoveByEstimateIdMutationKey = () => [{ url: '/estimate/remove/{estimateId}' }] as const
 
 export type DeleteEstimateRemoveByEstimateIdMutationKey = ReturnType<typeof deleteEstimateRemoveByEstimateIdMutationKey>
-
-/**
- * {@link /estimate/remove/:estimateId}
- */
-export async function deleteEstimateRemoveByEstimateId(
-  { estimateId }: { estimateId: DeleteEstimateRemoveByEstimateIdPathParams['estimateId'] },
-  config: Partial<RequestConfig> & { client?: typeof client } = {},
-) {
-  const { client: request = client, ...requestConfig } = config
-
-  const res = await request<DeleteEstimateRemoveByEstimateIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
-    method: 'DELETE',
-    url: `/estimate/remove/${estimateId}`,
-    baseURL: 'https://api.orbizy.app',
-    ...requestConfig,
-  })
-  return res.data
-}
 
 /**
  * {@link /estimate/remove/:estimateId}

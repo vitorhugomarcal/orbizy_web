@@ -2,26 +2,12 @@ import client from '@kubb/plugin-client/clients/axios'
 import type { GetUnitsQueryResponse } from '../models/GetUnits.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
+import { getUnits } from '../clients/getUnits.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getUnitsQueryKey = () => [{ url: '/units' }] as const
 
 export type GetUnitsQueryKey = ReturnType<typeof getUnitsQueryKey>
-
-/**
- * {@link /units}
- */
-export async function getUnits(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
-  const { client: request = client, ...requestConfig } = config
-
-  const res = await request<GetUnitsQueryResponse, ResponseErrorConfig<Error>, unknown>({
-    method: 'GET',
-    url: `/units`,
-    baseURL: 'https://api.orbizy.app',
-    ...requestConfig,
-  })
-  return res.data
-}
 
 export function getUnitsQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getUnitsQueryKey()
