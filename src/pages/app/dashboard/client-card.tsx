@@ -1,17 +1,10 @@
-import {
-  getClientsByMonth,
-  type GetClientByMonthProps,
-} from "@/api/client/get-Clients-By-Month"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
-import { useQuery } from "@tanstack/react-query"
+import { useGetClientsMonth } from "@/http/generated"
 import { Users } from "lucide-react"
 
 export function ClientCard() {
-  const { data: clients, isLoading } = useQuery<GetClientByMonthProps>({
-    queryKey: ["clients"],
-    queryFn: getClientsByMonth,
-  })
+  const clientCard = useGetClientsMonth()
 
   return (
     <Card>
@@ -20,7 +13,7 @@ export function ClientCard() {
         <Users className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        {isLoading ? (
+        {clientCard.isLoading ? (
           <div className="space-y-1">
             <Skeleton className="h-8 w-32" />
             <Skeleton className="h-4 w-full" />
@@ -28,17 +21,17 @@ export function ClientCard() {
         ) : (
           <>
             <span className="text-2xl font-bold tracking-tight">
-              {clients?.total}
+              {clientCard.data?.total}
             </span>
             <p className="text-xs text-muted-foreground">
               <span className="text-emerald-500 dark:text-emerald-400">
-                {clients?.new === 0 ? "" : clients?.new}
+                {clientCard.data?.new === 0 ? "" : clientCard.data?.new}
               </span>{" "}
-              {clients?.new === 1
+              {clientCard.data?.new === 1
                 ? "cliente novo esse mês"
-                : clients?.new === 0
-                ? "nenhum cliente novo esse mês"
-                : "clientes novos esse mês"}
+                : clientCard.data?.new === 0
+                  ? "nenhum cliente novo esse mês"
+                  : "clientes novos esse mês"}
             </p>
           </>
         )}
