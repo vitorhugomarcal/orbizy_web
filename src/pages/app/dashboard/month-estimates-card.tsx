@@ -1,17 +1,17 @@
-import { getInvoices } from "@/api/get-Invoices"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { getEstimates } from "@/api/get-Estimates"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useQuery } from "@tanstack/react-query"
-import { ReceiptText } from "lucide-react"
 import {
-  startOfMonth,
-  subMonths,
+  endOfDay,
   isWithinInterval,
   startOfDay,
-  endOfDay,
+  startOfMonth,
+  subMonths,
 } from "date-fns"
+import { ReceiptText } from "lucide-react"
 
-interface Invoice {
+interface Estimate {
   id: string
   createdAt: string | Date
   // add other invoice properties as needed
@@ -23,13 +23,13 @@ interface MonthlyStats {
 }
 
 export function MonthEstimatesCard() {
-  const { data: invoices, isLoading } = useQuery<Invoice[]>({
-    queryKey: ["invoices"],
-    queryFn: getInvoices,
+  const { data: estimates, isLoading } = useQuery<Estimate[]>({
+    queryKey: ["estimates"],
+    queryFn: getEstimates,
   })
 
-  const calculateMonthlyChange = (invoices: Invoice[]): MonthlyStats => {
-    if (!invoices?.length)
+  const calculateMonthlyChange = (estimates: Estimate[]): MonthlyStats => {
+    if (!estimates?.length)
       return {
         total: 0,
         percentageChange: 0,
@@ -40,8 +40,8 @@ export function MonthEstimatesCard() {
     const lastMonthStart = startOfMonth(subMonths(today, 1))
 
     // Get current month invoices
-    const currentMonthInvoices = invoices.filter((invoice) => {
-      const createdAt = new Date(invoice.createdAt)
+    const currentMonthEstimate = estimates.filter((estimate) => {
+      const createdAt = new Date(estimate.createdAt)
       return isWithinInterval(createdAt, {
         start: startOfDay(currentMonthStart),
         end: endOfDay(today),
@@ -49,16 +49,16 @@ export function MonthEstimatesCard() {
     })
 
     // Get last month invoices
-    const lastMonthInvoices = invoices.filter((invoice) => {
-      const createdAt = new Date(invoice.createdAt)
+    const lastMonthEstimate = estimates.filter((estimate) => {
+      const createdAt = new Date(estimate.createdAt)
       return isWithinInterval(createdAt, {
         start: startOfDay(lastMonthStart),
         end: endOfDay(currentMonthStart),
       })
     })
 
-    const currentMonthCount = currentMonthInvoices.length
-    const lastMonthCount = lastMonthInvoices.length
+    const currentMonthCount = currentMonthEstimate.length
+    const lastMonthCount = lastMonthEstimate.length
 
     // Calculate percentage change
     // If last month was 0, we'll say it's a 100% increase
@@ -73,7 +73,7 @@ export function MonthEstimatesCard() {
     }
   }
 
-  const monthlyStats = invoices ? calculateMonthlyChange(invoices) : null
+  const monthlyStats = estimates ? calculateMonthlyChange(estimates) : null
 
   return (
     <Card>
