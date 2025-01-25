@@ -20,6 +20,7 @@ export async function deleteUnitRemoveByUnitId(
   const res = await request<DeleteUnitRemoveByUnitIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'DELETE',
     url: `/unit/remove/${unitId}`,
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

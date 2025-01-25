@@ -14,7 +14,12 @@ export type GetMeQueryKey = ReturnType<typeof getMeQueryKey>
 export async function getMe(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetMeQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/me`, ...requestConfig })
+  const res = await request<GetMeQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/me`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 

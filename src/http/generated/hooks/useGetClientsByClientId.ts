@@ -21,6 +21,7 @@ export async function getClientsByClientId(
   const res = await request<GetClientsByClientIdQueryResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'GET',
     url: `/clients/${clientId}`,
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

@@ -25,6 +25,7 @@ export async function putItensUpdateByItemId(
   const res = await request<PutItensUpdateByItemIdMutationResponse, ResponseErrorConfig<Error>, PutItensUpdateByItemIdMutationRequest>({
     method: 'PUT',
     url: `/itens/update/${itemId}`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

@@ -14,7 +14,12 @@ export type GetUnitsQueryKey = ReturnType<typeof getUnitsQueryKey>
 export async function getUnits(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetUnitsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/units`, ...requestConfig })
+  const res = await request<GetUnitsQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/units`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 

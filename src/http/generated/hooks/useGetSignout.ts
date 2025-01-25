@@ -14,7 +14,12 @@ export type GetSignoutQueryKey = ReturnType<typeof getSignoutQueryKey>
 export async function getSignout(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetSignoutQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/signout`, ...requestConfig })
+  const res = await request<GetSignoutQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/signout`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 

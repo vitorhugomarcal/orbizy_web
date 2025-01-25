@@ -20,6 +20,7 @@ export async function postUnitCreate(
   const res = await request<PostUnitCreateMutationResponse, ResponseErrorConfig<Error>, PostUnitCreateMutationRequest>({
     method: 'POST',
     url: `/unit/create`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

@@ -20,6 +20,7 @@ export async function postCompanyRegister(
   const res = await request<PostCompanyRegisterMutationResponse, ResponseErrorConfig<Error>, PostCompanyRegisterMutationRequest>({
     method: 'POST',
     url: `/company/register`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

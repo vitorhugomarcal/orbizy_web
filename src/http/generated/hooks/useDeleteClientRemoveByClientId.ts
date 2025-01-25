@@ -20,6 +20,7 @@ export async function deleteClientRemoveByClientId(
   const res = await request<DeleteClientRemoveByClientIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'DELETE',
     url: `/client/remove/${clientId}`,
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

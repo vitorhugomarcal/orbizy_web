@@ -18,7 +18,12 @@ export async function getItensByItemId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetItensByItemIdQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/itens/${itemId}`, ...requestConfig })
+  const res = await request<GetItensByItemIdQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/itens/${itemId}`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 

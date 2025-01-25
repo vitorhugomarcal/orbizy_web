@@ -20,6 +20,7 @@ export async function postSessions(
   const res = await request<PostSessionsMutationResponse, ResponseErrorConfig<Error>, PostSessionsMutationRequest>({
     method: 'POST',
     url: `/sessions`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

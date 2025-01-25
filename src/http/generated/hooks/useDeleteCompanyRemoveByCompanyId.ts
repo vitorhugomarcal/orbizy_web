@@ -20,6 +20,7 @@ export async function deleteCompanyRemoveByCompanyId(
   const res = await request<DeleteCompanyRemoveByCompanyIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'DELETE',
     url: `/company/remove/${companyId}`,
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

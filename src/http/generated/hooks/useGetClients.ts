@@ -14,7 +14,12 @@ export type GetClientsQueryKey = ReturnType<typeof getClientsQueryKey>
 export async function getClients(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetClientsQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/clients`, ...requestConfig })
+  const res = await request<GetClientsQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/clients`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 

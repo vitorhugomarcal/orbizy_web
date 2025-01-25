@@ -20,6 +20,7 @@ export async function postAuthMagicLink(
   const res = await request<PostAuthMagicLinkMutationResponse, ResponseErrorConfig<Error>, PostAuthMagicLinkMutationRequest>({
     method: 'POST',
     url: `/auth/magic-link`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

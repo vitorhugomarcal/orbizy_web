@@ -14,7 +14,12 @@ export type GetSupplierCompanyQueryKey = ReturnType<typeof getSupplierCompanyQue
 export async function getSupplierCompany(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetSupplierCompanyQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/supplier/company`, ...requestConfig })
+  const res = await request<GetSupplierCompanyQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/supplier/company`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 

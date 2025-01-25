@@ -20,6 +20,7 @@ export async function postSupplierRegister(
   const res = await request<PostSupplierRegisterMutationResponse, ResponseErrorConfig<Error>, PostSupplierRegisterMutationRequest>({
     method: 'POST',
     url: `/supplier/register`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

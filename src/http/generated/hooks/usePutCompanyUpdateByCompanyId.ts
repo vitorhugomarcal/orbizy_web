@@ -25,6 +25,7 @@ export async function putCompanyUpdateByCompanyId(
   const res = await request<PutCompanyUpdateByCompanyIdMutationResponse, ResponseErrorConfig<Error>, PutCompanyUpdateByCompanyIdMutationRequest>({
     method: 'PUT',
     url: `/company/update/${companyId}`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

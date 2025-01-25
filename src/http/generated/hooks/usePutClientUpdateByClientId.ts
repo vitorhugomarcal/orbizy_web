@@ -25,6 +25,7 @@ export async function putClientUpdateByClientId(
   const res = await request<PutClientUpdateByClientIdMutationResponse, ResponseErrorConfig<Error>, PutClientUpdateByClientIdMutationRequest>({
     method: 'PUT',
     url: `/client/update/${clientId}`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

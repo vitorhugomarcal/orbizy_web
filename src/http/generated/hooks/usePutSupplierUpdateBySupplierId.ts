@@ -25,6 +25,7 @@ export async function putSupplierUpdateBySupplierId(
   const res = await request<PutSupplierUpdateBySupplierIdMutationResponse, ResponseErrorConfig<Error>, PutSupplierUpdateBySupplierIdMutationRequest>({
     method: 'PUT',
     url: `/supplier/update/${supplierId}`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

@@ -20,6 +20,7 @@ export async function postItensCreate(
   const res = await request<PostItensCreateMutationResponse, ResponseErrorConfig<Error>, PostItensCreateMutationRequest>({
     method: 'POST',
     url: `/itens/create`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

@@ -14,7 +14,13 @@ export type GetAuthVerifyQueryKey = ReturnType<typeof getAuthVerifyQueryKey>
 export async function getAuthVerify(params: GetAuthVerifyQueryParams, config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetAuthVerifyQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/auth/verify`, params, ...requestConfig })
+  const res = await request<GetAuthVerifyQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/auth/verify`,
+    baseURL: 'https://api.orbizy.app',
+    params,
+    ...requestConfig,
+  })
   return res.data
 }
 

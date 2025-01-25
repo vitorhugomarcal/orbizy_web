@@ -14,7 +14,12 @@ export type GetEstimateQueryKey = ReturnType<typeof getEstimateQueryKey>
 export async function getEstimate(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetEstimateQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/estimate`, ...requestConfig })
+  const res = await request<GetEstimateQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/estimate`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 

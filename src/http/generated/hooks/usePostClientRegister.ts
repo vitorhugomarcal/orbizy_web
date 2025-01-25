@@ -20,6 +20,7 @@ export async function postClientRegister(
   const res = await request<PostClientRegisterMutationResponse, ResponseErrorConfig<Error>, PostClientRegisterMutationRequest>({
     method: 'POST',
     url: `/client/register`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

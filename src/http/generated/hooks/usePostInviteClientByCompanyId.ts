@@ -20,6 +20,7 @@ export async function postInviteClientByCompanyId(
   const res = await request<PostInviteClientByCompanyIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'POST',
     url: `/invite/client/${companyId}`,
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

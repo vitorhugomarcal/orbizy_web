@@ -23,6 +23,7 @@ export async function deleteSupplierRemoveBySupplierId(
   const res = await request<DeleteSupplierRemoveBySupplierIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'DELETE',
     url: `/supplier/remove/${supplierId}`,
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

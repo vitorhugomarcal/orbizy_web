@@ -21,6 +21,7 @@ export async function getSupplierCompanyBySupplierId(
   const res = await request<GetSupplierCompanyBySupplierIdQueryResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'GET',
     url: `/supplier/company/${supplierId}`,
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

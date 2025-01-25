@@ -20,6 +20,7 @@ export async function putMeUpdate(
   const res = await request<PutMeUpdateMutationResponse, ResponseErrorConfig<Error>, PutMeUpdateMutationRequest>({
     method: 'PUT',
     url: `/me/update`,
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

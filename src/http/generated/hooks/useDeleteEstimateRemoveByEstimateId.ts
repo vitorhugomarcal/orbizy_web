@@ -23,6 +23,7 @@ export async function deleteEstimateRemoveByEstimateId(
   const res = await request<DeleteEstimateRemoveByEstimateIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'DELETE',
     url: `/estimate/remove/${estimateId}`,
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

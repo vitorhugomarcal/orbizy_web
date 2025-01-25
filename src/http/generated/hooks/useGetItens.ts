@@ -14,7 +14,12 @@ export type GetItensQueryKey = ReturnType<typeof getItensQueryKey>
 export async function getItens(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetItensQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/itens`, ...requestConfig })
+  const res = await request<GetItensQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/itens`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 

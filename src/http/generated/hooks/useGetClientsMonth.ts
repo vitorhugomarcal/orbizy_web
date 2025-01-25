@@ -14,7 +14,12 @@ export type GetClientsMonthQueryKey = ReturnType<typeof getClientsMonthQueryKey>
 export async function getClientsMonth(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetClientsMonthQueryResponse, ResponseErrorConfig<Error>, unknown>({ method: 'GET', url: `/clients/month`, ...requestConfig })
+  const res = await request<GetClientsMonthQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/clients/month`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
   return res.data
 }
 
