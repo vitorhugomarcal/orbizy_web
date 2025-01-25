@@ -9,7 +9,7 @@ export interface GetItensProps {
   unit: string
 }
 export async function getItens() {
-  const { data } = await api.get<GetItensProps[]>("/company/itens")
+  const { data } = await api.get<GetItensProps[]>("/itens")
 
   if (!data) {
     return []

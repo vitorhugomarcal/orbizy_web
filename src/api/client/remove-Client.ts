@@ -31,5 +31,5 @@ export interface GetClientProps {
   }[]
 }
 export async function removeClient(clientId: string) {
-  await api.delete(`/remove/client/${clientId}`)
+  await api.delete(`/client/remove/${clientId}`)
 }

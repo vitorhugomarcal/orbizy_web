@@ -31,7 +31,7 @@ export interface GetClientProps {
   }[]
 }
 export async function getClients() {
-  const { data } = await api.get<GetClientProps[]>("/company/clients")
+  const { data } = await api.get<GetClientProps[]>("/clients")
 
   if (!data) {
     return []

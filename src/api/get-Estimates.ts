@@ -10,7 +10,7 @@ export interface GetEstimatesProps {
   supplier_id: string
 }
 export async function getEstimates() {
-  const { data } = await api.get<GetEstimatesProps[]>("/company/estimates")
+  const { data } = await api.get<GetEstimatesProps[]>("/estimates")
 
   if (!data) {
     return []

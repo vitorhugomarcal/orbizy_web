@@ -14,7 +14,7 @@ export interface GetInvoiceProps {
   client: GetClientProps
 }
 export async function getInvoices() {
-  const { data } = await api.get<GetInvoiceProps[]>("/company/invoices")
+  const { data } = await api.get<GetInvoiceProps[]>("/invoices")
 
   if (!data) {
     return []

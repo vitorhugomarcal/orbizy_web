@@ -72,9 +72,9 @@ export function Company() {
           )}
         </div>
       </div>
-      <p className="font-light text-sm items-center">
-        Edição somente pelo aplicativo!
-      </p>
+      <div className="flex justify-center items-center mt-8">
+        <p className="font-light text-sm">Edição somente pelo aplicativo!</p>
+      </div>
     </div>
   )
 }
