@@ -1,4 +1,4 @@
-import { getEstimates } from "@/api/get-Estimates"
+import { getEstimates } from "@/api/estimate/get-Estimates"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useQuery } from "@tanstack/react-query"
