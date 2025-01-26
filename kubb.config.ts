@@ -35,6 +35,7 @@ export default defineConfig(() => {
       }),
       pluginClient({
         baseURL: "https://api.orbizy.app",
+        client: "axios",
       }),
     ],
   }
