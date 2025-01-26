@@ -6,37 +6,21 @@ export type { DeleteItensRemoveByItemIdMutationKey } from './hooks/useDeleteIten
 export type { DeleteSupplierRemoveBySupplierIdMutationKey } from './hooks/useDeleteSupplierRemoveBySupplierId.ts'
 export type { DeleteUnitRemoveByUnitIdMutationKey } from './hooks/useDeleteUnitRemoveByUnitId.ts'
 export type { GetAuthVerifyQueryKey } from './hooks/useGetAuthVerify.ts'
-export type { GetAuthVerifySuspenseQueryKey } from './hooks/useGetAuthVerifySuspense.ts'
 export type { GetClientsQueryKey } from './hooks/useGetClients.ts'
 export type { GetClientsByClientIdQueryKey } from './hooks/useGetClientsByClientId.ts'
-export type { GetClientsByClientIdSuspenseQueryKey } from './hooks/useGetClientsByClientIdSuspense.ts'
 export type { GetClientsMonthQueryKey } from './hooks/useGetClientsMonth.ts'
-export type { GetClientsMonthSuspenseQueryKey } from './hooks/useGetClientsMonthSuspense.ts'
-export type { GetClientsSuspenseQueryKey } from './hooks/useGetClientsSuspense.ts'
 export type { GetCompanyQueryKey } from './hooks/useGetCompany.ts'
-export type { GetCompanySuspenseQueryKey } from './hooks/useGetCompanySuspense.ts'
 export type { GetEstimateQueryKey } from './hooks/useGetEstimate.ts'
 export type { GetEstimateByEstimateIdQueryKey } from './hooks/useGetEstimateByEstimateId.ts'
-export type { GetEstimateByEstimateIdSuspenseQueryKey } from './hooks/useGetEstimateByEstimateIdSuspense.ts'
-export type { GetEstimateSuspenseQueryKey } from './hooks/useGetEstimateSuspense.ts'
 export type { GetInviteValidateByCodeQueryKey } from './hooks/useGetInviteValidateByCode.ts'
-export type { GetInviteValidateByCodeSuspenseQueryKey } from './hooks/useGetInviteValidateByCodeSuspense.ts'
 export type { GetItensQueryKey } from './hooks/useGetItens.ts'
 export type { GetItensByItemIdQueryKey } from './hooks/useGetItensByItemId.ts'
-export type { GetItensByItemIdSuspenseQueryKey } from './hooks/useGetItensByItemIdSuspense.ts'
 export type { GetItensEstimateByEstimateIdQueryKey } from './hooks/useGetItensEstimateByEstimateId.ts'
-export type { GetItensEstimateByEstimateIdSuspenseQueryKey } from './hooks/useGetItensEstimateByEstimateIdSuspense.ts'
-export type { GetItensSuspenseQueryKey } from './hooks/useGetItensSuspense.ts'
 export type { GetMeQueryKey } from './hooks/useGetMe.ts'
-export type { GetMeSuspenseQueryKey } from './hooks/useGetMeSuspense.ts'
 export type { GetSignoutQueryKey } from './hooks/useGetSignout.ts'
-export type { GetSignoutSuspenseQueryKey } from './hooks/useGetSignoutSuspense.ts'
 export type { GetSupplierCompanyQueryKey } from './hooks/useGetSupplierCompany.ts'
 export type { GetSupplierCompanyBySupplierIdQueryKey } from './hooks/useGetSupplierCompanyBySupplierId.ts'
-export type { GetSupplierCompanyBySupplierIdSuspenseQueryKey } from './hooks/useGetSupplierCompanyBySupplierIdSuspense.ts'
-export type { GetSupplierCompanySuspenseQueryKey } from './hooks/useGetSupplierCompanySuspense.ts'
 export type { GetUnitsQueryKey } from './hooks/useGetUnits.ts'
-export type { GetUnitsSuspenseQueryKey } from './hooks/useGetUnitsSuspense.ts'
 export type { PostAuthMagicLinkMutationKey } from './hooks/usePostAuthMagicLink.ts'
 export type { PostClientRegisterMutationKey } from './hooks/usePostClientRegister.ts'
 export type { PostCompanyRegisterMutationKey } from './hooks/usePostCompanyRegister.ts'
@@ -387,12 +371,6 @@ export {
 } from './hooks/useDeleteSupplierRemoveBySupplierId.ts'
 export { deleteUnitRemoveByUnitIdMutationKey, deleteUnitRemoveByUnitId, useDeleteUnitRemoveByUnitId } from './hooks/useDeleteUnitRemoveByUnitId.ts'
 export { getAuthVerifyQueryKey, getAuthVerify, getAuthVerifyQueryOptions, useGetAuthVerify } from './hooks/useGetAuthVerify.ts'
-export {
-  getAuthVerifySuspenseQueryKey,
-  getAuthVerifySuspense,
-  getAuthVerifySuspenseQueryOptions,
-  useGetAuthVerifySuspense,
-} from './hooks/useGetAuthVerifySuspense.ts'
 export { getClientsQueryKey, getClients, getClientsQueryOptions, useGetClients } from './hooks/useGetClients.ts'
 export {
   getClientsByClientIdQueryKey,
@@ -400,22 +378,8 @@ export {
   getClientsByClientIdQueryOptions,
   useGetClientsByClientId,
 } from './hooks/useGetClientsByClientId.ts'
-export {
-  getClientsByClientIdSuspenseQueryKey,
-  getClientsByClientIdSuspense,
-  getClientsByClientIdSuspenseQueryOptions,
-  useGetClientsByClientIdSuspense,
-} from './hooks/useGetClientsByClientIdSuspense.ts'
 export { getClientsMonthQueryKey, getClientsMonth, getClientsMonthQueryOptions, useGetClientsMonth } from './hooks/useGetClientsMonth.ts'
-export {
-  getClientsMonthSuspenseQueryKey,
-  getClientsMonthSuspense,
-  getClientsMonthSuspenseQueryOptions,
-  useGetClientsMonthSuspense,
-} from './hooks/useGetClientsMonthSuspense.ts'
-export { getClientsSuspenseQueryKey, getClientsSuspense, getClientsSuspenseQueryOptions, useGetClientsSuspense } from './hooks/useGetClientsSuspense.ts'
 export { getCompanyQueryKey, getCompany, getCompanyQueryOptions, useGetCompany } from './hooks/useGetCompany.ts'
-export { getCompanySuspenseQueryKey, getCompanySuspense, getCompanySuspenseQueryOptions, useGetCompanySuspense } from './hooks/useGetCompanySuspense.ts'
 export { getEstimateQueryKey, getEstimate, getEstimateQueryOptions, useGetEstimate } from './hooks/useGetEstimate.ts'
 export {
   getEstimateByEstimateIdQueryKey,
@@ -424,49 +388,21 @@ export {
   useGetEstimateByEstimateId,
 } from './hooks/useGetEstimateByEstimateId.ts'
 export {
-  getEstimateByEstimateIdSuspenseQueryKey,
-  getEstimateByEstimateIdSuspense,
-  getEstimateByEstimateIdSuspenseQueryOptions,
-  useGetEstimateByEstimateIdSuspense,
-} from './hooks/useGetEstimateByEstimateIdSuspense.ts'
-export { getEstimateSuspenseQueryKey, getEstimateSuspense, getEstimateSuspenseQueryOptions, useGetEstimateSuspense } from './hooks/useGetEstimateSuspense.ts'
-export {
   getInviteValidateByCodeQueryKey,
   getInviteValidateByCode,
   getInviteValidateByCodeQueryOptions,
   useGetInviteValidateByCode,
 } from './hooks/useGetInviteValidateByCode.ts'
-export {
-  getInviteValidateByCodeSuspenseQueryKey,
-  getInviteValidateByCodeSuspense,
-  getInviteValidateByCodeSuspenseQueryOptions,
-  useGetInviteValidateByCodeSuspense,
-} from './hooks/useGetInviteValidateByCodeSuspense.ts'
 export { getItensQueryKey, getItens, getItensQueryOptions, useGetItens } from './hooks/useGetItens.ts'
 export { getItensByItemIdQueryKey, getItensByItemId, getItensByItemIdQueryOptions, useGetItensByItemId } from './hooks/useGetItensByItemId.ts'
-export {
-  getItensByItemIdSuspenseQueryKey,
-  getItensByItemIdSuspense,
-  getItensByItemIdSuspenseQueryOptions,
-  useGetItensByItemIdSuspense,
-} from './hooks/useGetItensByItemIdSuspense.ts'
 export {
   getItensEstimateByEstimateIdQueryKey,
   getItensEstimateByEstimateId,
   getItensEstimateByEstimateIdQueryOptions,
   useGetItensEstimateByEstimateId,
 } from './hooks/useGetItensEstimateByEstimateId.ts'
-export {
-  getItensEstimateByEstimateIdSuspenseQueryKey,
-  getItensEstimateByEstimateIdSuspense,
-  getItensEstimateByEstimateIdSuspenseQueryOptions,
-  useGetItensEstimateByEstimateIdSuspense,
-} from './hooks/useGetItensEstimateByEstimateIdSuspense.ts'
-export { getItensSuspenseQueryKey, getItensSuspense, getItensSuspenseQueryOptions, useGetItensSuspense } from './hooks/useGetItensSuspense.ts'
 export { getMeQueryKey, getMe, getMeQueryOptions, useGetMe } from './hooks/useGetMe.ts'
-export { getMeSuspenseQueryKey, getMeSuspense, getMeSuspenseQueryOptions, useGetMeSuspense } from './hooks/useGetMeSuspense.ts'
 export { getSignoutQueryKey, getSignout, getSignoutQueryOptions, useGetSignout } from './hooks/useGetSignout.ts'
-export { getSignoutSuspenseQueryKey, getSignoutSuspense, getSignoutSuspenseQueryOptions, useGetSignoutSuspense } from './hooks/useGetSignoutSuspense.ts'
 export { getSupplierCompanyQueryKey, getSupplierCompany, getSupplierCompanyQueryOptions, useGetSupplierCompany } from './hooks/useGetSupplierCompany.ts'
 export {
   getSupplierCompanyBySupplierIdQueryKey,
@@ -474,20 +410,7 @@ export {
   getSupplierCompanyBySupplierIdQueryOptions,
   useGetSupplierCompanyBySupplierId,
 } from './hooks/useGetSupplierCompanyBySupplierId.ts'
-export {
-  getSupplierCompanyBySupplierIdSuspenseQueryKey,
-  getSupplierCompanyBySupplierIdSuspense,
-  getSupplierCompanyBySupplierIdSuspenseQueryOptions,
-  useGetSupplierCompanyBySupplierIdSuspense,
-} from './hooks/useGetSupplierCompanyBySupplierIdSuspense.ts'
-export {
-  getSupplierCompanySuspenseQueryKey,
-  getSupplierCompanySuspense,
-  getSupplierCompanySuspenseQueryOptions,
-  useGetSupplierCompanySuspense,
-} from './hooks/useGetSupplierCompanySuspense.ts'
 export { getUnitsQueryKey, getUnits, getUnitsQueryOptions, useGetUnits } from './hooks/useGetUnits.ts'
-export { getUnitsSuspenseQueryKey, getUnitsSuspense, getUnitsSuspenseQueryOptions, useGetUnitsSuspense } from './hooks/useGetUnitsSuspense.ts'
 export { postAuthMagicLinkMutationKey, postAuthMagicLink, usePostAuthMagicLink } from './hooks/usePostAuthMagicLink.ts'
 export { postClientRegisterMutationKey, postClientRegister, usePostClientRegister } from './hooks/usePostClientRegister.ts'
 export { postCompanyRegisterMutationKey, postCompanyRegister, usePostCompanyRegister } from './hooks/usePostCompanyRegister.ts'

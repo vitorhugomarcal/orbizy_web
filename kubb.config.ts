@@ -41,6 +41,7 @@ export default defineConfig(() => {
         output: {
           path: "./hooks",
         },
+        suspense: false,
         client: {
           baseURL: "https://api.orbizy.app",
           importPath: "../../client.ts",
