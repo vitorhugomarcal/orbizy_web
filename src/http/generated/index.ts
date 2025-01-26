@@ -12,6 +12,9 @@ export type { GetClientsMonthQueryKey } from './hooks/useGetClientsMonth.ts'
 export type { GetCompanyQueryKey } from './hooks/useGetCompany.ts'
 export type { GetEstimateQueryKey } from './hooks/useGetEstimate.ts'
 export type { GetEstimateByEstimateIdQueryKey } from './hooks/useGetEstimateByEstimateId.ts'
+export type { GetEstimateChartQueryKey } from './hooks/useGetEstimateChart.ts'
+export type { GetEstimateMonthQueryKey } from './hooks/useGetEstimateMonth.ts'
+export type { GetEstimateMonthTotalQueryKey } from './hooks/useGetEstimateMonthTotal.ts'
 export type { GetInviteValidateByCodeQueryKey } from './hooks/useGetInviteValidateByCode.ts'
 export type { GetItensQueryKey } from './hooks/useGetItens.ts'
 export type { GetItensByItemIdQueryKey } from './hooks/useGetItensByItemId.ts'
@@ -146,6 +149,27 @@ export type {
   GetEstimateByEstimateIdQueryResponse,
   GetEstimateByEstimateIdQuery,
 } from './models/EstimateController/GetEstimateByEstimateId.ts'
+export type {
+  GetEstimateChart200,
+  GetEstimateChart401,
+  GetEstimateChart404,
+  GetEstimateChartQueryResponse,
+  GetEstimateChartQuery,
+} from './models/EstimateController/GetEstimateChart.ts'
+export type {
+  GetEstimateMonth200,
+  GetEstimateMonth401,
+  GetEstimateMonth404,
+  GetEstimateMonthQueryResponse,
+  GetEstimateMonthQuery,
+} from './models/EstimateController/GetEstimateMonth.ts'
+export type {
+  GetEstimateMonthTotal200,
+  GetEstimateMonthTotal401,
+  GetEstimateMonthTotal404,
+  GetEstimateMonthTotalQueryResponse,
+  GetEstimateMonthTotalQuery,
+} from './models/EstimateController/GetEstimateMonthTotal.ts'
 export type {
   PostEstimateCreateByClientIdPathParams,
   PostEstimateCreateByClientId201,
@@ -387,6 +411,14 @@ export {
   getEstimateByEstimateIdQueryOptions,
   useGetEstimateByEstimateId,
 } from './hooks/useGetEstimateByEstimateId.ts'
+export { getEstimateChartQueryKey, getEstimateChart, getEstimateChartQueryOptions, useGetEstimateChart } from './hooks/useGetEstimateChart.ts'
+export { getEstimateMonthQueryKey, getEstimateMonth, getEstimateMonthQueryOptions, useGetEstimateMonth } from './hooks/useGetEstimateMonth.ts'
+export {
+  getEstimateMonthTotalQueryKey,
+  getEstimateMonthTotal,
+  getEstimateMonthTotalQueryOptions,
+  useGetEstimateMonthTotal,
+} from './hooks/useGetEstimateMonthTotal.ts'
 export {
   getInviteValidateByCodeQueryKey,
   getInviteValidateByCode,

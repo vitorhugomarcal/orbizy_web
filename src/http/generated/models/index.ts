@@ -104,6 +104,27 @@ export type {
   GetEstimateByEstimateIdQuery,
 } from './EstimateController/GetEstimateByEstimateId.ts'
 export type {
+  GetEstimateChart200,
+  GetEstimateChart401,
+  GetEstimateChart404,
+  GetEstimateChartQueryResponse,
+  GetEstimateChartQuery,
+} from './EstimateController/GetEstimateChart.ts'
+export type {
+  GetEstimateMonth200,
+  GetEstimateMonth401,
+  GetEstimateMonth404,
+  GetEstimateMonthQueryResponse,
+  GetEstimateMonthQuery,
+} from './EstimateController/GetEstimateMonth.ts'
+export type {
+  GetEstimateMonthTotal200,
+  GetEstimateMonthTotal401,
+  GetEstimateMonthTotal404,
+  GetEstimateMonthTotalQueryResponse,
+  GetEstimateMonthTotalQuery,
+} from './EstimateController/GetEstimateMonthTotal.ts'
+export type {
   PostEstimateCreateByClientIdPathParams,
   PostEstimateCreateByClientId201,
   PostEstimateCreateByClientId401,
