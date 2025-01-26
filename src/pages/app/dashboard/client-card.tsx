@@ -4,9 +4,9 @@ import { useGetClientsMonth } from "@/http/generated"
 import { Users } from "lucide-react"
 
 export function ClientCard() {
-  const clientCard = useGetClientsMonth()
+  const { data, isLoading } = useGetClientsMonth()
 
-  console.log("CARD =>", clientCard)
+  console.log("CARD =>", data)
 
   return (
     <Card>
@@ -15,7 +15,7 @@ export function ClientCard() {
         <Users className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        {clientCard.isLoading ? (
+        {isLoading ? (
           <div className="space-y-1">
             <Skeleton className="h-8 w-32" />
             <Skeleton className="h-4 w-full" />
@@ -23,15 +23,15 @@ export function ClientCard() {
         ) : (
           <>
             <span className="text-2xl font-bold tracking-tight">
-              {clientCard.data?.total}
+              {data?.total}
             </span>
             <p className="text-xs text-muted-foreground">
               <span className="text-emerald-500 dark:text-emerald-400">
-                {clientCard.data?.new === 0 ? "" : clientCard.data?.new}
+                {data?.new === 0 ? "" : data?.new}
               </span>{" "}
-              {clientCard.data?.new === 1
+              {data?.new === 1
                 ? "cliente novo esse mês"
-                : clientCard.data?.new === 0
+                : data?.new === 0
                   ? "nenhum cliente novo esse mês"
                   : "clientes novos esse mês"}
             </p>
