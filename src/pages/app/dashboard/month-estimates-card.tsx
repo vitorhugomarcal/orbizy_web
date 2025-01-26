@@ -7,13 +7,7 @@ import { ReceiptText } from "lucide-react"
 export function MonthEstimatesCard() {
   const { data: estimates, isLoading } = useGetEstimateMonth()
 
-  if (!estimates?.stats)
-    return {
-      total: 0,
-      percentageChange: 0,
-    }
-
-  const monthlyStats = estimates.stats
+  const monthlyStats = estimates?.stats
 
   return (
     <Card>

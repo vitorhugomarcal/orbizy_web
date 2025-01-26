@@ -7,12 +7,12 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { Helmet } from "react-helmet-async"
-import { MonthEstimatesCard } from "./month-estimates-card"
 import { ClientCard } from "./client-card"
+import { MonthEstimatesCard } from "./month-estimates-card"
 import { MonthInvoiceCard } from "./month-invoice-card"
+import { MonthTotalCard } from "./month-total-card"
 import { OverdueInvoiceCard } from "./overdue-invoice-card"
 import { RevenueChart } from "./revenue-chart"
-import { MonthTotalCard } from "./month-total-card"
 
 export function Dashboard() {
   return (
