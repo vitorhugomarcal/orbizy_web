@@ -7,13 +7,31 @@ import type {
 } from '../models/EstimateController/GetEstimateByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getEstimateByEstimateId } from '../clients/getEstimateByEstimateId.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getEstimateByEstimateIdQueryKey = (estimateId: GetEstimateByEstimateIdPathParams['estimateId']) =>
   [{ url: '/estimate/:estimateId', params: { estimateId: estimateId } }] as const
 
 export type GetEstimateByEstimateIdQueryKey = ReturnType<typeof getEstimateByEstimateIdQueryKey>
+
+/**
+ * @description Get a estimate by ID
+ * {@link /estimate/:estimateId}
+ */
+export async function getEstimateByEstimateId(
+  estimateId: GetEstimateByEstimateIdPathParams['estimateId'],
+  config: Partial<RequestConfig> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<GetEstimateByEstimateIdQueryResponse, ResponseErrorConfig<GetEstimateByEstimateId401 | GetEstimateByEstimateId404>, unknown>({
+    method: 'GET',
+    url: `/estimate/${estimateId}`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
+  return res.data
+}
 
 export function getEstimateByEstimateIdQueryOptions(
   estimateId: GetEstimateByEstimateIdPathParams['estimateId'],

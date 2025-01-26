@@ -9,12 +9,30 @@ import type {
 } from '../models/CompanyController/PutCompanyUpdateByCompanyId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { putCompanyUpdateByCompanyId } from '../clients/putCompanyUpdateByCompanyId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const putCompanyUpdateByCompanyIdMutationKey = () => [{ url: '/company/update/{companyId}' }] as const
 
 export type PutCompanyUpdateByCompanyIdMutationKey = ReturnType<typeof putCompanyUpdateByCompanyIdMutationKey>
+
+/**
+ * @description Update a company
+ * {@link /company/update/:companyId}
+ */
+export async function putCompanyUpdateByCompanyId(
+  companyId: PutCompanyUpdateByCompanyIdPathParams['companyId'],
+  data?: PutCompanyUpdateByCompanyIdMutationRequest,
+  config: Partial<RequestConfig<PutCompanyUpdateByCompanyIdMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    PutCompanyUpdateByCompanyIdMutationResponse,
+    ResponseErrorConfig<PutCompanyUpdateByCompanyId400 | PutCompanyUpdateByCompanyId401 | PutCompanyUpdateByCompanyId404>,
+    PutCompanyUpdateByCompanyIdMutationRequest
+  >({ method: 'PUT', url: `/company/update/${companyId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Update a company

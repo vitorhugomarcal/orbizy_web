@@ -2,12 +2,27 @@ import client from '@kubb/plugin-client/clients/axios'
 import type { GetSignoutQueryResponse } from '../models/AuthController/GetSignout.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getSignout } from '../clients/getSignout.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getSignoutQueryKey = () => [{ url: '/signout' }] as const
 
 export type GetSignoutQueryKey = ReturnType<typeof getSignoutQueryKey>
+
+/**
+ * @description Desconecta o usuário
+ * {@link /signout}
+ */
+export async function getSignout(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<GetSignoutQueryResponse, ResponseErrorConfig<Error>, unknown>({
+    method: 'GET',
+    url: `/signout`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
+  return res.data
+}
 
 export function getSignoutQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getSignoutQueryKey()

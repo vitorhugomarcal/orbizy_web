@@ -7,13 +7,31 @@ import type {
 } from '../models/InviteController/GetInviteValidateByCode.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getInviteValidateByCode } from '../clients/getInviteValidateByCode.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getInviteValidateByCodeQueryKey = (code: GetInviteValidateByCodePathParams['code']) =>
   [{ url: '/invite/validate/:code', params: { code: code } }] as const
 
 export type GetInviteValidateByCodeQueryKey = ReturnType<typeof getInviteValidateByCodeQueryKey>
+
+/**
+ * @description Verifica se o código de convite é válido
+ * {@link /invite/validate/:code}
+ */
+export async function getInviteValidateByCode(
+  code: GetInviteValidateByCodePathParams['code'],
+  config: Partial<RequestConfig> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<GetInviteValidateByCodeQueryResponse, ResponseErrorConfig<GetInviteValidateByCode400 | GetInviteValidateByCode429>, unknown>({
+    method: 'GET',
+    url: `/invite/validate/${code}`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
+  return res.data
+}
 
 export function getInviteValidateByCodeQueryOptions(
   code: GetInviteValidateByCodePathParams['code'],

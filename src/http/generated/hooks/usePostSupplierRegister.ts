@@ -7,12 +7,29 @@ import type {
 } from '../models/SupplierController/PostSupplierRegister.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { postSupplierRegister } from '../clients/postSupplierRegister.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const postSupplierRegisterMutationKey = () => [{ url: '/supplier/register' }] as const
 
 export type PostSupplierRegisterMutationKey = ReturnType<typeof postSupplierRegisterMutationKey>
+
+/**
+ * @description Create a new supplier
+ * {@link /supplier/register}
+ */
+export async function postSupplierRegister(
+  data: PostSupplierRegisterMutationRequest,
+  config: Partial<RequestConfig<PostSupplierRegisterMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    PostSupplierRegisterMutationResponse,
+    ResponseErrorConfig<PostSupplierRegister400 | PostSupplierRegister401>,
+    PostSupplierRegisterMutationRequest
+  >({ method: 'POST', url: `/supplier/register`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Create a new supplier

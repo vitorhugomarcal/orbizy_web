@@ -8,12 +8,29 @@ import type {
 } from '../models/AuthController/PostAuthMagicLink.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { postAuthMagicLink } from '../clients/postAuthMagicLink.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const postAuthMagicLinkMutationKey = () => [{ url: '/auth/magic-link' }] as const
 
 export type PostAuthMagicLinkMutationKey = ReturnType<typeof postAuthMagicLinkMutationKey>
+
+/**
+ * @description Send a magic link to the user
+ * {@link /auth/magic-link}
+ */
+export async function postAuthMagicLink(
+  data: PostAuthMagicLinkMutationRequest,
+  config: Partial<RequestConfig<PostAuthMagicLinkMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    PostAuthMagicLinkMutationResponse,
+    ResponseErrorConfig<PostAuthMagicLink400 | PostAuthMagicLink404 | PostAuthMagicLink429>,
+    PostAuthMagicLinkMutationRequest
+  >({ method: 'POST', url: `/auth/magic-link`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Send a magic link to the user

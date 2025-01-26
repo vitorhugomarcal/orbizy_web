@@ -9,12 +9,30 @@ import type {
 } from '../models/SupplierController/PutSupplierUpdateBySupplierId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { putSupplierUpdateBySupplierId } from '../clients/putSupplierUpdateBySupplierId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const putSupplierUpdateBySupplierIdMutationKey = () => [{ url: '/supplier/update/{supplierId}' }] as const
 
 export type PutSupplierUpdateBySupplierIdMutationKey = ReturnType<typeof putSupplierUpdateBySupplierIdMutationKey>
+
+/**
+ * @description Update a supplier
+ * {@link /supplier/update/:supplierId}
+ */
+export async function putSupplierUpdateBySupplierId(
+  supplierId: PutSupplierUpdateBySupplierIdPathParams['supplierId'],
+  data?: PutSupplierUpdateBySupplierIdMutationRequest,
+  config: Partial<RequestConfig<PutSupplierUpdateBySupplierIdMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    PutSupplierUpdateBySupplierIdMutationResponse,
+    ResponseErrorConfig<PutSupplierUpdateBySupplierId400 | PutSupplierUpdateBySupplierId401 | PutSupplierUpdateBySupplierId404>,
+    PutSupplierUpdateBySupplierIdMutationRequest
+  >({ method: 'PUT', url: `/supplier/update/${supplierId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Update a supplier

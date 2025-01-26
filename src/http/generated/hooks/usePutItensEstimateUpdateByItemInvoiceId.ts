@@ -8,12 +8,30 @@ import type {
 } from '../models/EstimateItemController/PutItensEstimateUpdateByItemInvoiceId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { putItensEstimateUpdateByItemInvoiceId } from '../clients/putItensEstimateUpdateByItemInvoiceId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const putItensEstimateUpdateByItemInvoiceIdMutationKey = () => [{ url: '/itens/estimate/update/{itemInvoiceId}' }] as const
 
 export type PutItensEstimateUpdateByItemInvoiceIdMutationKey = ReturnType<typeof putItensEstimateUpdateByItemInvoiceIdMutationKey>
+
+/**
+ * @description Update an estimate item
+ * {@link /itens/estimate/update/:itemInvoiceId}
+ */
+export async function putItensEstimateUpdateByItemInvoiceId(
+  itemInvoiceId: PutItensEstimateUpdateByItemInvoiceIdPathParams['itemInvoiceId'],
+  data?: PutItensEstimateUpdateByItemInvoiceIdMutationRequest,
+  config: Partial<RequestConfig<PutItensEstimateUpdateByItemInvoiceIdMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    PutItensEstimateUpdateByItemInvoiceIdMutationResponse,
+    ResponseErrorConfig<PutItensEstimateUpdateByItemInvoiceId401 | PutItensEstimateUpdateByItemInvoiceId404>,
+    PutItensEstimateUpdateByItemInvoiceIdMutationRequest
+  >({ method: 'PUT', url: `/itens/estimate/update/${itemInvoiceId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Update an estimate item

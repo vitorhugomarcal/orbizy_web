@@ -2,12 +2,31 @@ import client from '@kubb/plugin-client/clients/axios'
 import type { PutMeUpdateMutationRequest, PutMeUpdateMutationResponse, PutMeUpdate401 } from '../models/UserController/PutMeUpdate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { putMeUpdate } from '../clients/putMeUpdate.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const putMeUpdateMutationKey = () => [{ url: '/me/update' }] as const
 
 export type PutMeUpdateMutationKey = ReturnType<typeof putMeUpdateMutationKey>
+
+/**
+ * @description Update the current user's profile
+ * {@link /me/update}
+ */
+export async function putMeUpdate(
+  data?: PutMeUpdateMutationRequest,
+  config: Partial<RequestConfig<PutMeUpdateMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<PutMeUpdateMutationResponse, ResponseErrorConfig<PutMeUpdate401>, PutMeUpdateMutationRequest>({
+    method: 'PUT',
+    url: `/me/update`,
+    baseURL: 'https://api.orbizy.app',
+    data,
+    ...requestConfig,
+  })
+  return res.data
+}
 
 /**
  * @description Update the current user's profile

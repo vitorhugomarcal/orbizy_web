@@ -8,12 +8,30 @@ import type {
 } from '../models/EstimateItemController/PostEstimateItensCreateByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { postEstimateItensCreateByEstimateId } from '../clients/postEstimateItensCreateByEstimateId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const postEstimateItensCreateByEstimateIdMutationKey = () => [{ url: '/estimate/itens/create/{estimateId}' }] as const
 
 export type PostEstimateItensCreateByEstimateIdMutationKey = ReturnType<typeof postEstimateItensCreateByEstimateIdMutationKey>
+
+/**
+ * @description Create a new estimate item
+ * {@link /estimate/itens/create/:estimateId}
+ */
+export async function postEstimateItensCreateByEstimateId(
+  estimateId: PostEstimateItensCreateByEstimateIdPathParams['estimateId'],
+  data: PostEstimateItensCreateByEstimateIdMutationRequest,
+  config: Partial<RequestConfig<PostEstimateItensCreateByEstimateIdMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    PostEstimateItensCreateByEstimateIdMutationResponse,
+    ResponseErrorConfig<PostEstimateItensCreateByEstimateId401 | PostEstimateItensCreateByEstimateId404>,
+    PostEstimateItensCreateByEstimateIdMutationRequest
+  >({ method: 'POST', url: `/estimate/itens/create/${estimateId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Create a new estimate item

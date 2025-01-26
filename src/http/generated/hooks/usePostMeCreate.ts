@@ -2,12 +2,31 @@ import client from '@kubb/plugin-client/clients/axios'
 import type { PostMeCreateMutationRequest, PostMeCreateMutationResponse, PostMeCreate400 } from '../models/UserController/PostMeCreate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { postMeCreate } from '../clients/postMeCreate.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const postMeCreateMutationKey = () => [{ url: '/me/create' }] as const
 
 export type PostMeCreateMutationKey = ReturnType<typeof postMeCreateMutationKey>
+
+/**
+ * @description Create a new user
+ * {@link /me/create}
+ */
+export async function postMeCreate(
+  data: PostMeCreateMutationRequest,
+  config: Partial<RequestConfig<PostMeCreateMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<PostMeCreateMutationResponse, ResponseErrorConfig<PostMeCreate400>, PostMeCreateMutationRequest>({
+    method: 'POST',
+    url: `/me/create`,
+    baseURL: 'https://api.orbizy.app',
+    data,
+    ...requestConfig,
+  })
+  return res.data
+}
 
 /**
  * @description Create a new user

@@ -8,13 +8,30 @@ import type {
 } from '../models/SupplierController/GetSupplierCompanyBySupplierId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getSupplierCompanyBySupplierId } from '../clients/getSupplierCompanyBySupplierId.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getSupplierCompanyBySupplierIdQueryKey = (supplierId: GetSupplierCompanyBySupplierIdPathParams['supplierId']) =>
   [{ url: '/supplier/company/:supplierId', params: { supplierId: supplierId } }] as const
 
 export type GetSupplierCompanyBySupplierIdQueryKey = ReturnType<typeof getSupplierCompanyBySupplierIdQueryKey>
+
+/**
+ * @description Get supplier by ID
+ * {@link /supplier/company/:supplierId}
+ */
+export async function getSupplierCompanyBySupplierId(
+  supplierId: GetSupplierCompanyBySupplierIdPathParams['supplierId'],
+  config: Partial<RequestConfig> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    GetSupplierCompanyBySupplierIdQueryResponse,
+    ResponseErrorConfig<GetSupplierCompanyBySupplierId400 | GetSupplierCompanyBySupplierId401 | GetSupplierCompanyBySupplierId404>,
+    unknown
+  >({ method: 'GET', url: `/supplier/company/${supplierId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
+  return res.data
+}
 
 export function getSupplierCompanyBySupplierIdQueryOptions(
   supplierId: GetSupplierCompanyBySupplierIdPathParams['supplierId'],

@@ -2,12 +2,27 @@ import client from '@kubb/plugin-client/clients/axios'
 import type { GetCompanyQueryResponse, GetCompany400, GetCompany401 } from '../models/CompanyController/GetCompany.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getCompany } from '../clients/getCompany.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getCompanyQueryKey = () => [{ url: '/company' }] as const
 
 export type GetCompanyQueryKey = ReturnType<typeof getCompanyQueryKey>
+
+/**
+ * @description Get a company
+ * {@link /company}
+ */
+export async function getCompany(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<GetCompanyQueryResponse, ResponseErrorConfig<GetCompany400 | GetCompany401>, unknown>({
+    method: 'GET',
+    url: `/company`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
+  return res.data
+}
 
 export function getCompanyQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getCompanyQueryKey()

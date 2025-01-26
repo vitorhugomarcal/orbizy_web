@@ -8,12 +8,30 @@ import type {
 } from '../models/EstimateController/PutEstimateUpdateByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { putEstimateUpdateByEstimateId } from '../clients/putEstimateUpdateByEstimateId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const putEstimateUpdateByEstimateIdMutationKey = () => [{ url: '/estimate/update/{estimateId}' }] as const
 
 export type PutEstimateUpdateByEstimateIdMutationKey = ReturnType<typeof putEstimateUpdateByEstimateIdMutationKey>
+
+/**
+ * @description Update a estimate
+ * {@link /estimate/update/:estimateId}
+ */
+export async function putEstimateUpdateByEstimateId(
+  estimateId: PutEstimateUpdateByEstimateIdPathParams['estimateId'],
+  data?: PutEstimateUpdateByEstimateIdMutationRequest,
+  config: Partial<RequestConfig<PutEstimateUpdateByEstimateIdMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    PutEstimateUpdateByEstimateIdMutationResponse,
+    ResponseErrorConfig<PutEstimateUpdateByEstimateId401 | PutEstimateUpdateByEstimateId404>,
+    PutEstimateUpdateByEstimateIdMutationRequest
+  >({ method: 'PUT', url: `/estimate/update/${estimateId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Update a estimate

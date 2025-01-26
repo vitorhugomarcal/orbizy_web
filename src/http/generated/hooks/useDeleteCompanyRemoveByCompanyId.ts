@@ -7,12 +7,29 @@ import type {
 } from '../models/CompanyController/DeleteCompanyRemoveByCompanyId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { deleteCompanyRemoveByCompanyId } from '../clients/deleteCompanyRemoveByCompanyId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const deleteCompanyRemoveByCompanyIdMutationKey = () => [{ url: '/company/remove/{companyId}' }] as const
 
 export type DeleteCompanyRemoveByCompanyIdMutationKey = ReturnType<typeof deleteCompanyRemoveByCompanyIdMutationKey>
+
+/**
+ * @description Remove a company
+ * {@link /company/remove/:companyId}
+ */
+export async function deleteCompanyRemoveByCompanyId(
+  companyId: DeleteCompanyRemoveByCompanyIdPathParams['companyId'],
+  config: Partial<RequestConfig> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    DeleteCompanyRemoveByCompanyIdMutationResponse,
+    ResponseErrorConfig<DeleteCompanyRemoveByCompanyId400 | DeleteCompanyRemoveByCompanyId401>,
+    unknown
+  >({ method: 'DELETE', url: `/company/remove/${companyId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Remove a company

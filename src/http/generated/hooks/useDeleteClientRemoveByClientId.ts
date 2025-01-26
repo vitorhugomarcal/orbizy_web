@@ -7,12 +7,29 @@ import type {
 } from '../models/ClientsController/DeleteClientRemoveByClientId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { deleteClientRemoveByClientId } from '../clients/deleteClientRemoveByClientId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const deleteClientRemoveByClientIdMutationKey = () => [{ url: '/client/remove/{clientId}' }] as const
 
 export type DeleteClientRemoveByClientIdMutationKey = ReturnType<typeof deleteClientRemoveByClientIdMutationKey>
+
+/**
+ * @description Remove a client
+ * {@link /client/remove/:clientId}
+ */
+export async function deleteClientRemoveByClientId(
+  clientId: DeleteClientRemoveByClientIdPathParams['clientId'],
+  config: Partial<RequestConfig> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    DeleteClientRemoveByClientIdMutationResponse,
+    ResponseErrorConfig<DeleteClientRemoveByClientId400 | DeleteClientRemoveByClientId401>,
+    unknown
+  >({ method: 'DELETE', url: `/client/remove/${clientId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Remove a client

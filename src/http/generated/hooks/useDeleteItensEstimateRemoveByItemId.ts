@@ -7,12 +7,29 @@ import type {
 } from '../models/EstimateItemController/DeleteItensEstimateRemoveByItemId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { deleteItensEstimateRemoveByItemId } from '../clients/deleteItensEstimateRemoveByItemId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const deleteItensEstimateRemoveByItemIdMutationKey = () => [{ url: '/itens/estimate/remove/{itemId}' }] as const
 
 export type DeleteItensEstimateRemoveByItemIdMutationKey = ReturnType<typeof deleteItensEstimateRemoveByItemIdMutationKey>
+
+/**
+ * @description Remove an estimate item
+ * {@link /itens/estimate/remove/:itemId}
+ */
+export async function deleteItensEstimateRemoveByItemId(
+  itemId: DeleteItensEstimateRemoveByItemIdPathParams['itemId'],
+  config: Partial<RequestConfig> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    DeleteItensEstimateRemoveByItemIdMutationResponse,
+    ResponseErrorConfig<DeleteItensEstimateRemoveByItemId401 | DeleteItensEstimateRemoveByItemId404>,
+    unknown
+  >({ method: 'DELETE', url: `/itens/estimate/remove/${itemId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Remove an estimate item

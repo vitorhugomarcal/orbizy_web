@@ -6,12 +6,30 @@ import type {
 } from '../models/UnitController/DeleteUnitRemoveByUnitId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { deleteUnitRemoveByUnitId } from '../clients/deleteUnitRemoveByUnitId.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const deleteUnitRemoveByUnitIdMutationKey = () => [{ url: '/unit/remove/{unitId}' }] as const
 
 export type DeleteUnitRemoveByUnitIdMutationKey = ReturnType<typeof deleteUnitRemoveByUnitIdMutationKey>
+
+/**
+ * @description Remove a unit
+ * {@link /unit/remove/:unitId}
+ */
+export async function deleteUnitRemoveByUnitId(
+  unitId: DeleteUnitRemoveByUnitIdPathParams['unitId'],
+  config: Partial<RequestConfig> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<DeleteUnitRemoveByUnitIdMutationResponse, ResponseErrorConfig<DeleteUnitRemoveByUnitId401>, unknown>({
+    method: 'DELETE',
+    url: `/unit/remove/${unitId}`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
+  return res.data
+}
 
 /**
  * @description Remove a unit

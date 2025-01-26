@@ -7,12 +7,27 @@ import type {
 } from '../models/ItensController/GetItensByItemId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
-import { getItensByItemId } from '../clients/getItensByItemId.ts'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
 export const getItensByItemIdQueryKey = (itemId: GetItensByItemIdPathParams['itemId']) => [{ url: '/itens/:itemId', params: { itemId: itemId } }] as const
 
 export type GetItensByItemIdQueryKey = ReturnType<typeof getItensByItemIdQueryKey>
+
+/**
+ * @description Get a item by id
+ * {@link /itens/:itemId}
+ */
+export async function getItensByItemId(itemId: GetItensByItemIdPathParams['itemId'], config: Partial<RequestConfig> & { client?: typeof client } = {}) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<GetItensByItemIdQueryResponse, ResponseErrorConfig<GetItensByItemId401 | GetItensByItemId404>, unknown>({
+    method: 'GET',
+    url: `/itens/${itemId}`,
+    baseURL: 'https://api.orbizy.app',
+    ...requestConfig,
+  })
+  return res.data
+}
 
 export function getItensByItemIdQueryOptions(itemId: GetItensByItemIdPathParams['itemId'], config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getItensByItemIdQueryKey(itemId)

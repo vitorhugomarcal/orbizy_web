@@ -7,12 +7,29 @@ import type {
 } from '../models/ClientsController/PostClientRegister.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
-import { postClientRegister } from '../clients/postClientRegister.ts'
 import { useMutation } from '@tanstack/react-query'
 
 export const postClientRegisterMutationKey = () => [{ url: '/client/register' }] as const
 
 export type PostClientRegisterMutationKey = ReturnType<typeof postClientRegisterMutationKey>
+
+/**
+ * @description Register a new client (individual or corporate)
+ * {@link /client/register}
+ */
+export async function postClientRegister(
+  data: PostClientRegisterMutationRequest,
+  config: Partial<RequestConfig<PostClientRegisterMutationRequest>> & { client?: typeof client } = {},
+) {
+  const { client: request = client, ...requestConfig } = config
+
+  const res = await request<
+    PostClientRegisterMutationResponse,
+    ResponseErrorConfig<PostClientRegister400 | PostClientRegister401>,
+    PostClientRegisterMutationRequest
+  >({ method: 'POST', url: `/client/register`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  return res.data
+}
 
 /**
  * @description Register a new client (individual or corporate)
