@@ -3,13 +3,9 @@
  */
 export type GetEstimateMonth200 = {
   /**
-   * @type string
-   */
-  message: string
-  /**
    * @type object
    */
-  stats: {
+  monthlyStats: {
     /**
      * @type number
      */

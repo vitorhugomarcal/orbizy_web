@@ -5,9 +5,7 @@ import { useGetEstimateMonth } from "@/http/generated"
 import { ReceiptText } from "lucide-react"
 
 export function MonthEstimatesCard() {
-  const { data: estimates, isLoading } = useGetEstimateMonth()
-
-  const monthlyStats = estimates?.stats
+  const { data, isLoading } = useGetEstimateMonth()
 
   return (
     <Card>
@@ -18,7 +16,7 @@ export function MonthEstimatesCard() {
         <ReceiptText className="h-4 w-4 text-muted-foreground" />
       </CardHeader>
       <CardContent className="space-y-1">
-        {isLoading || !monthlyStats ? (
+        {isLoading || !data?.monthlyStats ? (
           <div className="space-y-1">
             <Skeleton className="h-8 w-32" />
             <Skeleton className="h-4 w-full" />
@@ -26,18 +24,18 @@ export function MonthEstimatesCard() {
         ) : (
           <>
             <span className="text-2xl font-bold tracking-tight">
-              {monthlyStats.total}
+              {data.monthlyStats.total}
             </span>
             <p className="text-xs text-muted-foreground">
               <span
                 className={`${
-                  monthlyStats.percentageChange >= 0
+                  data.monthlyStats.percentageChange >= 0
                     ? "text-emerald-500 dark:text-emerald-400"
                     : "text-red-500 dark:text-red-400"
                 }`}
               >
-                {monthlyStats.percentageChange >= 0 ? "+" : ""}
-                {monthlyStats.percentageChange.toFixed(1)}%
+                {data.monthlyStats.percentageChange >= 0 ? "+" : ""}
+                {data.monthlyStats.percentageChange.toFixed(1)}%
               </span>{" "}
               em relação ao mês passado
             </p>
