@@ -1,11 +1,11 @@
-import client from '@kubb/plugin-client/clients/axios'
+import client from '../../client.ts'
+import type { RequestConfig, ResponseErrorConfig } from '../../client.ts'
 import type {
   PostClientRegisterMutationRequest,
   PostClientRegisterMutationResponse,
   PostClientRegister400,
   PostClientRegister401,
 } from '../models/ClientsController/PostClientRegister.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 

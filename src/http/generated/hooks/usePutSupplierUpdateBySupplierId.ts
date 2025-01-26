@@ -1,4 +1,5 @@
-import client from '@kubb/plugin-client/clients/axios'
+import client from '../../client.ts'
+import type { RequestConfig, ResponseErrorConfig } from '../../client.ts'
 import type {
   PutSupplierUpdateBySupplierIdMutationRequest,
   PutSupplierUpdateBySupplierIdMutationResponse,
@@ -7,7 +8,6 @@ import type {
   PutSupplierUpdateBySupplierId401,
   PutSupplierUpdateBySupplierId404,
 } from '../models/SupplierController/PutSupplierUpdateBySupplierId.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 

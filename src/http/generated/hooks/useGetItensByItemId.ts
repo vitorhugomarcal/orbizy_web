@@ -1,11 +1,11 @@
-import client from '@kubb/plugin-client/clients/axios'
+import client from '../../client.ts'
+import type { RequestConfig, ResponseErrorConfig } from '../../client.ts'
 import type {
   GetItensByItemIdQueryResponse,
   GetItensByItemIdPathParams,
   GetItensByItemId401,
   GetItensByItemId404,
 } from '../models/ItensController/GetItensByItemId.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 

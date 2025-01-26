@@ -43,6 +43,7 @@ export default defineConfig(() => {
         },
         client: {
           baseURL: "https://api.orbizy.app",
+          importPath: "../../client.ts",
         },
       }),
     ],

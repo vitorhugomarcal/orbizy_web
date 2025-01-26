@@ -1,4 +1,5 @@
-import client from '@kubb/plugin-client/clients/axios'
+import client from '../../client.ts'
+import type { RequestConfig, ResponseErrorConfig } from '../../client.ts'
 import type {
   PostEstimateItensCreateByEstimateIdMutationRequest,
   PostEstimateItensCreateByEstimateIdMutationResponse,
@@ -6,7 +7,6 @@ import type {
   PostEstimateItensCreateByEstimateId401,
   PostEstimateItensCreateByEstimateId404,
 } from '../models/EstimateItemController/PostEstimateItensCreateByEstimateId.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 

@@ -21,6 +21,12 @@ export type ResponseConfig<TData = unknown> = {
   statusText: string
 }
 
+export type ResponseErrorConfig<TError = unknown> = {
+  data: TError
+  status: number
+  statusText: string
+}
+
 export const httpClient = async <TData, TError = unknown, TVariables = unknown>(
   config: RequestConfig<TVariables>
 ): Promise<ResponseConfig<TData>> => {
@@ -34,7 +40,12 @@ export const httpClient = async <TData, TError = unknown, TVariables = unknown>(
   const data = await response.json()
 
   if (!response.ok) {
-    return Promise.reject(data as TError)
+    const errorResponse: ResponseErrorConfig<TError> = {
+      data: data as TError,
+      status: response.status,
+      statusText: response.statusText,
+    }
+    return Promise.reject(errorResponse)
   }
 
   return {
@@ -43,4 +54,5 @@ export const httpClient = async <TData, TError = unknown, TVariables = unknown>(
     statusText: response.statusText,
   }
 }
+
 export default httpClient

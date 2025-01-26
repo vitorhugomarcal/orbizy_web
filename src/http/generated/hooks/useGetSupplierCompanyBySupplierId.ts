@@ -1,4 +1,5 @@
-import client from '@kubb/plugin-client/clients/axios'
+import client from '../../client.ts'
+import type { RequestConfig, ResponseErrorConfig } from '../../client.ts'
 import type {
   GetSupplierCompanyBySupplierIdQueryResponse,
   GetSupplierCompanyBySupplierIdPathParams,
@@ -6,7 +7,6 @@ import type {
   GetSupplierCompanyBySupplierId401,
   GetSupplierCompanyBySupplierId404,
 } from '../models/SupplierController/GetSupplierCompanyBySupplierId.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 

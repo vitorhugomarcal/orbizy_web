@@ -1,4 +1,5 @@
-import client from '@kubb/plugin-client/clients/axios'
+import client from '../../client.ts'
+import type { RequestConfig, ResponseErrorConfig } from '../../client.ts'
 import type {
   PutClientUpdateByClientIdMutationRequest,
   PutClientUpdateByClientIdMutationResponse,
@@ -7,7 +8,6 @@ import type {
   PutClientUpdateByClientId401,
   PutClientUpdateByClientId404,
 } from '../models/ClientsController/PutClientUpdateByClientId.ts'
-import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
 
