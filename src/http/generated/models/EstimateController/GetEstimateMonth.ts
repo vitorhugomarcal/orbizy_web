@@ -3,18 +3,13 @@
  */
 export type GetEstimateMonth200 = {
   /**
-   * @type object
+   * @type number
    */
-  monthlyStats: {
-    /**
-     * @type number
-     */
-    total: number
-    /**
-     * @type number
-     */
-    percentageChange: number
-  }
+  total: number
+  /**
+   * @type number
+   */
+  percentageChange: number
 }
 
 /**
