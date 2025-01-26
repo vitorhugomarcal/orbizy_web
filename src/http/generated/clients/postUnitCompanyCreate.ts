@@ -1,5 +1,10 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostUnitCompanyCreateMutationRequest, PostUnitCompanyCreateMutationResponse } from '../models/PostUnitCompanyCreate.ts'
+import type {
+  PostUnitCompanyCreateMutationRequest,
+  PostUnitCompanyCreateMutationResponse,
+  PostUnitCompanyCreate400,
+  PostUnitCompanyCreate401,
+} from "../models/'UnitController/PostUnitCompanyCreate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostUnitCompanyCreateUrl() {
@@ -7,6 +12,7 @@ export function getPostUnitCompanyCreateUrl() {
 }
 
 /**
+ * @description Create a new custom unit for a company
  * {@link /unit/company/create}
  */
 export async function postUnitCompanyCreate(
@@ -15,11 +21,10 @@ export async function postUnitCompanyCreate(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PostUnitCompanyCreateMutationResponse, ResponseErrorConfig<Error>, PostUnitCompanyCreateMutationRequest>({
-    method: 'POST',
-    url: getPostUnitCompanyCreateUrl().toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PostUnitCompanyCreateMutationResponse,
+    ResponseErrorConfig<PostUnitCompanyCreate400 | PostUnitCompanyCreate401>,
+    PostUnitCompanyCreateMutationRequest
+  >({ method: 'POST', url: getPostUnitCompanyCreateUrl().toString(), data, ...requestConfig })
   return res.data
 }

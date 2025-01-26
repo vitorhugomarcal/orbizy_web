@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PutMeUpdateMutationRequest, PutMeUpdateMutationResponse } from '../models/PutMeUpdate.ts'
+import type { PutMeUpdateMutationRequest, PutMeUpdateMutationResponse, PutMeUpdate401 } from "../models/'UserController/PutMeUpdate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutMeUpdateUrl() {
@@ -7,6 +7,7 @@ export function getPutMeUpdateUrl() {
 }
 
 /**
+ * @description Update the current user's profile
  * {@link /me/update}
  */
 export async function putMeUpdate(
@@ -15,7 +16,7 @@ export async function putMeUpdate(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PutMeUpdateMutationResponse, ResponseErrorConfig<Error>, PutMeUpdateMutationRequest>({
+  const res = await request<PutMeUpdateMutationResponse, ResponseErrorConfig<PutMeUpdate401>, PutMeUpdateMutationRequest>({
     method: 'PUT',
     url: getPutMeUpdateUrl().toString(),
     data,

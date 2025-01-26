@@ -5,12 +5,26 @@ export type DeleteCompanyRemoveByCompanyIdPathParams = {
   companyId: string
 }
 
-export type DeleteCompanyRemoveByCompanyId200 = any
+export type DeleteCompanyRemoveByCompanyId204 = {
+  /**
+   * @description Company removed successfully
+   * @type string
+   */
+  message: string
+}
 
-export type DeleteCompanyRemoveByCompanyIdMutationResponse = DeleteCompanyRemoveByCompanyId200
+export type DeleteCompanyRemoveByCompanyId401 = {
+  /**
+   * @description Unauthorized
+   * @type string
+   */
+  error: string
+}
+
+export type DeleteCompanyRemoveByCompanyIdMutationResponse = DeleteCompanyRemoveByCompanyId204
 
 export type DeleteCompanyRemoveByCompanyIdMutation = {
-  Response: DeleteCompanyRemoveByCompanyId200
+  Response: DeleteCompanyRemoveByCompanyId204
   PathParams: DeleteCompanyRemoveByCompanyIdPathParams
-  Errors: any
+  Errors: DeleteCompanyRemoveByCompanyId401
 }

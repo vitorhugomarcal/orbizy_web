@@ -1,5 +1,11 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostAuthMagicLinkMutationRequest, PostAuthMagicLinkMutationResponse } from '../models/PostAuthMagicLink.ts'
+import type {
+  PostAuthMagicLinkMutationRequest,
+  PostAuthMagicLinkMutationResponse,
+  PostAuthMagicLink400,
+  PostAuthMagicLink404,
+  PostAuthMagicLink429,
+} from "../models/'AuthController/PostAuthMagicLink.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostAuthMagicLinkUrl() {
@@ -7,6 +13,7 @@ export function getPostAuthMagicLinkUrl() {
 }
 
 /**
+ * @description Send a magic link to the user
  * {@link /auth/magic-link}
  */
 export async function postAuthMagicLink(
@@ -15,11 +22,10 @@ export async function postAuthMagicLink(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PostAuthMagicLinkMutationResponse, ResponseErrorConfig<Error>, PostAuthMagicLinkMutationRequest>({
-    method: 'POST',
-    url: getPostAuthMagicLinkUrl().toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PostAuthMagicLinkMutationResponse,
+    ResponseErrorConfig<PostAuthMagicLink400 | PostAuthMagicLink404 | PostAuthMagicLink429>,
+    PostAuthMagicLinkMutationRequest
+  >({ method: 'POST', url: getPostAuthMagicLinkUrl().toString(), data, ...requestConfig })
   return res.data
 }

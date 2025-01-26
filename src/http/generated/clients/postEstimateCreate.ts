@@ -1,5 +1,11 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostEstimateCreateMutationRequest, PostEstimateCreateMutationResponse, PostEstimateCreatePathParams } from '../models/PostEstimateCreate.ts'
+import type {
+  PostEstimateCreateMutationRequest,
+  PostEstimateCreateMutationResponse,
+  PostEstimateCreatePathParams,
+  PostEstimateCreate401,
+  PostEstimateCreate404,
+} from "../models/'EstimateController/PostEstimateCreate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostEstimateCreateUrl(clientId: PostEstimateCreatePathParams['clientId']) {
@@ -7,6 +13,7 @@ export function getPostEstimateCreateUrl(clientId: PostEstimateCreatePathParams[
 }
 
 /**
+ * @description Create a new estimate
  * {@link /estimate/create}
  */
 export async function postEstimateCreate(
@@ -16,11 +23,10 @@ export async function postEstimateCreate(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PostEstimateCreateMutationResponse, ResponseErrorConfig<Error>, PostEstimateCreateMutationRequest>({
-    method: 'POST',
-    url: getPostEstimateCreateUrl(clientId).toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PostEstimateCreateMutationResponse,
+    ResponseErrorConfig<PostEstimateCreate401 | PostEstimateCreate404>,
+    PostEstimateCreateMutationRequest
+  >({ method: 'POST', url: getPostEstimateCreateUrl(clientId).toString(), data, ...requestConfig })
   return res.data
 }

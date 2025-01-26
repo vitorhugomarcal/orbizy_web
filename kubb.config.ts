@@ -13,29 +13,20 @@ export default defineConfig(() => {
     output: {
       path: "./src/http/generated",
     },
-    hooks: {
-      done: [],
-    },
     plugins: [
-      pluginOas({
-        generators: [],
-        validate: false,
-      }),
+      pluginOas(),
       pluginTs({
         output: {
           path: "models",
+        },
+        group: {
+          type: "tag",
+          name: ({ group }) => `'${group}Controller`,
         },
       }),
       pluginReactQuery({
         output: {
           path: "./hooks",
-        },
-        paramsType: "inline",
-        pathParamsType: "object",
-        suspense: false,
-        client: {
-          baseURL: process.env.VITE_API_URL || "https://api.orbizy.app",
-          dataReturnType: "data",
         },
       }),
       pluginClient({

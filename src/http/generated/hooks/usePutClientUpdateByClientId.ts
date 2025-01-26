@@ -3,7 +3,10 @@ import type {
   PutClientUpdateByClientIdMutationRequest,
   PutClientUpdateByClientIdMutationResponse,
   PutClientUpdateByClientIdPathParams,
-} from '../models/PutClientUpdateByClientId.ts'
+  PutClientUpdateByClientId400,
+  PutClientUpdateByClientId401,
+  PutClientUpdateByClientId404,
+} from "../models/'ClientsController/PutClientUpdateByClientId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putClientUpdateByClientId } from '../clients/putClientUpdateByClientId.ts'
@@ -14,13 +17,14 @@ export const putClientUpdateByClientIdMutationKey = () => [{ url: '/client/updat
 export type PutClientUpdateByClientIdMutationKey = ReturnType<typeof putClientUpdateByClientIdMutationKey>
 
 /**
+ * @description Update client
  * {@link /client/update/:clientId}
  */
 export function usePutClientUpdateByClientId(
   options: {
     mutation?: UseMutationOptions<
       PutClientUpdateByClientIdMutationResponse,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<PutClientUpdateByClientId400 | PutClientUpdateByClientId401 | PutClientUpdateByClientId404>,
       { clientId: PutClientUpdateByClientIdPathParams['clientId']; data?: PutClientUpdateByClientIdMutationRequest }
     >
     client?: Partial<RequestConfig<PutClientUpdateByClientIdMutationRequest>> & { client?: typeof client }
@@ -31,11 +35,11 @@ export function usePutClientUpdateByClientId(
 
   return useMutation<
     PutClientUpdateByClientIdMutationResponse,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<PutClientUpdateByClientId400 | PutClientUpdateByClientId401 | PutClientUpdateByClientId404>,
     { clientId: PutClientUpdateByClientIdPathParams['clientId']; data?: PutClientUpdateByClientIdMutationRequest }
   >({
     mutationFn: async ({ clientId, data }) => {
-      return putClientUpdateByClientId({ clientId }, data, config)
+      return putClientUpdateByClientId(clientId, data, config)
     },
     mutationKey,
     ...mutationOptions,

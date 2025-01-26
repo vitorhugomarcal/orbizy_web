@@ -3,7 +3,9 @@ import type {
   PutItensUpdateByItemIdMutationRequest,
   PutItensUpdateByItemIdMutationResponse,
   PutItensUpdateByItemIdPathParams,
-} from '../models/PutItensUpdateByItemId.ts'
+  PutItensUpdateByItemId401,
+  PutItensUpdateByItemId404,
+} from "../models/'ItensController/PutItensUpdateByItemId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutItensUpdateByItemIdUrl(itemId: PutItensUpdateByItemIdPathParams['itemId']) {
@@ -11,6 +13,7 @@ export function getPutItensUpdateByItemIdUrl(itemId: PutItensUpdateByItemIdPathP
 }
 
 /**
+ * @description Update a item
  * {@link /itens/update/:itemId}
  */
 export async function putItensUpdateByItemId(
@@ -20,11 +23,10 @@ export async function putItensUpdateByItemId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PutItensUpdateByItemIdMutationResponse, ResponseErrorConfig<Error>, PutItensUpdateByItemIdMutationRequest>({
-    method: 'PUT',
-    url: getPutItensUpdateByItemIdUrl(itemId).toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PutItensUpdateByItemIdMutationResponse,
+    ResponseErrorConfig<PutItensUpdateByItemId401 | PutItensUpdateByItemId404>,
+    PutItensUpdateByItemIdMutationRequest
+  >({ method: 'PUT', url: getPutItensUpdateByItemIdUrl(itemId).toString(), data, ...requestConfig })
   return res.data
 }

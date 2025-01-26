@@ -1,5 +1,9 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { DeleteUnitRemoveByUnitIdMutationResponse, DeleteUnitRemoveByUnitIdPathParams } from '../models/DeleteUnitRemoveByUnitId.ts'
+import type {
+  DeleteUnitRemoveByUnitIdMutationResponse,
+  DeleteUnitRemoveByUnitIdPathParams,
+  DeleteUnitRemoveByUnitId401,
+} from "../models/'UnitController/DeleteUnitRemoveByUnitId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { deleteUnitRemoveByUnitId } from '../clients/deleteUnitRemoveByUnitId.ts'
@@ -10,13 +14,14 @@ export const deleteUnitRemoveByUnitIdMutationKey = () => [{ url: '/unit/remove/{
 export type DeleteUnitRemoveByUnitIdMutationKey = ReturnType<typeof deleteUnitRemoveByUnitIdMutationKey>
 
 /**
+ * @description Remove a unit
  * {@link /unit/remove/:unitId}
  */
 export function useDeleteUnitRemoveByUnitId(
   options: {
     mutation?: UseMutationOptions<
       DeleteUnitRemoveByUnitIdMutationResponse,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<DeleteUnitRemoveByUnitId401>,
       { unitId: DeleteUnitRemoveByUnitIdPathParams['unitId'] }
     >
     client?: Partial<RequestConfig> & { client?: typeof client }
@@ -25,9 +30,13 @@ export function useDeleteUnitRemoveByUnitId(
   const { mutation: mutationOptions, client: config = {} } = options ?? {}
   const mutationKey = mutationOptions?.mutationKey ?? deleteUnitRemoveByUnitIdMutationKey()
 
-  return useMutation<DeleteUnitRemoveByUnitIdMutationResponse, ResponseErrorConfig<Error>, { unitId: DeleteUnitRemoveByUnitIdPathParams['unitId'] }>({
+  return useMutation<
+    DeleteUnitRemoveByUnitIdMutationResponse,
+    ResponseErrorConfig<DeleteUnitRemoveByUnitId401>,
+    { unitId: DeleteUnitRemoveByUnitIdPathParams['unitId'] }
+  >({
     mutationFn: async ({ unitId }) => {
-      return deleteUnitRemoveByUnitId({ unitId }, config)
+      return deleteUnitRemoveByUnitId(unitId, config)
     },
     mutationKey,
     ...mutationOptions,

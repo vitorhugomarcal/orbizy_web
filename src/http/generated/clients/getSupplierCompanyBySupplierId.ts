@@ -1,5 +1,11 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetSupplierCompanyBySupplierIdQueryResponse, GetSupplierCompanyBySupplierIdPathParams } from '../models/GetSupplierCompanyBySupplierId.ts'
+import type {
+  GetSupplierCompanyBySupplierIdQueryResponse,
+  GetSupplierCompanyBySupplierIdPathParams,
+  GetSupplierCompanyBySupplierId400,
+  GetSupplierCompanyBySupplierId401,
+  GetSupplierCompanyBySupplierId404,
+} from "../models/'SupplierController/GetSupplierCompanyBySupplierId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetSupplierCompanyBySupplierIdUrl(supplierId: GetSupplierCompanyBySupplierIdPathParams['supplierId']) {
@@ -7,6 +13,7 @@ export function getGetSupplierCompanyBySupplierIdUrl(supplierId: GetSupplierComp
 }
 
 /**
+ * @description Get supplier by ID
  * {@link /supplier/company/:supplierId}
  */
 export async function getSupplierCompanyBySupplierId(
@@ -15,10 +22,10 @@ export async function getSupplierCompanyBySupplierId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetSupplierCompanyBySupplierIdQueryResponse, ResponseErrorConfig<Error>, unknown>({
-    method: 'GET',
-    url: getGetSupplierCompanyBySupplierIdUrl(supplierId).toString(),
-    ...requestConfig,
-  })
+  const res = await request<
+    GetSupplierCompanyBySupplierIdQueryResponse,
+    ResponseErrorConfig<GetSupplierCompanyBySupplierId400 | GetSupplierCompanyBySupplierId401 | GetSupplierCompanyBySupplierId404>,
+    unknown
+  >({ method: 'GET', url: getGetSupplierCompanyBySupplierIdUrl(supplierId).toString(), ...requestConfig })
   return res.data
 }

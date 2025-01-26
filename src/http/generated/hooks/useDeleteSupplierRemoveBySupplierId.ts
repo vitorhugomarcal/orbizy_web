@@ -2,7 +2,10 @@ import client from '@kubb/plugin-client/clients/axios'
 import type {
   DeleteSupplierRemoveBySupplierIdMutationResponse,
   DeleteSupplierRemoveBySupplierIdPathParams,
-} from '../models/DeleteSupplierRemoveBySupplierId.ts'
+  DeleteSupplierRemoveBySupplierId400,
+  DeleteSupplierRemoveBySupplierId401,
+  DeleteSupplierRemoveBySupplierId404,
+} from "../models/'SupplierController/DeleteSupplierRemoveBySupplierId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { deleteSupplierRemoveBySupplierId } from '../clients/deleteSupplierRemoveBySupplierId.ts'
@@ -13,13 +16,14 @@ export const deleteSupplierRemoveBySupplierIdMutationKey = () => [{ url: '/suppl
 export type DeleteSupplierRemoveBySupplierIdMutationKey = ReturnType<typeof deleteSupplierRemoveBySupplierIdMutationKey>
 
 /**
+ * @description Remove a supplier
  * {@link /supplier/remove/:supplierId}
  */
 export function useDeleteSupplierRemoveBySupplierId(
   options: {
     mutation?: UseMutationOptions<
       DeleteSupplierRemoveBySupplierIdMutationResponse,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<DeleteSupplierRemoveBySupplierId400 | DeleteSupplierRemoveBySupplierId401 | DeleteSupplierRemoveBySupplierId404>,
       { supplierId: DeleteSupplierRemoveBySupplierIdPathParams['supplierId'] }
     >
     client?: Partial<RequestConfig> & { client?: typeof client }
@@ -30,11 +34,11 @@ export function useDeleteSupplierRemoveBySupplierId(
 
   return useMutation<
     DeleteSupplierRemoveBySupplierIdMutationResponse,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<DeleteSupplierRemoveBySupplierId400 | DeleteSupplierRemoveBySupplierId401 | DeleteSupplierRemoveBySupplierId404>,
     { supplierId: DeleteSupplierRemoveBySupplierIdPathParams['supplierId'] }
   >({
     mutationFn: async ({ supplierId }) => {
-      return deleteSupplierRemoveBySupplierId({ supplierId }, config)
+      return deleteSupplierRemoveBySupplierId(supplierId, config)
     },
     mutationKey,
     ...mutationOptions,

@@ -1,27 +1,47 @@
 export type { DeleteClientRemoveByClientIdMutationKey } from './useDeleteClientRemoveByClientId.ts'
 export type { DeleteCompanyRemoveByCompanyIdMutationKey } from './useDeleteCompanyRemoveByCompanyId.ts'
 export type { DeleteEstimateRemoveByEstimateIdMutationKey } from './useDeleteEstimateRemoveByEstimateId.ts'
+export type { DeleteItensEstimateRemoveByItemIdMutationKey } from './useDeleteItensEstimateRemoveByItemId.ts'
 export type { DeleteItensRemoveByItemIdMutationKey } from './useDeleteItensRemoveByItemId.ts'
 export type { DeleteSupplierRemoveBySupplierIdMutationKey } from './useDeleteSupplierRemoveBySupplierId.ts'
 export type { DeleteUnitRemoveByUnitIdMutationKey } from './useDeleteUnitRemoveByUnitId.ts'
 export type { GetAuthVerifyQueryKey } from './useGetAuthVerify.ts'
+export type { GetAuthVerifySuspenseQueryKey } from './useGetAuthVerifySuspense.ts'
 export type { GetClientsQueryKey } from './useGetClients.ts'
 export type { GetClientsByClientIdQueryKey } from './useGetClientsByClientId.ts'
+export type { GetClientsByClientIdSuspenseQueryKey } from './useGetClientsByClientIdSuspense.ts'
 export type { GetClientsMonthQueryKey } from './useGetClientsMonth.ts'
+export type { GetClientsMonthSuspenseQueryKey } from './useGetClientsMonthSuspense.ts'
+export type { GetClientsSuspenseQueryKey } from './useGetClientsSuspense.ts'
 export type { GetCompanyQueryKey } from './useGetCompany.ts'
+export type { GetCompanySuspenseQueryKey } from './useGetCompanySuspense.ts'
 export type { GetEstimateQueryKey } from './useGetEstimate.ts'
+export type { GetEstimateByEstimateIdQueryKey } from './useGetEstimateByEstimateId.ts'
+export type { GetEstimateByEstimateIdSuspenseQueryKey } from './useGetEstimateByEstimateIdSuspense.ts'
+export type { GetEstimateSuspenseQueryKey } from './useGetEstimateSuspense.ts'
 export type { GetInviteValidateByCodeQueryKey } from './useGetInviteValidateByCode.ts'
+export type { GetInviteValidateByCodeSuspenseQueryKey } from './useGetInviteValidateByCodeSuspense.ts'
 export type { GetItensQueryKey } from './useGetItens.ts'
 export type { GetItensByItemIdQueryKey } from './useGetItensByItemId.ts'
+export type { GetItensByItemIdSuspenseQueryKey } from './useGetItensByItemIdSuspense.ts'
+export type { GetItensEstimateByEstimateIdQueryKey } from './useGetItensEstimateByEstimateId.ts'
+export type { GetItensEstimateByEstimateIdSuspenseQueryKey } from './useGetItensEstimateByEstimateIdSuspense.ts'
+export type { GetItensSuspenseQueryKey } from './useGetItensSuspense.ts'
 export type { GetMeQueryKey } from './useGetMe.ts'
+export type { GetMeSuspenseQueryKey } from './useGetMeSuspense.ts'
 export type { GetSignoutQueryKey } from './useGetSignout.ts'
+export type { GetSignoutSuspenseQueryKey } from './useGetSignoutSuspense.ts'
 export type { GetSupplierCompanyQueryKey } from './useGetSupplierCompany.ts'
 export type { GetSupplierCompanyBySupplierIdQueryKey } from './useGetSupplierCompanyBySupplierId.ts'
+export type { GetSupplierCompanyBySupplierIdSuspenseQueryKey } from './useGetSupplierCompanyBySupplierIdSuspense.ts'
+export type { GetSupplierCompanySuspenseQueryKey } from './useGetSupplierCompanySuspense.ts'
 export type { GetUnitsQueryKey } from './useGetUnits.ts'
+export type { GetUnitsSuspenseQueryKey } from './useGetUnitsSuspense.ts'
 export type { PostAuthMagicLinkMutationKey } from './usePostAuthMagicLink.ts'
 export type { PostClientRegisterMutationKey } from './usePostClientRegister.ts'
 export type { PostCompanyRegisterMutationKey } from './usePostCompanyRegister.ts'
-export type { PostEstimateCreateMutationKey } from './usePostEstimateCreate.ts'
+export type { PostEstimateCreateByClientIdMutationKey } from './usePostEstimateCreateByClientId.ts'
+export type { PostEstimateItensCreateByEstimateIdMutationKey } from './usePostEstimateItensCreateByEstimateId.ts'
 export type { PostInviteClientByCompanyIdMutationKey } from './usePostInviteClientByCompanyId.ts'
 export type { PostInvitedClientRegisterMutationKey } from './usePostInvitedClientRegister.ts'
 export type { PostItensCreateMutationKey } from './usePostItensCreate.ts'
@@ -32,37 +52,83 @@ export type { PostUnitCompanyCreateMutationKey } from './usePostUnitCompanyCreat
 export type { PostUnitCreateMutationKey } from './usePostUnitCreate.ts'
 export type { PutClientUpdateByClientIdMutationKey } from './usePutClientUpdateByClientId.ts'
 export type { PutCompanyUpdateByCompanyIdMutationKey } from './usePutCompanyUpdateByCompanyId.ts'
+export type { PutEstimateUpdateByEstimateIdMutationKey } from './usePutEstimateUpdateByEstimateId.ts'
+export type { PutItensEstimateUpdateByItemInvoiceIdMutationKey } from './usePutItensEstimateUpdateByItemInvoiceId.ts'
 export type { PutItensUpdateByItemIdMutationKey } from './usePutItensUpdateByItemId.ts'
 export type { PutMeUpdateMutationKey } from './usePutMeUpdate.ts'
 export type { PutSupplierUpdateBySupplierIdMutationKey } from './usePutSupplierUpdateBySupplierId.ts'
 export { deleteClientRemoveByClientIdMutationKey, useDeleteClientRemoveByClientId } from './useDeleteClientRemoveByClientId.ts'
 export { deleteCompanyRemoveByCompanyIdMutationKey, useDeleteCompanyRemoveByCompanyId } from './useDeleteCompanyRemoveByCompanyId.ts'
 export { deleteEstimateRemoveByEstimateIdMutationKey, useDeleteEstimateRemoveByEstimateId } from './useDeleteEstimateRemoveByEstimateId.ts'
+export { deleteItensEstimateRemoveByItemIdMutationKey, useDeleteItensEstimateRemoveByItemId } from './useDeleteItensEstimateRemoveByItemId.ts'
 export { deleteItensRemoveByItemIdMutationKey, useDeleteItensRemoveByItemId } from './useDeleteItensRemoveByItemId.ts'
 export { deleteSupplierRemoveBySupplierIdMutationKey, useDeleteSupplierRemoveBySupplierId } from './useDeleteSupplierRemoveBySupplierId.ts'
 export { deleteUnitRemoveByUnitIdMutationKey, useDeleteUnitRemoveByUnitId } from './useDeleteUnitRemoveByUnitId.ts'
 export { getAuthVerifyQueryKey, getAuthVerifyQueryOptions, useGetAuthVerify } from './useGetAuthVerify.ts'
+export { getAuthVerifySuspenseQueryKey, getAuthVerifySuspenseQueryOptions, useGetAuthVerifySuspense } from './useGetAuthVerifySuspense.ts'
 export { getClientsQueryKey, getClientsQueryOptions, useGetClients } from './useGetClients.ts'
 export { getClientsByClientIdQueryKey, getClientsByClientIdQueryOptions, useGetClientsByClientId } from './useGetClientsByClientId.ts'
+export {
+  getClientsByClientIdSuspenseQueryKey,
+  getClientsByClientIdSuspenseQueryOptions,
+  useGetClientsByClientIdSuspense,
+} from './useGetClientsByClientIdSuspense.ts'
 export { getClientsMonthQueryKey, getClientsMonthQueryOptions, useGetClientsMonth } from './useGetClientsMonth.ts'
+export { getClientsMonthSuspenseQueryKey, getClientsMonthSuspenseQueryOptions, useGetClientsMonthSuspense } from './useGetClientsMonthSuspense.ts'
+export { getClientsSuspenseQueryKey, getClientsSuspenseQueryOptions, useGetClientsSuspense } from './useGetClientsSuspense.ts'
 export { getCompanyQueryKey, getCompanyQueryOptions, useGetCompany } from './useGetCompany.ts'
+export { getCompanySuspenseQueryKey, getCompanySuspenseQueryOptions, useGetCompanySuspense } from './useGetCompanySuspense.ts'
 export { getEstimateQueryKey, getEstimateQueryOptions, useGetEstimate } from './useGetEstimate.ts'
+export { getEstimateByEstimateIdQueryKey, getEstimateByEstimateIdQueryOptions, useGetEstimateByEstimateId } from './useGetEstimateByEstimateId.ts'
+export {
+  getEstimateByEstimateIdSuspenseQueryKey,
+  getEstimateByEstimateIdSuspenseQueryOptions,
+  useGetEstimateByEstimateIdSuspense,
+} from './useGetEstimateByEstimateIdSuspense.ts'
+export { getEstimateSuspenseQueryKey, getEstimateSuspenseQueryOptions, useGetEstimateSuspense } from './useGetEstimateSuspense.ts'
 export { getInviteValidateByCodeQueryKey, getInviteValidateByCodeQueryOptions, useGetInviteValidateByCode } from './useGetInviteValidateByCode.ts'
+export {
+  getInviteValidateByCodeSuspenseQueryKey,
+  getInviteValidateByCodeSuspenseQueryOptions,
+  useGetInviteValidateByCodeSuspense,
+} from './useGetInviteValidateByCodeSuspense.ts'
 export { getItensQueryKey, getItensQueryOptions, useGetItens } from './useGetItens.ts'
 export { getItensByItemIdQueryKey, getItensByItemIdQueryOptions, useGetItensByItemId } from './useGetItensByItemId.ts'
+export { getItensByItemIdSuspenseQueryKey, getItensByItemIdSuspenseQueryOptions, useGetItensByItemIdSuspense } from './useGetItensByItemIdSuspense.ts'
+export {
+  getItensEstimateByEstimateIdQueryKey,
+  getItensEstimateByEstimateIdQueryOptions,
+  useGetItensEstimateByEstimateId,
+} from './useGetItensEstimateByEstimateId.ts'
+export {
+  getItensEstimateByEstimateIdSuspenseQueryKey,
+  getItensEstimateByEstimateIdSuspenseQueryOptions,
+  useGetItensEstimateByEstimateIdSuspense,
+} from './useGetItensEstimateByEstimateIdSuspense.ts'
+export { getItensSuspenseQueryKey, getItensSuspenseQueryOptions, useGetItensSuspense } from './useGetItensSuspense.ts'
 export { getMeQueryKey, getMeQueryOptions, useGetMe } from './useGetMe.ts'
+export { getMeSuspenseQueryKey, getMeSuspenseQueryOptions, useGetMeSuspense } from './useGetMeSuspense.ts'
 export { getSignoutQueryKey, getSignoutQueryOptions, useGetSignout } from './useGetSignout.ts'
+export { getSignoutSuspenseQueryKey, getSignoutSuspenseQueryOptions, useGetSignoutSuspense } from './useGetSignoutSuspense.ts'
 export { getSupplierCompanyQueryKey, getSupplierCompanyQueryOptions, useGetSupplierCompany } from './useGetSupplierCompany.ts'
 export {
   getSupplierCompanyBySupplierIdQueryKey,
   getSupplierCompanyBySupplierIdQueryOptions,
   useGetSupplierCompanyBySupplierId,
 } from './useGetSupplierCompanyBySupplierId.ts'
+export {
+  getSupplierCompanyBySupplierIdSuspenseQueryKey,
+  getSupplierCompanyBySupplierIdSuspenseQueryOptions,
+  useGetSupplierCompanyBySupplierIdSuspense,
+} from './useGetSupplierCompanyBySupplierIdSuspense.ts'
+export { getSupplierCompanySuspenseQueryKey, getSupplierCompanySuspenseQueryOptions, useGetSupplierCompanySuspense } from './useGetSupplierCompanySuspense.ts'
 export { getUnitsQueryKey, getUnitsQueryOptions, useGetUnits } from './useGetUnits.ts'
+export { getUnitsSuspenseQueryKey, getUnitsSuspenseQueryOptions, useGetUnitsSuspense } from './useGetUnitsSuspense.ts'
 export { postAuthMagicLinkMutationKey, usePostAuthMagicLink } from './usePostAuthMagicLink.ts'
 export { postClientRegisterMutationKey, usePostClientRegister } from './usePostClientRegister.ts'
 export { postCompanyRegisterMutationKey, usePostCompanyRegister } from './usePostCompanyRegister.ts'
-export { postEstimateCreateMutationKey, usePostEstimateCreate } from './usePostEstimateCreate.ts'
+export { postEstimateCreateByClientIdMutationKey, usePostEstimateCreateByClientId } from './usePostEstimateCreateByClientId.ts'
+export { postEstimateItensCreateByEstimateIdMutationKey, usePostEstimateItensCreateByEstimateId } from './usePostEstimateItensCreateByEstimateId.ts'
 export { postInviteClientByCompanyIdMutationKey, usePostInviteClientByCompanyId } from './usePostInviteClientByCompanyId.ts'
 export { postInvitedClientRegisterMutationKey, usePostInvitedClientRegister } from './usePostInvitedClientRegister.ts'
 export { postItensCreateMutationKey, usePostItensCreate } from './usePostItensCreate.ts'
@@ -73,6 +139,8 @@ export { postUnitCompanyCreateMutationKey, usePostUnitCompanyCreate } from './us
 export { postUnitCreateMutationKey, usePostUnitCreate } from './usePostUnitCreate.ts'
 export { putClientUpdateByClientIdMutationKey, usePutClientUpdateByClientId } from './usePutClientUpdateByClientId.ts'
 export { putCompanyUpdateByCompanyIdMutationKey, usePutCompanyUpdateByCompanyId } from './usePutCompanyUpdateByCompanyId.ts'
+export { putEstimateUpdateByEstimateIdMutationKey, usePutEstimateUpdateByEstimateId } from './usePutEstimateUpdateByEstimateId.ts'
+export { putItensEstimateUpdateByItemInvoiceIdMutationKey, usePutItensEstimateUpdateByItemInvoiceId } from './usePutItensEstimateUpdateByItemInvoiceId.ts'
 export { putItensUpdateByItemIdMutationKey, usePutItensUpdateByItemId } from './usePutItensUpdateByItemId.ts'
 export { putMeUpdateMutationKey, usePutMeUpdate } from './usePutMeUpdate.ts'
 export { putSupplierUpdateBySupplierIdMutationKey, usePutSupplierUpdateBySupplierId } from './usePutSupplierUpdateBySupplierId.ts'

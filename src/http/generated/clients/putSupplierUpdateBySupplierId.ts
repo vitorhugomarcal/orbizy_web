@@ -3,7 +3,10 @@ import type {
   PutSupplierUpdateBySupplierIdMutationRequest,
   PutSupplierUpdateBySupplierIdMutationResponse,
   PutSupplierUpdateBySupplierIdPathParams,
-} from '../models/PutSupplierUpdateBySupplierId.ts'
+  PutSupplierUpdateBySupplierId400,
+  PutSupplierUpdateBySupplierId401,
+  PutSupplierUpdateBySupplierId404,
+} from "../models/'SupplierController/PutSupplierUpdateBySupplierId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutSupplierUpdateBySupplierIdUrl(supplierId: PutSupplierUpdateBySupplierIdPathParams['supplierId']) {
@@ -11,6 +14,7 @@ export function getPutSupplierUpdateBySupplierIdUrl(supplierId: PutSupplierUpdat
 }
 
 /**
+ * @description Update a supplier
  * {@link /supplier/update/:supplierId}
  */
 export async function putSupplierUpdateBySupplierId(
@@ -20,11 +24,10 @@ export async function putSupplierUpdateBySupplierId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PutSupplierUpdateBySupplierIdMutationResponse, ResponseErrorConfig<Error>, PutSupplierUpdateBySupplierIdMutationRequest>({
-    method: 'PUT',
-    url: getPutSupplierUpdateBySupplierIdUrl(supplierId).toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PutSupplierUpdateBySupplierIdMutationResponse,
+    ResponseErrorConfig<PutSupplierUpdateBySupplierId400 | PutSupplierUpdateBySupplierId401 | PutSupplierUpdateBySupplierId404>,
+    PutSupplierUpdateBySupplierIdMutationRequest
+  >({ method: 'PUT', url: getPutSupplierUpdateBySupplierIdUrl(supplierId).toString(), data, ...requestConfig })
   return res.data
 }

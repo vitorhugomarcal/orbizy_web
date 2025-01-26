@@ -2,7 +2,10 @@ import client from '@kubb/plugin-client/clients/axios'
 import type {
   DeleteSupplierRemoveBySupplierIdMutationResponse,
   DeleteSupplierRemoveBySupplierIdPathParams,
-} from '../models/DeleteSupplierRemoveBySupplierId.ts'
+  DeleteSupplierRemoveBySupplierId400,
+  DeleteSupplierRemoveBySupplierId401,
+  DeleteSupplierRemoveBySupplierId404,
+} from "../models/'SupplierController/DeleteSupplierRemoveBySupplierId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteSupplierRemoveBySupplierIdUrl(supplierId: DeleteSupplierRemoveBySupplierIdPathParams['supplierId']) {
@@ -10,6 +13,7 @@ export function getDeleteSupplierRemoveBySupplierIdUrl(supplierId: DeleteSupplie
 }
 
 /**
+ * @description Remove a supplier
  * {@link /supplier/remove/:supplierId}
  */
 export async function deleteSupplierRemoveBySupplierId(
@@ -18,10 +22,10 @@ export async function deleteSupplierRemoveBySupplierId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<DeleteSupplierRemoveBySupplierIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
-    method: 'DELETE',
-    url: getDeleteSupplierRemoveBySupplierIdUrl(supplierId).toString(),
-    ...requestConfig,
-  })
+  const res = await request<
+    DeleteSupplierRemoveBySupplierIdMutationResponse,
+    ResponseErrorConfig<DeleteSupplierRemoveBySupplierId400 | DeleteSupplierRemoveBySupplierId401 | DeleteSupplierRemoveBySupplierId404>,
+    unknown
+  >({ method: 'DELETE', url: getDeleteSupplierRemoveBySupplierIdUrl(supplierId).toString(), ...requestConfig })
   return res.data
 }

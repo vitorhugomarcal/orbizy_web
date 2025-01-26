@@ -1,5 +1,10 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostClientRegisterMutationRequest, PostClientRegisterMutationResponse } from '../models/PostClientRegister.ts'
+import type {
+  PostClientRegisterMutationRequest,
+  PostClientRegisterMutationResponse,
+  PostClientRegister400,
+  PostClientRegister401,
+} from "../models/'ClientsController/PostClientRegister.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostClientRegisterUrl() {
@@ -7,6 +12,7 @@ export function getPostClientRegisterUrl() {
 }
 
 /**
+ * @description Register a new client (individual or corporate)
  * {@link /client/register}
  */
 export async function postClientRegister(
@@ -15,11 +21,10 @@ export async function postClientRegister(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PostClientRegisterMutationResponse, ResponseErrorConfig<Error>, PostClientRegisterMutationRequest>({
-    method: 'POST',
-    url: getPostClientRegisterUrl().toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PostClientRegisterMutationResponse,
+    ResponseErrorConfig<PostClientRegister400 | PostClientRegister401>,
+    PostClientRegisterMutationRequest
+  >({ method: 'POST', url: getPostClientRegisterUrl().toString(), data, ...requestConfig })
   return res.data
 }

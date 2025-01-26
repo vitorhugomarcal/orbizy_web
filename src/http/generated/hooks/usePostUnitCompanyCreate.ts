@@ -1,5 +1,10 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostUnitCompanyCreateMutationRequest, PostUnitCompanyCreateMutationResponse } from '../models/PostUnitCompanyCreate.ts'
+import type {
+  PostUnitCompanyCreateMutationRequest,
+  PostUnitCompanyCreateMutationResponse,
+  PostUnitCompanyCreate400,
+  PostUnitCompanyCreate401,
+} from "../models/'UnitController/PostUnitCompanyCreate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { postUnitCompanyCreate } from '../clients/postUnitCompanyCreate.ts'
@@ -10,18 +15,27 @@ export const postUnitCompanyCreateMutationKey = () => [{ url: '/unit/company/cre
 export type PostUnitCompanyCreateMutationKey = ReturnType<typeof postUnitCompanyCreateMutationKey>
 
 /**
+ * @description Create a new custom unit for a company
  * {@link /unit/company/create}
  */
 export function usePostUnitCompanyCreate(
   options: {
-    mutation?: UseMutationOptions<PostUnitCompanyCreateMutationResponse, ResponseErrorConfig<Error>, { data: PostUnitCompanyCreateMutationRequest }>
+    mutation?: UseMutationOptions<
+      PostUnitCompanyCreateMutationResponse,
+      ResponseErrorConfig<PostUnitCompanyCreate400 | PostUnitCompanyCreate401>,
+      { data: PostUnitCompanyCreateMutationRequest }
+    >
     client?: Partial<RequestConfig<PostUnitCompanyCreateMutationRequest>> & { client?: typeof client }
   } = {},
 ) {
   const { mutation: mutationOptions, client: config = {} } = options ?? {}
   const mutationKey = mutationOptions?.mutationKey ?? postUnitCompanyCreateMutationKey()
 
-  return useMutation<PostUnitCompanyCreateMutationResponse, ResponseErrorConfig<Error>, { data: PostUnitCompanyCreateMutationRequest }>({
+  return useMutation<
+    PostUnitCompanyCreateMutationResponse,
+    ResponseErrorConfig<PostUnitCompanyCreate400 | PostUnitCompanyCreate401>,
+    { data: PostUnitCompanyCreateMutationRequest }
+  >({
     mutationFn: async ({ data }) => {
       return postUnitCompanyCreate(data, config)
     },

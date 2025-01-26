@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetClientsMonthQueryResponse } from '../models/GetClientsMonth.ts'
+import type { GetClientsMonthQueryResponse, GetClientsMonth401, GetClientsMonth404 } from "../models/'ClientsController/GetClientsMonth.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getClientsMonth } from '../clients/getClientsMonth.ts'
@@ -11,7 +11,12 @@ export type GetClientsMonthQueryKey = ReturnType<typeof getClientsMonthQueryKey>
 
 export function getClientsMonthQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getClientsMonthQueryKey()
-  return queryOptions<GetClientsMonthQueryResponse, ResponseErrorConfig<Error>, GetClientsMonthQueryResponse, typeof queryKey>({
+  return queryOptions<
+    GetClientsMonthQueryResponse,
+    ResponseErrorConfig<GetClientsMonth401 | GetClientsMonth404>,
+    GetClientsMonthQueryResponse,
+    typeof queryKey
+  >({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
@@ -21,6 +26,7 @@ export function getClientsMonthQueryOptions(config: Partial<RequestConfig> & { c
 }
 
 /**
+ * @description Retrieve client count for the current month
  * {@link /clients/month}
  */
 export function useGetClientsMonth<
@@ -29,7 +35,9 @@ export function useGetClientsMonth<
   TQueryKey extends QueryKey = GetClientsMonthQueryKey,
 >(
   options: {
-    query?: Partial<QueryObserverOptions<GetClientsMonthQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>>
+    query?: Partial<
+      QueryObserverOptions<GetClientsMonthQueryResponse, ResponseErrorConfig<GetClientsMonth401 | GetClientsMonth404>, TData, TQueryData, TQueryKey>
+    >
     client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
@@ -40,7 +48,7 @@ export function useGetClientsMonth<
     ...(getClientsMonthQueryOptions(config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
+  }) as UseQueryResult<TData, ResponseErrorConfig<GetClientsMonth401 | GetClientsMonth404>> & { queryKey: TQueryKey }
 
   query.queryKey = queryKey as TQueryKey
 

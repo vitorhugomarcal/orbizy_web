@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostSessionsMutationRequest, PostSessionsMutationResponse } from '../models/PostSessions.ts'
+import type { PostSessionsMutationRequest, PostSessionsMutationResponse } from "../models/'AuthController/PostSessions.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { postSessions } from '../clients/postSessions.ts'
@@ -10,6 +10,7 @@ export const postSessionsMutationKey = () => [{ url: '/sessions' }] as const
 export type PostSessionsMutationKey = ReturnType<typeof postSessionsMutationKey>
 
 /**
+ * @description Cria uma sessão para o usuário
  * {@link /sessions}
  */
 export function usePostSessions(

@@ -3,7 +3,10 @@ import type {
   PutCompanyUpdateByCompanyIdMutationRequest,
   PutCompanyUpdateByCompanyIdMutationResponse,
   PutCompanyUpdateByCompanyIdPathParams,
-} from '../models/PutCompanyUpdateByCompanyId.ts'
+  PutCompanyUpdateByCompanyId400,
+  PutCompanyUpdateByCompanyId401,
+  PutCompanyUpdateByCompanyId404,
+} from "../models/'CompanyController/PutCompanyUpdateByCompanyId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putCompanyUpdateByCompanyId } from '../clients/putCompanyUpdateByCompanyId.ts'
@@ -14,13 +17,14 @@ export const putCompanyUpdateByCompanyIdMutationKey = () => [{ url: '/company/up
 export type PutCompanyUpdateByCompanyIdMutationKey = ReturnType<typeof putCompanyUpdateByCompanyIdMutationKey>
 
 /**
+ * @description Update a company
  * {@link /company/update/:companyId}
  */
 export function usePutCompanyUpdateByCompanyId(
   options: {
     mutation?: UseMutationOptions<
       PutCompanyUpdateByCompanyIdMutationResponse,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<PutCompanyUpdateByCompanyId400 | PutCompanyUpdateByCompanyId401 | PutCompanyUpdateByCompanyId404>,
       { companyId: PutCompanyUpdateByCompanyIdPathParams['companyId']; data?: PutCompanyUpdateByCompanyIdMutationRequest }
     >
     client?: Partial<RequestConfig<PutCompanyUpdateByCompanyIdMutationRequest>> & { client?: typeof client }
@@ -31,11 +35,11 @@ export function usePutCompanyUpdateByCompanyId(
 
   return useMutation<
     PutCompanyUpdateByCompanyIdMutationResponse,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<PutCompanyUpdateByCompanyId400 | PutCompanyUpdateByCompanyId401 | PutCompanyUpdateByCompanyId404>,
     { companyId: PutCompanyUpdateByCompanyIdPathParams['companyId']; data?: PutCompanyUpdateByCompanyIdMutationRequest }
   >({
     mutationFn: async ({ companyId, data }) => {
-      return putCompanyUpdateByCompanyId({ companyId }, data, config)
+      return putCompanyUpdateByCompanyId(companyId, data, config)
     },
     mutationKey,
     ...mutationOptions,

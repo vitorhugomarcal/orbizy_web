@@ -1,4 +1,43 @@
-export type PostMeCreate200 = any
+export type PostMeCreate201 = {
+  /**
+   * @description User created successfully
+   * @type string
+   */
+  message: string
+  /**
+   * @type object
+   */
+  user: {
+    /**
+     * @type string
+     */
+    id: string
+    /**
+     * @type string
+     */
+    name: string
+    /**
+     * @type string
+     */
+    email: string
+    /**
+     * @type string
+     */
+    type: string
+    /**
+     * @type string
+     */
+    role: string
+  }
+}
+
+export type PostMeCreate400 = {
+  /**
+   * @description User already exists
+   * @type string
+   */
+  message: string
+}
 
 export type PostMeCreateMutationRequest = {
   /**
@@ -11,10 +50,10 @@ export type PostMeCreateMutationRequest = {
   email: string
 }
 
-export type PostMeCreateMutationResponse = PostMeCreate200
+export type PostMeCreateMutationResponse = PostMeCreate201
 
 export type PostMeCreateMutation = {
-  Response: PostMeCreate200
+  Response: PostMeCreate201
   Request: PostMeCreateMutationRequest
-  Errors: any
+  Errors: PostMeCreate400
 }

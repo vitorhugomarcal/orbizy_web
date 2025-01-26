@@ -1,5 +1,10 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostSupplierRegisterMutationRequest, PostSupplierRegisterMutationResponse } from '../models/PostSupplierRegister.ts'
+import type {
+  PostSupplierRegisterMutationRequest,
+  PostSupplierRegisterMutationResponse,
+  PostSupplierRegister400,
+  PostSupplierRegister401,
+} from "../models/'SupplierController/PostSupplierRegister.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostSupplierRegisterUrl() {
@@ -7,6 +12,7 @@ export function getPostSupplierRegisterUrl() {
 }
 
 /**
+ * @description Create a new supplier
  * {@link /supplier/register}
  */
 export async function postSupplierRegister(
@@ -15,11 +21,10 @@ export async function postSupplierRegister(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PostSupplierRegisterMutationResponse, ResponseErrorConfig<Error>, PostSupplierRegisterMutationRequest>({
-    method: 'POST',
-    url: getPostSupplierRegisterUrl().toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PostSupplierRegisterMutationResponse,
+    ResponseErrorConfig<PostSupplierRegister400 | PostSupplierRegister401>,
+    PostSupplierRegisterMutationRequest
+  >({ method: 'POST', url: getPostSupplierRegisterUrl().toString(), data, ...requestConfig })
   return res.data
 }

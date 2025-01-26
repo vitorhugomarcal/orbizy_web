@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetClientsQueryResponse } from '../models/GetClients.ts'
+import type { GetClientsQueryResponse, GetClients401, GetClients404 } from "../models/'ClientsController/GetClients.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getClients } from '../clients/getClients.ts'
@@ -11,7 +11,7 @@ export type GetClientsQueryKey = ReturnType<typeof getClientsQueryKey>
 
 export function getClientsQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getClientsQueryKey()
-  return queryOptions<GetClientsQueryResponse, ResponseErrorConfig<Error>, GetClientsQueryResponse, typeof queryKey>({
+  return queryOptions<GetClientsQueryResponse, ResponseErrorConfig<GetClients401 | GetClients404>, GetClientsQueryResponse, typeof queryKey>({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
@@ -21,11 +21,12 @@ export function getClientsQueryOptions(config: Partial<RequestConfig> & { client
 }
 
 /**
+ * @description Retrieve all clients
  * {@link /clients}
  */
 export function useGetClients<TData = GetClientsQueryResponse, TQueryData = GetClientsQueryResponse, TQueryKey extends QueryKey = GetClientsQueryKey>(
   options: {
-    query?: Partial<QueryObserverOptions<GetClientsQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>>
+    query?: Partial<QueryObserverOptions<GetClientsQueryResponse, ResponseErrorConfig<GetClients401 | GetClients404>, TData, TQueryData, TQueryKey>>
     client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
@@ -36,7 +37,7 @@ export function useGetClients<TData = GetClientsQueryResponse, TQueryData = GetC
     ...(getClientsQueryOptions(config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
+  }) as UseQueryResult<TData, ResponseErrorConfig<GetClients401 | GetClients404>> & { queryKey: TQueryKey }
 
   query.queryKey = queryKey as TQueryKey
 

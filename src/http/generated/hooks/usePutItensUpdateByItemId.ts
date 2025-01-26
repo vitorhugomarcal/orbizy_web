@@ -3,7 +3,9 @@ import type {
   PutItensUpdateByItemIdMutationRequest,
   PutItensUpdateByItemIdMutationResponse,
   PutItensUpdateByItemIdPathParams,
-} from '../models/PutItensUpdateByItemId.ts'
+  PutItensUpdateByItemId401,
+  PutItensUpdateByItemId404,
+} from "../models/'ItensController/PutItensUpdateByItemId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putItensUpdateByItemId } from '../clients/putItensUpdateByItemId.ts'
@@ -14,13 +16,14 @@ export const putItensUpdateByItemIdMutationKey = () => [{ url: '/itens/update/{i
 export type PutItensUpdateByItemIdMutationKey = ReturnType<typeof putItensUpdateByItemIdMutationKey>
 
 /**
+ * @description Update a item
  * {@link /itens/update/:itemId}
  */
 export function usePutItensUpdateByItemId(
   options: {
     mutation?: UseMutationOptions<
       PutItensUpdateByItemIdMutationResponse,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<PutItensUpdateByItemId401 | PutItensUpdateByItemId404>,
       { itemId: PutItensUpdateByItemIdPathParams['itemId']; data?: PutItensUpdateByItemIdMutationRequest }
     >
     client?: Partial<RequestConfig<PutItensUpdateByItemIdMutationRequest>> & { client?: typeof client }
@@ -31,11 +34,11 @@ export function usePutItensUpdateByItemId(
 
   return useMutation<
     PutItensUpdateByItemIdMutationResponse,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<PutItensUpdateByItemId401 | PutItensUpdateByItemId404>,
     { itemId: PutItensUpdateByItemIdPathParams['itemId']; data?: PutItensUpdateByItemIdMutationRequest }
   >({
     mutationFn: async ({ itemId, data }) => {
-      return putItensUpdateByItemId({ itemId }, data, config)
+      return putItensUpdateByItemId(itemId, data, config)
     },
     mutationKey,
     ...mutationOptions,

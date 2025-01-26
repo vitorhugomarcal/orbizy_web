@@ -5,12 +5,26 @@ export type DeleteUnitRemoveByUnitIdPathParams = {
   unitId: string
 }
 
-export type DeleteUnitRemoveByUnitId200 = any
+export type DeleteUnitRemoveByUnitId204 = {
+  /**
+   * @description Unit removed successfully
+   * @type string
+   */
+  message: string
+}
 
-export type DeleteUnitRemoveByUnitIdMutationResponse = DeleteUnitRemoveByUnitId200
+export type DeleteUnitRemoveByUnitId401 = {
+  /**
+   * @description Unauthorized
+   * @type string
+   */
+  error: string
+}
+
+export type DeleteUnitRemoveByUnitIdMutationResponse = DeleteUnitRemoveByUnitId204
 
 export type DeleteUnitRemoveByUnitIdMutation = {
-  Response: DeleteUnitRemoveByUnitId200
+  Response: DeleteUnitRemoveByUnitId204
   PathParams: DeleteUnitRemoveByUnitIdPathParams
-  Errors: any
+  Errors: DeleteUnitRemoveByUnitId401
 }

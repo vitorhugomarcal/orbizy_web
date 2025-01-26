@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetAuthVerifyQueryResponse, GetAuthVerifyQueryParams } from '../models/GetAuthVerify.ts'
+import type { GetAuthVerifyQueryResponse, GetAuthVerifyQueryParams, GetAuthVerify401 } from "../models/'AuthController/GetAuthVerify.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getAuthVerify } from '../clients/getAuthVerify.ts'
@@ -11,7 +11,7 @@ export type GetAuthVerifyQueryKey = ReturnType<typeof getAuthVerifyQueryKey>
 
 export function getAuthVerifyQueryOptions(params: GetAuthVerifyQueryParams, config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getAuthVerifyQueryKey(params)
-  return queryOptions<GetAuthVerifyQueryResponse, ResponseErrorConfig<Error>, GetAuthVerifyQueryResponse, typeof queryKey>({
+  return queryOptions<GetAuthVerifyQueryResponse, ResponseErrorConfig<GetAuthVerify401>, GetAuthVerifyQueryResponse, typeof queryKey>({
     enabled: !!params,
     queryKey,
     queryFn: async ({ signal }) => {
@@ -22,6 +22,7 @@ export function getAuthVerifyQueryOptions(params: GetAuthVerifyQueryParams, conf
 }
 
 /**
+ * @description Verifica e autentica o link de convite
  * {@link /auth/verify}
  */
 export function useGetAuthVerify<
@@ -31,7 +32,7 @@ export function useGetAuthVerify<
 >(
   params: GetAuthVerifyQueryParams,
   options: {
-    query?: Partial<QueryObserverOptions<GetAuthVerifyQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>>
+    query?: Partial<QueryObserverOptions<GetAuthVerifyQueryResponse, ResponseErrorConfig<GetAuthVerify401>, TData, TQueryData, TQueryKey>>
     client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
@@ -42,7 +43,7 @@ export function useGetAuthVerify<
     ...(getAuthVerifyQueryOptions(params, config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
+  }) as UseQueryResult<TData, ResponseErrorConfig<GetAuthVerify401>> & { queryKey: TQueryKey }
 
   query.queryKey = queryKey as TQueryKey
 

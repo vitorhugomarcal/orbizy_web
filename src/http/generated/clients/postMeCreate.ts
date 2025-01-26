@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostMeCreateMutationRequest, PostMeCreateMutationResponse } from '../models/PostMeCreate.ts'
+import type { PostMeCreateMutationRequest, PostMeCreateMutationResponse, PostMeCreate400 } from "../models/'UserController/PostMeCreate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostMeCreateUrl() {
@@ -7,6 +7,7 @@ export function getPostMeCreateUrl() {
 }
 
 /**
+ * @description Create a new user
  * {@link /me/create}
  */
 export async function postMeCreate(
@@ -15,7 +16,7 @@ export async function postMeCreate(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PostMeCreateMutationResponse, ResponseErrorConfig<Error>, PostMeCreateMutationRequest>({
+  const res = await request<PostMeCreateMutationResponse, ResponseErrorConfig<PostMeCreate400>, PostMeCreateMutationRequest>({
     method: 'POST',
     url: getPostMeCreateUrl().toString(),
     data,

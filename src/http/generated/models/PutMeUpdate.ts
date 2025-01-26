@@ -1,4 +1,44 @@
-export type PutMeUpdate200 = any
+export type PutMeUpdate201 = {
+  /**
+   * @description User updated successfully
+   * @type string
+   */
+  message: string
+  /**
+   * @type object
+   */
+  userUpdated: {
+    /**
+     * @type string | undefined
+     */
+    id?: string
+    /**
+     * @type string | undefined
+     */
+    name?: string
+    /**
+     * @type string | undefined
+     */
+    email?: string
+    company_id: string | null
+    /**
+     * @type string | undefined
+     */
+    type?: string
+    /**
+     * @type string | undefined
+     */
+    role?: string
+  }
+}
+
+export type PutMeUpdate401 = {
+  /**
+   * @description Unauthorized
+   * @type string
+   */
+  error: string
+}
 
 export type PutMeUpdateMutationRequest = {
   /**
@@ -7,10 +47,10 @@ export type PutMeUpdateMutationRequest = {
   name?: string
 }
 
-export type PutMeUpdateMutationResponse = PutMeUpdate200
+export type PutMeUpdateMutationResponse = PutMeUpdate201
 
 export type PutMeUpdateMutation = {
-  Response: PutMeUpdate200
+  Response: PutMeUpdate201
   Request: PutMeUpdateMutationRequest
-  Errors: any
+  Errors: PutMeUpdate401
 }

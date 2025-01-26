@@ -1,5 +1,11 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostEstimateCreateMutationRequest, PostEstimateCreateMutationResponse, PostEstimateCreatePathParams } from '../models/PostEstimateCreate.ts'
+import type {
+  PostEstimateCreateMutationRequest,
+  PostEstimateCreateMutationResponse,
+  PostEstimateCreatePathParams,
+  PostEstimateCreate401,
+  PostEstimateCreate404,
+} from "../models/'EstimateController/PostEstimateCreate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { postEstimateCreate } from '../clients/postEstimateCreate.ts'
@@ -10,13 +16,14 @@ export const postEstimateCreateMutationKey = () => [{ url: '/estimate/create' }]
 export type PostEstimateCreateMutationKey = ReturnType<typeof postEstimateCreateMutationKey>
 
 /**
+ * @description Create a new estimate
  * {@link /estimate/create}
  */
 export function usePostEstimateCreate(
   options: {
     mutation?: UseMutationOptions<
       PostEstimateCreateMutationResponse,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<PostEstimateCreate401 | PostEstimateCreate404>,
       { clientId: PostEstimateCreatePathParams['clientId']; data: PostEstimateCreateMutationRequest }
     >
     client?: Partial<RequestConfig<PostEstimateCreateMutationRequest>> & { client?: typeof client }
@@ -27,11 +34,11 @@ export function usePostEstimateCreate(
 
   return useMutation<
     PostEstimateCreateMutationResponse,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<PostEstimateCreate401 | PostEstimateCreate404>,
     { clientId: PostEstimateCreatePathParams['clientId']; data: PostEstimateCreateMutationRequest }
   >({
     mutationFn: async ({ clientId, data }) => {
-      return postEstimateCreate({ clientId }, data, config)
+      return postEstimateCreate(clientId, data, config)
     },
     mutationKey,
     ...mutationOptions,

@@ -3,7 +3,10 @@ import type {
   PutCompanyUpdateByCompanyIdMutationRequest,
   PutCompanyUpdateByCompanyIdMutationResponse,
   PutCompanyUpdateByCompanyIdPathParams,
-} from '../models/PutCompanyUpdateByCompanyId.ts'
+  PutCompanyUpdateByCompanyId400,
+  PutCompanyUpdateByCompanyId401,
+  PutCompanyUpdateByCompanyId404,
+} from "../models/'CompanyController/PutCompanyUpdateByCompanyId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutCompanyUpdateByCompanyIdUrl(companyId: PutCompanyUpdateByCompanyIdPathParams['companyId']) {
@@ -11,6 +14,7 @@ export function getPutCompanyUpdateByCompanyIdUrl(companyId: PutCompanyUpdateByC
 }
 
 /**
+ * @description Update a company
  * {@link /company/update/:companyId}
  */
 export async function putCompanyUpdateByCompanyId(
@@ -20,11 +24,10 @@ export async function putCompanyUpdateByCompanyId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PutCompanyUpdateByCompanyIdMutationResponse, ResponseErrorConfig<Error>, PutCompanyUpdateByCompanyIdMutationRequest>({
-    method: 'PUT',
-    url: getPutCompanyUpdateByCompanyIdUrl(companyId).toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PutCompanyUpdateByCompanyIdMutationResponse,
+    ResponseErrorConfig<PutCompanyUpdateByCompanyId400 | PutCompanyUpdateByCompanyId401 | PutCompanyUpdateByCompanyId404>,
+    PutCompanyUpdateByCompanyIdMutationRequest
+  >({ method: 'PUT', url: getPutCompanyUpdateByCompanyIdUrl(companyId).toString(), data, ...requestConfig })
   return res.data
 }

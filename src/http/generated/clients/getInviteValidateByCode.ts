@@ -1,5 +1,10 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetInviteValidateByCodeQueryResponse, GetInviteValidateByCodePathParams } from '../models/GetInviteValidateByCode.ts'
+import type {
+  GetInviteValidateByCodeQueryResponse,
+  GetInviteValidateByCodePathParams,
+  GetInviteValidateByCode400,
+  GetInviteValidateByCode429,
+} from "../models/'InviteController/GetInviteValidateByCode.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetInviteValidateByCodeUrl(code: GetInviteValidateByCodePathParams['code']) {
@@ -7,6 +12,7 @@ export function getGetInviteValidateByCodeUrl(code: GetInviteValidateByCodePathP
 }
 
 /**
+ * @description Verifica se o código de convite é válido
  * {@link /invite/validate/:code}
  */
 export async function getInviteValidateByCode(
@@ -15,7 +21,7 @@ export async function getInviteValidateByCode(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetInviteValidateByCodeQueryResponse, ResponseErrorConfig<Error>, unknown>({
+  const res = await request<GetInviteValidateByCodeQueryResponse, ResponseErrorConfig<GetInviteValidateByCode400 | GetInviteValidateByCode429>, unknown>({
     method: 'GET',
     url: getGetInviteValidateByCodeUrl(code).toString(),
     ...requestConfig,

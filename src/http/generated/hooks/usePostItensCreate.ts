@@ -1,5 +1,11 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostItensCreateMutationRequest, PostItensCreateMutationResponse } from '../models/PostItensCreate.ts'
+import type {
+  PostItensCreateMutationRequest,
+  PostItensCreateMutationResponse,
+  PostItensCreate400,
+  PostItensCreate401,
+  PostItensCreate404,
+} from "../models/'ItensController/PostItensCreate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { postItensCreate } from '../clients/postItensCreate.ts'
@@ -10,18 +16,27 @@ export const postItensCreateMutationKey = () => [{ url: '/itens/create' }] as co
 export type PostItensCreateMutationKey = ReturnType<typeof postItensCreateMutationKey>
 
 /**
+ * @description Cadastra um novo item
  * {@link /itens/create}
  */
 export function usePostItensCreate(
   options: {
-    mutation?: UseMutationOptions<PostItensCreateMutationResponse, ResponseErrorConfig<Error>, { data: PostItensCreateMutationRequest }>
+    mutation?: UseMutationOptions<
+      PostItensCreateMutationResponse,
+      ResponseErrorConfig<PostItensCreate400 | PostItensCreate401 | PostItensCreate404>,
+      { data: PostItensCreateMutationRequest }
+    >
     client?: Partial<RequestConfig<PostItensCreateMutationRequest>> & { client?: typeof client }
   } = {},
 ) {
   const { mutation: mutationOptions, client: config = {} } = options ?? {}
   const mutationKey = mutationOptions?.mutationKey ?? postItensCreateMutationKey()
 
-  return useMutation<PostItensCreateMutationResponse, ResponseErrorConfig<Error>, { data: PostItensCreateMutationRequest }>({
+  return useMutation<
+    PostItensCreateMutationResponse,
+    ResponseErrorConfig<PostItensCreate400 | PostItensCreate401 | PostItensCreate404>,
+    { data: PostItensCreateMutationRequest }
+  >({
     mutationFn: async ({ data }) => {
       return postItensCreate(data, config)
     },

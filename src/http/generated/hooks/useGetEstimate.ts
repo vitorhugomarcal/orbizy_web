@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetEstimateQueryResponse } from '../models/GetEstimate.ts'
+import type { GetEstimateQueryResponse, GetEstimate401, GetEstimate404 } from "../models/'EstimateController/GetEstimate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getEstimate } from '../clients/getEstimate.ts'
@@ -11,7 +11,7 @@ export type GetEstimateQueryKey = ReturnType<typeof getEstimateQueryKey>
 
 export function getEstimateQueryOptions(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const queryKey = getEstimateQueryKey()
-  return queryOptions<GetEstimateQueryResponse, ResponseErrorConfig<Error>, GetEstimateQueryResponse, typeof queryKey>({
+  return queryOptions<GetEstimateQueryResponse, ResponseErrorConfig<GetEstimate401 | GetEstimate404>, GetEstimateQueryResponse, typeof queryKey>({
     queryKey,
     queryFn: async ({ signal }) => {
       config.signal = signal
@@ -21,11 +21,12 @@ export function getEstimateQueryOptions(config: Partial<RequestConfig> & { clien
 }
 
 /**
+ * @description Get all estimates
  * {@link /estimate}
  */
 export function useGetEstimate<TData = GetEstimateQueryResponse, TQueryData = GetEstimateQueryResponse, TQueryKey extends QueryKey = GetEstimateQueryKey>(
   options: {
-    query?: Partial<QueryObserverOptions<GetEstimateQueryResponse, ResponseErrorConfig<Error>, TData, TQueryData, TQueryKey>>
+    query?: Partial<QueryObserverOptions<GetEstimateQueryResponse, ResponseErrorConfig<GetEstimate401 | GetEstimate404>, TData, TQueryData, TQueryKey>>
     client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
 ) {
@@ -36,7 +37,7 @@ export function useGetEstimate<TData = GetEstimateQueryResponse, TQueryData = Ge
     ...(getEstimateQueryOptions(config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<TData, ResponseErrorConfig<Error>> & { queryKey: TQueryKey }
+  }) as UseQueryResult<TData, ResponseErrorConfig<GetEstimate401 | GetEstimate404>> & { queryKey: TQueryKey }
 
   query.queryKey = queryKey as TQueryKey
 

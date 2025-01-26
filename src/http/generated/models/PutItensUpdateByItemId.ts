@@ -5,7 +5,50 @@ export type PutItensUpdateByItemIdPathParams = {
   itemId: string
 }
 
-export type PutItensUpdateByItemId200 = any
+export type PutItensUpdateByItemId201 = {
+  /**
+   * @description Item atualizado com sucesso
+   * @type string
+   */
+  message: string
+  /**
+   * @type object
+   */
+  formattedItem: {
+    /**
+     * @type string | undefined
+     */
+    name?: string
+    /**
+     * @type number | undefined
+     */
+    price?: number
+    /**
+     * @type string | undefined
+     */
+    description?: string
+    /**
+     * @type string | undefined
+     */
+    unit?: string
+  }
+}
+
+export type PutItensUpdateByItemId401 = {
+  /**
+   * @description Unauthorized
+   * @type string
+   */
+  error: string
+}
+
+export type PutItensUpdateByItemId404 = {
+  /**
+   * @description Item não encontrado
+   * @type string
+   */
+  error: string
+}
 
 export type PutItensUpdateByItemIdMutationRequest = {
   /**
@@ -26,11 +69,11 @@ export type PutItensUpdateByItemIdMutationRequest = {
   unit?: string
 }
 
-export type PutItensUpdateByItemIdMutationResponse = PutItensUpdateByItemId200
+export type PutItensUpdateByItemIdMutationResponse = PutItensUpdateByItemId201
 
 export type PutItensUpdateByItemIdMutation = {
-  Response: PutItensUpdateByItemId200
+  Response: PutItensUpdateByItemId201
   Request: PutItensUpdateByItemIdMutationRequest
   PathParams: PutItensUpdateByItemIdPathParams
-  Errors: any
+  Errors: PutItensUpdateByItemId401 | PutItensUpdateByItemId404
 }

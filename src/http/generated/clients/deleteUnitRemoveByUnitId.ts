@@ -1,5 +1,9 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { DeleteUnitRemoveByUnitIdMutationResponse, DeleteUnitRemoveByUnitIdPathParams } from '../models/DeleteUnitRemoveByUnitId.ts'
+import type {
+  DeleteUnitRemoveByUnitIdMutationResponse,
+  DeleteUnitRemoveByUnitIdPathParams,
+  DeleteUnitRemoveByUnitId401,
+} from "../models/'UnitController/DeleteUnitRemoveByUnitId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteUnitRemoveByUnitIdUrl(unitId: DeleteUnitRemoveByUnitIdPathParams['unitId']) {
@@ -7,6 +11,7 @@ export function getDeleteUnitRemoveByUnitIdUrl(unitId: DeleteUnitRemoveByUnitIdP
 }
 
 /**
+ * @description Remove a unit
  * {@link /unit/remove/:unitId}
  */
 export async function deleteUnitRemoveByUnitId(
@@ -15,7 +20,7 @@ export async function deleteUnitRemoveByUnitId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<DeleteUnitRemoveByUnitIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
+  const res = await request<DeleteUnitRemoveByUnitIdMutationResponse, ResponseErrorConfig<DeleteUnitRemoveByUnitId401>, unknown>({
     method: 'DELETE',
     url: getDeleteUnitRemoveByUnitIdUrl(unitId).toString(),
     ...requestConfig,

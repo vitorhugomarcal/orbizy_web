@@ -2,7 +2,9 @@ import client from '@kubb/plugin-client/clients/axios'
 import type {
   DeleteEstimateRemoveByEstimateIdMutationResponse,
   DeleteEstimateRemoveByEstimateIdPathParams,
-} from '../models/DeleteEstimateRemoveByEstimateId.ts'
+  DeleteEstimateRemoveByEstimateId401,
+  DeleteEstimateRemoveByEstimateId404,
+} from "../models/'EstimateController/DeleteEstimateRemoveByEstimateId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteEstimateRemoveByEstimateIdUrl(estimateId: DeleteEstimateRemoveByEstimateIdPathParams['estimateId']) {
@@ -10,6 +12,7 @@ export function getDeleteEstimateRemoveByEstimateIdUrl(estimateId: DeleteEstimat
 }
 
 /**
+ * @description Remove a estimate
  * {@link /estimate/remove/:estimateId}
  */
 export async function deleteEstimateRemoveByEstimateId(
@@ -18,10 +21,10 @@ export async function deleteEstimateRemoveByEstimateId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<DeleteEstimateRemoveByEstimateIdMutationResponse, ResponseErrorConfig<Error>, unknown>({
-    method: 'DELETE',
-    url: getDeleteEstimateRemoveByEstimateIdUrl(estimateId).toString(),
-    ...requestConfig,
-  })
+  const res = await request<
+    DeleteEstimateRemoveByEstimateIdMutationResponse,
+    ResponseErrorConfig<DeleteEstimateRemoveByEstimateId401 | DeleteEstimateRemoveByEstimateId404>,
+    unknown
+  >({ method: 'DELETE', url: getDeleteEstimateRemoveByEstimateIdUrl(estimateId).toString(), ...requestConfig })
   return res.data
 }

@@ -5,12 +5,26 @@ export type DeleteClientRemoveByClientIdPathParams = {
   clientId: string
 }
 
-export type DeleteClientRemoveByClientId200 = any
+export type DeleteClientRemoveByClientId204 = {
+  /**
+   * @description Client removed successfully
+   * @type string
+   */
+  message: string
+}
 
-export type DeleteClientRemoveByClientIdMutationResponse = DeleteClientRemoveByClientId200
+export type DeleteClientRemoveByClientId401 = {
+  /**
+   * @description Unauthorized
+   * @type string
+   */
+  error: string
+}
+
+export type DeleteClientRemoveByClientIdMutationResponse = DeleteClientRemoveByClientId204
 
 export type DeleteClientRemoveByClientIdMutation = {
-  Response: DeleteClientRemoveByClientId200
+  Response: DeleteClientRemoveByClientId204
   PathParams: DeleteClientRemoveByClientIdPathParams
-  Errors: any
+  Errors: DeleteClientRemoveByClientId401
 }

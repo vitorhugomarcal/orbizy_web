@@ -1,5 +1,10 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { DeleteCompanyRemoveByCompanyIdMutationResponse, DeleteCompanyRemoveByCompanyIdPathParams } from '../models/DeleteCompanyRemoveByCompanyId.ts'
+import type {
+  DeleteCompanyRemoveByCompanyIdMutationResponse,
+  DeleteCompanyRemoveByCompanyIdPathParams,
+  DeleteCompanyRemoveByCompanyId400,
+  DeleteCompanyRemoveByCompanyId401,
+} from "../models/'CompanyController/DeleteCompanyRemoveByCompanyId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { deleteCompanyRemoveByCompanyId } from '../clients/deleteCompanyRemoveByCompanyId.ts'
@@ -10,13 +15,14 @@ export const deleteCompanyRemoveByCompanyIdMutationKey = () => [{ url: '/company
 export type DeleteCompanyRemoveByCompanyIdMutationKey = ReturnType<typeof deleteCompanyRemoveByCompanyIdMutationKey>
 
 /**
+ * @description Remove a company
  * {@link /company/remove/:companyId}
  */
 export function useDeleteCompanyRemoveByCompanyId(
   options: {
     mutation?: UseMutationOptions<
       DeleteCompanyRemoveByCompanyIdMutationResponse,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<DeleteCompanyRemoveByCompanyId400 | DeleteCompanyRemoveByCompanyId401>,
       { companyId: DeleteCompanyRemoveByCompanyIdPathParams['companyId'] }
     >
     client?: Partial<RequestConfig> & { client?: typeof client }
@@ -27,11 +33,11 @@ export function useDeleteCompanyRemoveByCompanyId(
 
   return useMutation<
     DeleteCompanyRemoveByCompanyIdMutationResponse,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<DeleteCompanyRemoveByCompanyId400 | DeleteCompanyRemoveByCompanyId401>,
     { companyId: DeleteCompanyRemoveByCompanyIdPathParams['companyId'] }
   >({
     mutationFn: async ({ companyId }) => {
-      return deleteCompanyRemoveByCompanyId({ companyId }, config)
+      return deleteCompanyRemoveByCompanyId(companyId, config)
     },
     mutationKey,
     ...mutationOptions,

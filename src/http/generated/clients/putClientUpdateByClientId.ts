@@ -3,7 +3,10 @@ import type {
   PutClientUpdateByClientIdMutationRequest,
   PutClientUpdateByClientIdMutationResponse,
   PutClientUpdateByClientIdPathParams,
-} from '../models/PutClientUpdateByClientId.ts'
+  PutClientUpdateByClientId400,
+  PutClientUpdateByClientId401,
+  PutClientUpdateByClientId404,
+} from "../models/'ClientsController/PutClientUpdateByClientId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutClientUpdateByClientIdUrl(clientId: PutClientUpdateByClientIdPathParams['clientId']) {
@@ -11,6 +14,7 @@ export function getPutClientUpdateByClientIdUrl(clientId: PutClientUpdateByClien
 }
 
 /**
+ * @description Update client
  * {@link /client/update/:clientId}
  */
 export async function putClientUpdateByClientId(
@@ -20,11 +24,10 @@ export async function putClientUpdateByClientId(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PutClientUpdateByClientIdMutationResponse, ResponseErrorConfig<Error>, PutClientUpdateByClientIdMutationRequest>({
-    method: 'PUT',
-    url: getPutClientUpdateByClientIdUrl(clientId).toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PutClientUpdateByClientIdMutationResponse,
+    ResponseErrorConfig<PutClientUpdateByClientId400 | PutClientUpdateByClientId401 | PutClientUpdateByClientId404>,
+    PutClientUpdateByClientIdMutationRequest
+  >({ method: 'PUT', url: getPutClientUpdateByClientIdUrl(clientId).toString(), data, ...requestConfig })
   return res.data
 }

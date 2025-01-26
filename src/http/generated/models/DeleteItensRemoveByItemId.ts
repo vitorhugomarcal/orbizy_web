@@ -5,12 +5,26 @@ export type DeleteItensRemoveByItemIdPathParams = {
   itemId: string
 }
 
-export type DeleteItensRemoveByItemId200 = any
+export type DeleteItensRemoveByItemId204 = {
+  /**
+   * @description Item removido com sucesso
+   * @type string
+   */
+  message: string
+}
 
-export type DeleteItensRemoveByItemIdMutationResponse = DeleteItensRemoveByItemId200
+export type DeleteItensRemoveByItemId401 = {
+  /**
+   * @description Unauthorized
+   * @type string
+   */
+  error: string
+}
+
+export type DeleteItensRemoveByItemIdMutationResponse = DeleteItensRemoveByItemId204
 
 export type DeleteItensRemoveByItemIdMutation = {
-  Response: DeleteItensRemoveByItemId200
+  Response: DeleteItensRemoveByItemId204
   PathParams: DeleteItensRemoveByItemIdPathParams
-  Errors: any
+  Errors: DeleteItensRemoveByItemId401
 }

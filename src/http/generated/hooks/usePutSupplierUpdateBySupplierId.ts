@@ -3,7 +3,10 @@ import type {
   PutSupplierUpdateBySupplierIdMutationRequest,
   PutSupplierUpdateBySupplierIdMutationResponse,
   PutSupplierUpdateBySupplierIdPathParams,
-} from '../models/PutSupplierUpdateBySupplierId.ts'
+  PutSupplierUpdateBySupplierId400,
+  PutSupplierUpdateBySupplierId401,
+  PutSupplierUpdateBySupplierId404,
+} from "../models/'SupplierController/PutSupplierUpdateBySupplierId.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putSupplierUpdateBySupplierId } from '../clients/putSupplierUpdateBySupplierId.ts'
@@ -14,13 +17,14 @@ export const putSupplierUpdateBySupplierIdMutationKey = () => [{ url: '/supplier
 export type PutSupplierUpdateBySupplierIdMutationKey = ReturnType<typeof putSupplierUpdateBySupplierIdMutationKey>
 
 /**
+ * @description Update a supplier
  * {@link /supplier/update/:supplierId}
  */
 export function usePutSupplierUpdateBySupplierId(
   options: {
     mutation?: UseMutationOptions<
       PutSupplierUpdateBySupplierIdMutationResponse,
-      ResponseErrorConfig<Error>,
+      ResponseErrorConfig<PutSupplierUpdateBySupplierId400 | PutSupplierUpdateBySupplierId401 | PutSupplierUpdateBySupplierId404>,
       { supplierId: PutSupplierUpdateBySupplierIdPathParams['supplierId']; data?: PutSupplierUpdateBySupplierIdMutationRequest }
     >
     client?: Partial<RequestConfig<PutSupplierUpdateBySupplierIdMutationRequest>> & { client?: typeof client }
@@ -31,11 +35,11 @@ export function usePutSupplierUpdateBySupplierId(
 
   return useMutation<
     PutSupplierUpdateBySupplierIdMutationResponse,
-    ResponseErrorConfig<Error>,
+    ResponseErrorConfig<PutSupplierUpdateBySupplierId400 | PutSupplierUpdateBySupplierId401 | PutSupplierUpdateBySupplierId404>,
     { supplierId: PutSupplierUpdateBySupplierIdPathParams['supplierId']; data?: PutSupplierUpdateBySupplierIdMutationRequest }
   >({
     mutationFn: async ({ supplierId, data }) => {
-      return putSupplierUpdateBySupplierId({ supplierId }, data, config)
+      return putSupplierUpdateBySupplierId(supplierId, data, config)
     },
     mutationKey,
     ...mutationOptions,

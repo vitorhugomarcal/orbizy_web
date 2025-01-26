@@ -1,5 +1,11 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostItensCreateMutationRequest, PostItensCreateMutationResponse } from '../models/PostItensCreate.ts'
+import type {
+  PostItensCreateMutationRequest,
+  PostItensCreateMutationResponse,
+  PostItensCreate400,
+  PostItensCreate401,
+  PostItensCreate404,
+} from "../models/'ItensController/PostItensCreate.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostItensCreateUrl() {
@@ -7,6 +13,7 @@ export function getPostItensCreateUrl() {
 }
 
 /**
+ * @description Cadastra um novo item
  * {@link /itens/create}
  */
 export async function postItensCreate(
@@ -15,11 +22,10 @@ export async function postItensCreate(
 ) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<PostItensCreateMutationResponse, ResponseErrorConfig<Error>, PostItensCreateMutationRequest>({
-    method: 'POST',
-    url: getPostItensCreateUrl().toString(),
-    data,
-    ...requestConfig,
-  })
+  const res = await request<
+    PostItensCreateMutationResponse,
+    ResponseErrorConfig<PostItensCreate400 | PostItensCreate401 | PostItensCreate404>,
+    PostItensCreateMutationRequest
+  >({ method: 'POST', url: getPostItensCreateUrl().toString(), data, ...requestConfig })
   return res.data
 }

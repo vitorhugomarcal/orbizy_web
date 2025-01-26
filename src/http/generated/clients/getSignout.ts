@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetSignoutQueryResponse } from '../models/GetSignout.ts'
+import type { GetSignoutQueryResponse } from "../models/'AuthController/GetSignout.ts"
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetSignoutUrl() {
@@ -7,6 +7,7 @@ export function getGetSignoutUrl() {
 }
 
 /**
+ * @description Desconecta o usuário
  * {@link /signout}
  */
 export async function getSignout(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
