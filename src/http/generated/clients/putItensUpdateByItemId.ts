@@ -5,7 +5,7 @@ import type {
   PutItensUpdateByItemIdPathParams,
   PutItensUpdateByItemId401,
   PutItensUpdateByItemId404,
-} from "../models/'ItensController/PutItensUpdateByItemId.ts"
+} from '../models/ItensController/PutItensUpdateByItemId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutItensUpdateByItemIdUrl(itemId: PutItensUpdateByItemIdPathParams['itemId']) {

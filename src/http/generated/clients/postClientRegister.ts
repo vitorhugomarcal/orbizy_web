@@ -4,7 +4,7 @@ import type {
   PostClientRegisterMutationResponse,
   PostClientRegister400,
   PostClientRegister401,
-} from "../models/'ClientsController/PostClientRegister.ts"
+} from '../models/ClientsController/PostClientRegister.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostClientRegisterUrl() {

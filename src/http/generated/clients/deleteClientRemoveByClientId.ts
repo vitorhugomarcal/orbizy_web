@@ -4,7 +4,7 @@ import type {
   DeleteClientRemoveByClientIdPathParams,
   DeleteClientRemoveByClientId400,
   DeleteClientRemoveByClientId401,
-} from "../models/'ClientsController/DeleteClientRemoveByClientId.ts"
+} from '../models/ClientsController/DeleteClientRemoveByClientId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteClientRemoveByClientIdUrl(clientId: DeleteClientRemoveByClientIdPathParams['clientId']) {

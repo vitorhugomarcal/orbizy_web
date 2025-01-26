@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetClientsMonthQueryResponse, GetClientsMonth401, GetClientsMonth404 } from "../models/'ClientsController/GetClientsMonth.ts"
+import type { GetClientsMonthQueryResponse, GetClientsMonth401, GetClientsMonth404 } from '../models/ClientsController/GetClientsMonth.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetClientsMonthUrl() {

@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetEstimateQueryResponse, GetEstimate401, GetEstimate404 } from "../models/'EstimateController/GetEstimate.ts"
+import type { GetEstimateQueryResponse, GetEstimate401, GetEstimate404 } from '../models/EstimateController/GetEstimate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetEstimateUrl() {

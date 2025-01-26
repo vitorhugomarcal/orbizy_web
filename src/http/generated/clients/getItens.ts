@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetItensQueryResponse, GetItens401, GetItens404 } from "../models/'ItensController/GetItens.ts"
+import type { GetItensQueryResponse, GetItens401, GetItens404 } from '../models/ItensController/GetItens.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetItensUrl() {

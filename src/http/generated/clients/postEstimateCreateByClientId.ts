@@ -5,7 +5,7 @@ import type {
   PostEstimateCreateByClientIdPathParams,
   PostEstimateCreateByClientId401,
   PostEstimateCreateByClientId404,
-} from "../models/'EstimateController/PostEstimateCreateByClientId.ts"
+} from '../models/EstimateController/PostEstimateCreateByClientId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostEstimateCreateByClientIdUrl(clientId: PostEstimateCreateByClientIdPathParams['clientId']) {

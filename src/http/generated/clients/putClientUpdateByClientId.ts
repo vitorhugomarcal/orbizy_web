@@ -6,7 +6,7 @@ import type {
   PutClientUpdateByClientId400,
   PutClientUpdateByClientId401,
   PutClientUpdateByClientId404,
-} from "../models/'ClientsController/PutClientUpdateByClientId.ts"
+} from '../models/ClientsController/PutClientUpdateByClientId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutClientUpdateByClientIdUrl(clientId: PutClientUpdateByClientIdPathParams['clientId']) {

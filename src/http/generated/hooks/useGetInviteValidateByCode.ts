@@ -4,7 +4,7 @@ import type {
   GetInviteValidateByCodePathParams,
   GetInviteValidateByCode400,
   GetInviteValidateByCode429,
-} from "../models/'InviteController/GetInviteValidateByCode.ts"
+} from '../models/InviteController/GetInviteValidateByCode.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getInviteValidateByCode } from '../clients/getInviteValidateByCode.ts'

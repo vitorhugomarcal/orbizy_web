@@ -3,7 +3,7 @@ import type {
   DeleteUnitRemoveByUnitIdMutationResponse,
   DeleteUnitRemoveByUnitIdPathParams,
   DeleteUnitRemoveByUnitId401,
-} from "../models/'UnitController/DeleteUnitRemoveByUnitId.ts"
+} from '../models/UnitController/DeleteUnitRemoveByUnitId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteUnitRemoveByUnitIdUrl(unitId: DeleteUnitRemoveByUnitIdPathParams['unitId']) {

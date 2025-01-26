@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetSignoutQueryResponse } from "../models/'AuthController/GetSignout.ts"
+import type { GetSignoutQueryResponse } from '../models/AuthController/GetSignout.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getSignout } from '../clients/getSignout.ts'

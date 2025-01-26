@@ -4,7 +4,7 @@ import type {
   PostClientRegisterMutationResponse,
   PostClientRegister400,
   PostClientRegister401,
-} from "../models/'ClientsController/PostClientRegister.ts"
+} from '../models/ClientsController/PostClientRegister.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { postClientRegister } from '../clients/postClientRegister.ts'

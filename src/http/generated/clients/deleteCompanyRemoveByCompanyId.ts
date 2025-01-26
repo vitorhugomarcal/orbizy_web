@@ -4,7 +4,7 @@ import type {
   DeleteCompanyRemoveByCompanyIdPathParams,
   DeleteCompanyRemoveByCompanyId400,
   DeleteCompanyRemoveByCompanyId401,
-} from "../models/'CompanyController/DeleteCompanyRemoveByCompanyId.ts"
+} from '../models/CompanyController/DeleteCompanyRemoveByCompanyId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteCompanyRemoveByCompanyIdUrl(companyId: DeleteCompanyRemoveByCompanyIdPathParams['companyId']) {

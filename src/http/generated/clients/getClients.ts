@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetClientsQueryResponse, GetClients401, GetClients404 } from "../models/'ClientsController/GetClients.ts"
+import type { GetClientsQueryResponse, GetClients401, GetClients404 } from '../models/ClientsController/GetClients.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetClientsUrl() {

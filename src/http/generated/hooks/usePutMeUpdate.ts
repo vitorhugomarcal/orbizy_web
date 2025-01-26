@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PutMeUpdateMutationRequest, PutMeUpdateMutationResponse, PutMeUpdate401 } from "../models/'UserController/PutMeUpdate.ts"
+import type { PutMeUpdateMutationRequest, PutMeUpdateMutationResponse, PutMeUpdate401 } from '../models/UserController/PutMeUpdate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putMeUpdate } from '../clients/putMeUpdate.ts'

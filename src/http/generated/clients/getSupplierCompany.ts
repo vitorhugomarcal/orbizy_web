@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetSupplierCompanyQueryResponse, GetSupplierCompany401, GetSupplierCompany404 } from "../models/'SupplierController/GetSupplierCompany.ts"
+import type { GetSupplierCompanyQueryResponse, GetSupplierCompany401, GetSupplierCompany404 } from '../models/SupplierController/GetSupplierCompany.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetSupplierCompanyUrl() {

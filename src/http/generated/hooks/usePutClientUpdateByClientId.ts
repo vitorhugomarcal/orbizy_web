@@ -6,7 +6,7 @@ import type {
   PutClientUpdateByClientId400,
   PutClientUpdateByClientId401,
   PutClientUpdateByClientId404,
-} from "../models/'ClientsController/PutClientUpdateByClientId.ts"
+} from '../models/ClientsController/PutClientUpdateByClientId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putClientUpdateByClientId } from '../clients/putClientUpdateByClientId.ts'

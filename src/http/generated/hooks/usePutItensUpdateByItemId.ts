@@ -5,7 +5,7 @@ import type {
   PutItensUpdateByItemIdPathParams,
   PutItensUpdateByItemId401,
   PutItensUpdateByItemId404,
-} from "../models/'ItensController/PutItensUpdateByItemId.ts"
+} from '../models/ItensController/PutItensUpdateByItemId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putItensUpdateByItemId } from '../clients/putItensUpdateByItemId.ts'

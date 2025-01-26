@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostSessionsMutationRequest, PostSessionsMutationResponse } from "../models/'AuthController/PostSessions.ts"
+import type { PostSessionsMutationRequest, PostSessionsMutationResponse } from '../models/AuthController/PostSessions.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { postSessions } from '../clients/postSessions.ts'

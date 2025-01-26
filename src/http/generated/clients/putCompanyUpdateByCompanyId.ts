@@ -6,7 +6,7 @@ import type {
   PutCompanyUpdateByCompanyId400,
   PutCompanyUpdateByCompanyId401,
   PutCompanyUpdateByCompanyId404,
-} from "../models/'CompanyController/PutCompanyUpdateByCompanyId.ts"
+} from '../models/CompanyController/PutCompanyUpdateByCompanyId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutCompanyUpdateByCompanyIdUrl(companyId: PutCompanyUpdateByCompanyIdPathParams['companyId']) {

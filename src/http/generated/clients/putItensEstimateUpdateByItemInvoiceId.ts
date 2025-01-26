@@ -5,7 +5,7 @@ import type {
   PutItensEstimateUpdateByItemInvoiceIdPathParams,
   PutItensEstimateUpdateByItemInvoiceId401,
   PutItensEstimateUpdateByItemInvoiceId404,
-} from "../models/'EstimateItemController/PutItensEstimateUpdateByItemInvoiceId.ts"
+} from '../models/EstimateItemController/PutItensEstimateUpdateByItemInvoiceId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPutItensEstimateUpdateByItemInvoiceIdUrl(itemInvoiceId: PutItensEstimateUpdateByItemInvoiceIdPathParams['itemInvoiceId']) {

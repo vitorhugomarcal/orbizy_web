@@ -5,7 +5,7 @@ import type {
   PostInviteClientByCompanyId400,
   PostInviteClientByCompanyId404,
   PostInviteClientByCompanyId429,
-} from "../models/'InviteController/PostInviteClientByCompanyId.ts"
+} from '../models/InviteController/PostInviteClientByCompanyId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostInviteClientByCompanyIdUrl(companyId: PostInviteClientByCompanyIdPathParams['companyId']) {

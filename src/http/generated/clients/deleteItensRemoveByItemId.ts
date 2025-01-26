@@ -4,7 +4,7 @@ import type {
   DeleteItensRemoveByItemIdPathParams,
   DeleteItensRemoveByItemId401,
   DeleteItensRemoveByItemId404,
-} from "../models/'ItensController/DeleteItensRemoveByItemId.ts"
+} from '../models/ItensController/DeleteItensRemoveByItemId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteItensRemoveByItemIdUrl(itemId: DeleteItensRemoveByItemIdPathParams['itemId']) {

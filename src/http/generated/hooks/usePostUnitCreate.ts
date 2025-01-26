@@ -4,7 +4,7 @@ import type {
   PostUnitCreateMutationResponse,
   PostUnitCreate400,
   PostUnitCreate401,
-} from "../models/'UnitController/PostUnitCreate.ts"
+} from '../models/UnitController/PostUnitCreate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { postUnitCreate } from '../clients/postUnitCreate.ts'

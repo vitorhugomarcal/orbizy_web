@@ -4,7 +4,7 @@ import type {
   DeleteEstimateRemoveByEstimateIdPathParams,
   DeleteEstimateRemoveByEstimateId401,
   DeleteEstimateRemoveByEstimateId404,
-} from "../models/'EstimateController/DeleteEstimateRemoveByEstimateId.ts"
+} from '../models/EstimateController/DeleteEstimateRemoveByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteEstimateRemoveByEstimateIdUrl(estimateId: DeleteEstimateRemoveByEstimateIdPathParams['estimateId']) {

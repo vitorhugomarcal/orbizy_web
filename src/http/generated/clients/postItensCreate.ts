@@ -5,7 +5,7 @@ import type {
   PostItensCreate400,
   PostItensCreate401,
   PostItensCreate404,
-} from "../models/'ItensController/PostItensCreate.ts"
+} from '../models/ItensController/PostItensCreate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostItensCreateUrl() {

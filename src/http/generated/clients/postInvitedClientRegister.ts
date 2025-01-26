@@ -3,7 +3,7 @@ import type {
   PostInvitedClientRegisterMutationRequest,
   PostInvitedClientRegisterMutationResponse,
   PostInvitedClientRegister400,
-} from "../models/'InviteController/PostInvitedClientRegister.ts"
+} from '../models/InviteController/PostInvitedClientRegister.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostInvitedClientRegisterUrl() {

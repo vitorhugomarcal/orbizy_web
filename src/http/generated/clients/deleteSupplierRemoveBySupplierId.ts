@@ -5,7 +5,7 @@ import type {
   DeleteSupplierRemoveBySupplierId400,
   DeleteSupplierRemoveBySupplierId401,
   DeleteSupplierRemoveBySupplierId404,
-} from "../models/'SupplierController/DeleteSupplierRemoveBySupplierId.ts"
+} from '../models/SupplierController/DeleteSupplierRemoveBySupplierId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getDeleteSupplierRemoveBySupplierIdUrl(supplierId: DeleteSupplierRemoveBySupplierIdPathParams['supplierId']) {

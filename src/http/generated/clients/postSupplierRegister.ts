@@ -4,7 +4,7 @@ import type {
   PostSupplierRegisterMutationResponse,
   PostSupplierRegister400,
   PostSupplierRegister401,
-} from "../models/'SupplierController/PostSupplierRegister.ts"
+} from '../models/SupplierController/PostSupplierRegister.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostSupplierRegisterUrl() {

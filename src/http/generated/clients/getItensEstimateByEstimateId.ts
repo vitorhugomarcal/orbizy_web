@@ -4,7 +4,7 @@ import type {
   GetItensEstimateByEstimateIdPathParams,
   GetItensEstimateByEstimateId401,
   GetItensEstimateByEstimateId404,
-} from "../models/'EstimateItemController/GetItensEstimateByEstimateId.ts"
+} from '../models/EstimateItemController/GetItensEstimateByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetItensEstimateByEstimateIdUrl(estimateId: GetItensEstimateByEstimateIdPathParams['estimateId']) {

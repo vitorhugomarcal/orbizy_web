@@ -21,17 +21,20 @@ export default defineConfig(() => {
         },
         group: {
           type: "tag",
-          name: ({ group }) => `'${group}Controller`,
+          name: ({ group }) => `${group}Controller`,
         },
       }),
       pluginReactQuery({
         output: {
           path: "./hooks",
         },
+
+        client: {
+          baseURL: "https://api.orbizy.app",
+        },
       }),
       pluginClient({
-        client: "axios",
-        baseURL: process.env.VITE_API_URL || "https://api.orbizy.app",
+        baseURL: "https://api.orbizy.app",
       }),
     ],
   }

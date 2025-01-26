@@ -4,7 +4,7 @@ import type {
   GetEstimateByEstimateIdPathParams,
   GetEstimateByEstimateId401,
   GetEstimateByEstimateId404,
-} from "../models/'EstimateController/GetEstimateByEstimateId.ts"
+} from '../models/EstimateController/GetEstimateByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getEstimateByEstimateId } from '../clients/getEstimateByEstimateId.ts'

@@ -6,7 +6,7 @@ import type {
   PutSupplierUpdateBySupplierId400,
   PutSupplierUpdateBySupplierId401,
   PutSupplierUpdateBySupplierId404,
-} from "../models/'SupplierController/PutSupplierUpdateBySupplierId.ts"
+} from '../models/SupplierController/PutSupplierUpdateBySupplierId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putSupplierUpdateBySupplierId } from '../clients/putSupplierUpdateBySupplierId.ts'

@@ -63,8 +63,8 @@ export type {
   GetAuthVerify401,
   GetAuthVerifyQueryResponse,
   GetAuthVerifyQuery,
-} from "./models/'AuthController/GetAuthVerify.ts"
-export type { GetSignout302, GetSignoutQueryResponse, GetSignoutQuery } from "./models/'AuthController/GetSignout.ts"
+} from './models/AuthController/GetAuthVerify.ts'
+export type { GetSignout302, GetSignoutQueryResponse, GetSignoutQuery } from './models/AuthController/GetSignout.ts'
 export type {
   PostAuthMagicLink201,
   PostAuthMagicLink400,
@@ -73,8 +73,8 @@ export type {
   PostAuthMagicLinkMutationRequest,
   PostAuthMagicLinkMutationResponse,
   PostAuthMagicLinkMutation,
-} from "./models/'AuthController/PostAuthMagicLink.ts"
-export type { PostSessions201, PostSessionsMutationRequest, PostSessionsMutationResponse, PostSessionsMutation } from "./models/'AuthController/PostSessions.ts"
+} from './models/AuthController/PostAuthMagicLink.ts'
+export type { PostSessions201, PostSessionsMutationRequest, PostSessionsMutationResponse, PostSessionsMutation } from './models/AuthController/PostSessions.ts'
 export type {
   DeleteClientRemoveByClientIdPathParams,
   DeleteClientRemoveByClientId204,
@@ -82,8 +82,8 @@ export type {
   DeleteClientRemoveByClientId401,
   DeleteClientRemoveByClientIdMutationResponse,
   DeleteClientRemoveByClientIdMutation,
-} from "./models/'ClientsController/DeleteClientRemoveByClientId.ts"
-export type { GetClients200, GetClients401, GetClients404, GetClientsQueryResponse, GetClientsQuery } from "./models/'ClientsController/GetClients.ts"
+} from './models/ClientsController/DeleteClientRemoveByClientId.ts'
+export type { GetClients200, GetClients401, GetClients404, GetClientsQueryResponse, GetClientsQuery } from './models/ClientsController/GetClients.ts'
 export type {
   GetClientsByClientIdPathParams,
   GetClientsByClientId200,
@@ -92,14 +92,14 @@ export type {
   GetClientsByClientId404,
   GetClientsByClientIdQueryResponse,
   GetClientsByClientIdQuery,
-} from "./models/'ClientsController/GetClientsByClientId.ts"
+} from './models/ClientsController/GetClientsByClientId.ts'
 export type {
   GetClientsMonth200,
   GetClientsMonth401,
   GetClientsMonth404,
   GetClientsMonthQueryResponse,
   GetClientsMonthQuery,
-} from "./models/'ClientsController/GetClientsMonth.ts"
+} from './models/ClientsController/GetClientsMonth.ts'
 export type {
   PostClientRegister201,
   PostClientRegister400,
@@ -107,7 +107,7 @@ export type {
   PostClientRegisterMutationRequest,
   PostClientRegisterMutationResponse,
   PostClientRegisterMutation,
-} from "./models/'ClientsController/PostClientRegister.ts"
+} from './models/ClientsController/PostClientRegister.ts'
 export type {
   PutClientUpdateByClientIdPathParams,
   PutClientUpdateByClientId200,
@@ -117,7 +117,7 @@ export type {
   PutClientUpdateByClientIdMutationRequest,
   PutClientUpdateByClientIdMutationResponse,
   PutClientUpdateByClientIdMutation,
-} from "./models/'ClientsController/PutClientUpdateByClientId.ts"
+} from './models/ClientsController/PutClientUpdateByClientId.ts'
 export type {
   DeleteCompanyRemoveByCompanyIdPathParams,
   DeleteCompanyRemoveByCompanyId204,
@@ -125,8 +125,8 @@ export type {
   DeleteCompanyRemoveByCompanyId401,
   DeleteCompanyRemoveByCompanyIdMutationResponse,
   DeleteCompanyRemoveByCompanyIdMutation,
-} from "./models/'CompanyController/DeleteCompanyRemoveByCompanyId.ts"
-export type { GetCompany200, GetCompany400, GetCompany401, GetCompanyQueryResponse, GetCompanyQuery } from "./models/'CompanyController/GetCompany.ts"
+} from './models/CompanyController/DeleteCompanyRemoveByCompanyId.ts'
+export type { GetCompany200, GetCompany400, GetCompany401, GetCompanyQueryResponse, GetCompanyQuery } from './models/CompanyController/GetCompany.ts'
 export type {
   PostCompanyRegister201,
   PostCompanyRegister400,
@@ -134,7 +134,7 @@ export type {
   PostCompanyRegisterMutationRequest,
   PostCompanyRegisterMutationResponse,
   PostCompanyRegisterMutation,
-} from "./models/'CompanyController/PostCompanyRegister.ts"
+} from './models/CompanyController/PostCompanyRegister.ts'
 export type {
   PutCompanyUpdateByCompanyIdPathParams,
   PutCompanyUpdateByCompanyId201,
@@ -144,7 +144,7 @@ export type {
   PutCompanyUpdateByCompanyIdMutationRequest,
   PutCompanyUpdateByCompanyIdMutationResponse,
   PutCompanyUpdateByCompanyIdMutation,
-} from "./models/'CompanyController/PutCompanyUpdateByCompanyId.ts"
+} from './models/CompanyController/PutCompanyUpdateByCompanyId.ts'
 export type {
   DeleteEstimateRemoveByEstimateIdPathParams,
   DeleteEstimateRemoveByEstimateId204,
@@ -152,8 +152,8 @@ export type {
   DeleteEstimateRemoveByEstimateId404,
   DeleteEstimateRemoveByEstimateIdMutationResponse,
   DeleteEstimateRemoveByEstimateIdMutation,
-} from "./models/'EstimateController/DeleteEstimateRemoveByEstimateId.ts"
-export type { GetEstimate200, GetEstimate401, GetEstimate404, GetEstimateQueryResponse, GetEstimateQuery } from "./models/'EstimateController/GetEstimate.ts"
+} from './models/EstimateController/DeleteEstimateRemoveByEstimateId.ts'
+export type { GetEstimate200, GetEstimate401, GetEstimate404, GetEstimateQueryResponse, GetEstimateQuery } from './models/EstimateController/GetEstimate.ts'
 export type {
   GetEstimateByEstimateIdPathParams,
   GetEstimateByEstimateId200,
@@ -161,7 +161,7 @@ export type {
   GetEstimateByEstimateId404,
   GetEstimateByEstimateIdQueryResponse,
   GetEstimateByEstimateIdQuery,
-} from "./models/'EstimateController/GetEstimateByEstimateId.ts"
+} from './models/EstimateController/GetEstimateByEstimateId.ts'
 export type {
   PostEstimateCreateByClientIdPathParams,
   PostEstimateCreateByClientId201,
@@ -170,7 +170,7 @@ export type {
   PostEstimateCreateByClientIdMutationRequest,
   PostEstimateCreateByClientIdMutationResponse,
   PostEstimateCreateByClientIdMutation,
-} from "./models/'EstimateController/PostEstimateCreateByClientId.ts"
+} from './models/EstimateController/PostEstimateCreateByClientId.ts'
 export type {
   PutEstimateUpdateByEstimateIdPathParams,
   PutEstimateUpdateByEstimateId201,
@@ -179,7 +179,7 @@ export type {
   PutEstimateUpdateByEstimateIdMutationRequest,
   PutEstimateUpdateByEstimateIdMutationResponse,
   PutEstimateUpdateByEstimateIdMutation,
-} from "./models/'EstimateController/PutEstimateUpdateByEstimateId.ts"
+} from './models/EstimateController/PutEstimateUpdateByEstimateId.ts'
 export type {
   DeleteItensEstimateRemoveByItemIdPathParams,
   DeleteItensEstimateRemoveByItemId204,
@@ -187,7 +187,7 @@ export type {
   DeleteItensEstimateRemoveByItemId404,
   DeleteItensEstimateRemoveByItemIdMutationResponse,
   DeleteItensEstimateRemoveByItemIdMutation,
-} from "./models/'EstimateItemController/DeleteItensEstimateRemoveByItemId.ts"
+} from './models/EstimateItemController/DeleteItensEstimateRemoveByItemId.ts'
 export type {
   GetItensEstimateByEstimateIdPathParams,
   GetItensEstimateByEstimateId200,
@@ -195,7 +195,7 @@ export type {
   GetItensEstimateByEstimateId404,
   GetItensEstimateByEstimateIdQueryResponse,
   GetItensEstimateByEstimateIdQuery,
-} from "./models/'EstimateItemController/GetItensEstimateByEstimateId.ts"
+} from './models/EstimateItemController/GetItensEstimateByEstimateId.ts'
 export type {
   PostEstimateItensCreateByEstimateIdPathParams,
   PostEstimateItensCreateByEstimateId201,
@@ -204,7 +204,7 @@ export type {
   PostEstimateItensCreateByEstimateIdMutationRequest,
   PostEstimateItensCreateByEstimateIdMutationResponse,
   PostEstimateItensCreateByEstimateIdMutation,
-} from "./models/'EstimateItemController/PostEstimateItensCreateByEstimateId.ts"
+} from './models/EstimateItemController/PostEstimateItensCreateByEstimateId.ts'
 export type {
   PutItensEstimateUpdateByItemInvoiceIdPathParams,
   PutItensEstimateUpdateByItemInvoiceId201,
@@ -213,7 +213,7 @@ export type {
   PutItensEstimateUpdateByItemInvoiceIdMutationRequest,
   PutItensEstimateUpdateByItemInvoiceIdMutationResponse,
   PutItensEstimateUpdateByItemInvoiceIdMutation,
-} from "./models/'EstimateItemController/PutItensEstimateUpdateByItemInvoiceId.ts"
+} from './models/EstimateItemController/PutItensEstimateUpdateByItemInvoiceId.ts'
 export type {
   GetInviteValidateByCodePathParams,
   GetInviteValidateByCode200,
@@ -221,7 +221,7 @@ export type {
   GetInviteValidateByCode429,
   GetInviteValidateByCodeQueryResponse,
   GetInviteValidateByCodeQuery,
-} from "./models/'InviteController/GetInviteValidateByCode.ts"
+} from './models/InviteController/GetInviteValidateByCode.ts'
 export type {
   PostInviteClientByCompanyIdPathParams,
   PostInviteClientByCompanyId201,
@@ -230,14 +230,14 @@ export type {
   PostInviteClientByCompanyId429,
   PostInviteClientByCompanyIdMutationResponse,
   PostInviteClientByCompanyIdMutation,
-} from "./models/'InviteController/PostInviteClientByCompanyId.ts"
+} from './models/InviteController/PostInviteClientByCompanyId.ts'
 export type {
   PostInvitedClientRegister201,
   PostInvitedClientRegister400,
   PostInvitedClientRegisterMutationRequest,
   PostInvitedClientRegisterMutationResponse,
   PostInvitedClientRegisterMutation,
-} from "./models/'InviteController/PostInvitedClientRegister.ts"
+} from './models/InviteController/PostInvitedClientRegister.ts'
 export type {
   DeleteItensRemoveByItemIdPathParams,
   DeleteItensRemoveByItemId204,
@@ -245,8 +245,8 @@ export type {
   DeleteItensRemoveByItemId404,
   DeleteItensRemoveByItemIdMutationResponse,
   DeleteItensRemoveByItemIdMutation,
-} from "./models/'ItensController/DeleteItensRemoveByItemId.ts"
-export type { GetItens200, GetItens401, GetItens404, GetItensQueryResponse, GetItensQuery } from "./models/'ItensController/GetItens.ts"
+} from './models/ItensController/DeleteItensRemoveByItemId.ts'
+export type { GetItens200, GetItens401, GetItens404, GetItensQueryResponse, GetItensQuery } from './models/ItensController/GetItens.ts'
 export type {
   GetItensByItemIdPathParams,
   GetItensByItemId200,
@@ -254,7 +254,7 @@ export type {
   GetItensByItemId404,
   GetItensByItemIdQueryResponse,
   GetItensByItemIdQuery,
-} from "./models/'ItensController/GetItensByItemId.ts"
+} from './models/ItensController/GetItensByItemId.ts'
 export type {
   PostItensCreate201,
   PostItensCreate400,
@@ -263,7 +263,7 @@ export type {
   PostItensCreateMutationRequest,
   PostItensCreateMutationResponse,
   PostItensCreateMutation,
-} from "./models/'ItensController/PostItensCreate.ts"
+} from './models/ItensController/PostItensCreate.ts'
 export type {
   PutItensUpdateByItemIdPathParams,
   PutItensUpdateByItemId201,
@@ -272,7 +272,7 @@ export type {
   PutItensUpdateByItemIdMutationRequest,
   PutItensUpdateByItemIdMutationResponse,
   PutItensUpdateByItemIdMutation,
-} from "./models/'ItensController/PutItensUpdateByItemId.ts"
+} from './models/ItensController/PutItensUpdateByItemId.ts'
 export type {
   DeleteSupplierRemoveBySupplierIdPathParams,
   DeleteSupplierRemoveBySupplierId204,
@@ -281,14 +281,14 @@ export type {
   DeleteSupplierRemoveBySupplierId404,
   DeleteSupplierRemoveBySupplierIdMutationResponse,
   DeleteSupplierRemoveBySupplierIdMutation,
-} from "./models/'SupplierController/DeleteSupplierRemoveBySupplierId.ts"
+} from './models/SupplierController/DeleteSupplierRemoveBySupplierId.ts'
 export type {
   GetSupplierCompany200,
   GetSupplierCompany401,
   GetSupplierCompany404,
   GetSupplierCompanyQueryResponse,
   GetSupplierCompanyQuery,
-} from "./models/'SupplierController/GetSupplierCompany.ts"
+} from './models/SupplierController/GetSupplierCompany.ts'
 export type {
   GetSupplierCompanyBySupplierIdPathParams,
   GetSupplierCompanyBySupplierId200,
@@ -297,7 +297,7 @@ export type {
   GetSupplierCompanyBySupplierId404,
   GetSupplierCompanyBySupplierIdQueryResponse,
   GetSupplierCompanyBySupplierIdQuery,
-} from "./models/'SupplierController/GetSupplierCompanyBySupplierId.ts"
+} from './models/SupplierController/GetSupplierCompanyBySupplierId.ts'
 export type {
   PostSupplierRegister201,
   PostSupplierRegister400,
@@ -305,7 +305,7 @@ export type {
   PostSupplierRegisterMutationRequest,
   PostSupplierRegisterMutationResponse,
   PostSupplierRegisterMutation,
-} from "./models/'SupplierController/PostSupplierRegister.ts"
+} from './models/SupplierController/PostSupplierRegister.ts'
 export type {
   PutSupplierUpdateBySupplierIdPathParams,
   PutSupplierUpdateBySupplierId201,
@@ -315,15 +315,15 @@ export type {
   PutSupplierUpdateBySupplierIdMutationRequest,
   PutSupplierUpdateBySupplierIdMutationResponse,
   PutSupplierUpdateBySupplierIdMutation,
-} from "./models/'SupplierController/PutSupplierUpdateBySupplierId.ts"
+} from './models/SupplierController/PutSupplierUpdateBySupplierId.ts'
 export type {
   DeleteUnitRemoveByUnitIdPathParams,
   DeleteUnitRemoveByUnitId204,
   DeleteUnitRemoveByUnitId401,
   DeleteUnitRemoveByUnitIdMutationResponse,
   DeleteUnitRemoveByUnitIdMutation,
-} from "./models/'UnitController/DeleteUnitRemoveByUnitId.ts"
-export type { GetUnits200, GetUnits401, GetUnits404, GetUnitsQueryResponse, GetUnitsQuery } from "./models/'UnitController/GetUnits.ts"
+} from './models/UnitController/DeleteUnitRemoveByUnitId.ts'
+export type { GetUnits200, GetUnits401, GetUnits404, GetUnitsQueryResponse, GetUnitsQuery } from './models/UnitController/GetUnits.ts'
 export type {
   PostUnitCompanyCreate201,
   PostUnitCompanyCreate400,
@@ -331,7 +331,7 @@ export type {
   PostUnitCompanyCreateMutationRequest,
   PostUnitCompanyCreateMutationResponse,
   PostUnitCompanyCreateMutation,
-} from "./models/'UnitController/PostUnitCompanyCreate.ts"
+} from './models/UnitController/PostUnitCompanyCreate.ts'
 export type {
   PostUnitCreate201,
   PostUnitCreate400,
@@ -339,8 +339,8 @@ export type {
   PostUnitCreateMutationRequest,
   PostUnitCreateMutationResponse,
   PostUnitCreateMutation,
-} from "./models/'UnitController/PostUnitCreate.ts"
-export type { UserTypeEnum, UserRoleEnum, GetMe200, GetMe401, GetMeQueryResponse, GetMeQuery } from "./models/'UserController/GetMe.ts"
+} from './models/UnitController/PostUnitCreate.ts'
+export type { UserTypeEnum, UserRoleEnum, GetMe200, GetMe401, GetMeQueryResponse, GetMeQuery } from './models/UserController/GetMe.ts'
 export type {
   UserTypeEnum2,
   UserRoleEnum2,
@@ -349,7 +349,7 @@ export type {
   PostMeCreateMutationRequest,
   PostMeCreateMutationResponse,
   PostMeCreateMutation,
-} from "./models/'UserController/PostMeCreate.ts"
+} from './models/UserController/PostMeCreate.ts'
 export type {
   UserUpdatedTypeEnum,
   UserUpdatedRoleEnum,
@@ -358,7 +358,7 @@ export type {
   PutMeUpdateMutationRequest,
   PutMeUpdateMutationResponse,
   PutMeUpdateMutation,
-} from "./models/'UserController/PutMeUpdate.ts"
+} from './models/UserController/PutMeUpdate.ts'
 export { getDeleteClientRemoveByClientIdUrl, deleteClientRemoveByClientId } from './clients/deleteClientRemoveByClientId.ts'
 export { getDeleteCompanyRemoveByCompanyIdUrl, deleteCompanyRemoveByCompanyId } from './clients/deleteCompanyRemoveByCompanyId.ts'
 export { getDeleteEstimateRemoveByEstimateIdUrl, deleteEstimateRemoveByEstimateId } from './clients/deleteEstimateRemoveByEstimateId.ts'
@@ -493,6 +493,6 @@ export { putItensEstimateUpdateByItemInvoiceIdMutationKey, usePutItensEstimateUp
 export { putItensUpdateByItemIdMutationKey, usePutItensUpdateByItemId } from './hooks/usePutItensUpdateByItemId.ts'
 export { putMeUpdateMutationKey, usePutMeUpdate } from './hooks/usePutMeUpdate.ts'
 export { putSupplierUpdateBySupplierIdMutationKey, usePutSupplierUpdateBySupplierId } from './hooks/usePutSupplierUpdateBySupplierId.ts'
-export { userTypeEnum, userRoleEnum } from "./models/'UserController/GetMe.ts"
-export { userTypeEnum2, userRoleEnum2 } from "./models/'UserController/PostMeCreate.ts"
-export { userUpdatedTypeEnum, userUpdatedRoleEnum } from "./models/'UserController/PutMeUpdate.ts"
+export { userTypeEnum, userRoleEnum } from './models/UserController/GetMe.ts'
+export { userTypeEnum2, userRoleEnum2 } from './models/UserController/PostMeCreate.ts'
+export { userUpdatedTypeEnum, userUpdatedRoleEnum } from './models/UserController/PutMeUpdate.ts'

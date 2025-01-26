@@ -4,7 +4,7 @@ import type {
   PostUnitCompanyCreateMutationResponse,
   PostUnitCompanyCreate400,
   PostUnitCompanyCreate401,
-} from "../models/'UnitController/PostUnitCompanyCreate.ts"
+} from '../models/UnitController/PostUnitCompanyCreate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostUnitCompanyCreateUrl() {

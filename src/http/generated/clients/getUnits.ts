@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetUnitsQueryResponse, GetUnits401, GetUnits404 } from "../models/'UnitController/GetUnits.ts"
+import type { GetUnitsQueryResponse, GetUnits401, GetUnits404 } from '../models/UnitController/GetUnits.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetUnitsUrl() {

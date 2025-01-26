@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetEstimateQueryResponse, GetEstimate401, GetEstimate404 } from "../models/'EstimateController/GetEstimate.ts"
+import type { GetEstimateQueryResponse, GetEstimate401, GetEstimate404 } from '../models/EstimateController/GetEstimate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { getEstimate } from '../clients/getEstimate.ts'

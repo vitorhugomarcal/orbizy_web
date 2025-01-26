@@ -4,7 +4,7 @@ import type {
   DeleteEstimateRemoveByEstimateIdPathParams,
   DeleteEstimateRemoveByEstimateId401,
   DeleteEstimateRemoveByEstimateId404,
-} from "../models/'EstimateController/DeleteEstimateRemoveByEstimateId.ts"
+} from '../models/EstimateController/DeleteEstimateRemoveByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { deleteEstimateRemoveByEstimateId } from '../clients/deleteEstimateRemoveByEstimateId.ts'

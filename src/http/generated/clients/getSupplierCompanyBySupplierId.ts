@@ -5,7 +5,7 @@ import type {
   GetSupplierCompanyBySupplierId400,
   GetSupplierCompanyBySupplierId401,
   GetSupplierCompanyBySupplierId404,
-} from "../models/'SupplierController/GetSupplierCompanyBySupplierId.ts"
+} from '../models/SupplierController/GetSupplierCompanyBySupplierId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetSupplierCompanyBySupplierIdUrl(supplierId: GetSupplierCompanyBySupplierIdPathParams['supplierId']) {

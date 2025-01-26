@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { GetMeQueryResponse, GetMe401 } from "../models/'UserController/GetMe.ts"
+import type { GetMeQueryResponse, GetMe401 } from '../models/UserController/GetMe.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetMeUrl() {

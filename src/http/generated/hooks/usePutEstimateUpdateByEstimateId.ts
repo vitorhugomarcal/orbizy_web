@@ -5,7 +5,7 @@ import type {
   PutEstimateUpdateByEstimateIdPathParams,
   PutEstimateUpdateByEstimateId401,
   PutEstimateUpdateByEstimateId404,
-} from "../models/'EstimateController/PutEstimateUpdateByEstimateId.ts"
+} from '../models/EstimateController/PutEstimateUpdateByEstimateId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { putEstimateUpdateByEstimateId } from '../clients/putEstimateUpdateByEstimateId.ts'

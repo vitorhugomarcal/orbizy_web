@@ -5,7 +5,7 @@ import type {
   GetClientsByClientId400,
   GetClientsByClientId401,
   GetClientsByClientId404,
-} from "../models/'ClientsController/GetClientsByClientId.ts"
+} from '../models/ClientsController/GetClientsByClientId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetClientsByClientIdUrl(clientId: GetClientsByClientIdPathParams['clientId']) {

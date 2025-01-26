@@ -4,7 +4,7 @@ import type {
   PostCompanyRegisterMutationResponse,
   PostCompanyRegister400,
   PostCompanyRegister401,
-} from "../models/'CompanyController/PostCompanyRegister.ts"
+} from '../models/CompanyController/PostCompanyRegister.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostCompanyRegisterUrl() {

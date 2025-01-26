@@ -1,5 +1,5 @@
 import client from '@kubb/plugin-client/clients/axios'
-import type { PostMeCreateMutationRequest, PostMeCreateMutationResponse, PostMeCreate400 } from "../models/'UserController/PostMeCreate.ts"
+import type { PostMeCreateMutationRequest, PostMeCreateMutationResponse, PostMeCreate400 } from '../models/UserController/PostMeCreate.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostMeCreateUrl() {

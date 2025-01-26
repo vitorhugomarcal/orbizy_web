@@ -4,7 +4,7 @@ import type {
   GetItensByItemIdPathParams,
   GetItensByItemId401,
   GetItensByItemId404,
-} from "../models/'ItensController/GetItensByItemId.ts"
+} from '../models/ItensController/GetItensByItemId.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getGetItensByItemIdUrl(itemId: GetItensByItemIdPathParams['itemId']) {

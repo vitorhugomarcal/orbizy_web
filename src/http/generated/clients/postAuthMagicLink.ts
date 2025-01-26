@@ -5,7 +5,7 @@ import type {
   PostAuthMagicLink400,
   PostAuthMagicLink404,
   PostAuthMagicLink429,
-} from "../models/'AuthController/PostAuthMagicLink.ts"
+} from '../models/AuthController/PostAuthMagicLink.ts'
 import type { RequestConfig, ResponseErrorConfig } from '@kubb/plugin-client/clients/axios'
 
 export function getPostAuthMagicLinkUrl() {
