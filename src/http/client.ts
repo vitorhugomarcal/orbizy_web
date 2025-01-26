@@ -13,6 +13,7 @@ export type RequestConfig<TData = unknown> = {
     | "stream"
   signal?: AbortSignal
   headers?: HeadersInit
+  credentials?: RequestCredentials
 }
 
 export type ResponseConfig<TData = unknown> = {
@@ -35,6 +36,7 @@ export const httpClient = async <TData, TError = unknown, TVariables = unknown>(
     body: JSON.stringify(config.data),
     signal: config.signal,
     headers: config.headers,
+    credentials: config.credentials || "include",
   })
 
   const data = await response.json()
