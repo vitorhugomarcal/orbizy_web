@@ -1,6 +1,5 @@
 import { getClients } from "@/api/client/get-Clients"
 import { inviteClient } from "@/api/client/invite-client"
-import { postClient } from "@/api/client/post-Client"
 import { Button } from "@/components/ui/button"
 import {
   Drawer,
@@ -19,14 +18,18 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import { useGetClientsAll, useGetMe } from "@/http/generated"
+import {
+  useGetClientsAll,
+  useGetMe,
+  usePostClientRegister,
+} from "@/http/generated"
 import { api } from "@/lib/axios"
 import { formatCNPJ } from "@/ultils/formatCNPJ"
 import { formatCPF } from "@/ultils/formatCPF"
 import { formatPhone } from "@/ultils/formatPhone"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { zodResolver } from "@hookform/resolvers/zod"
 import { Link } from "lucide-react"
-import { useState } from "react"
+import { memo, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
@@ -49,8 +52,21 @@ const signInForm = z.object({
 
 type RegisterForm = z.infer<typeof signInForm>
 
-export function ClientRegister() {
+type ModalStep = "type" | "cpf" | "cnpj" | "cep" | "address" | null
+
+interface ViaCepResponse {
+  cep: string
+  logradouro: string
+  bairro: string
+  localidade: string
+  uf: string
+  erro?: boolean
+}
+
+export const ClientRegister = memo(function ClientRegister() {
   const { data: profile } = useGetMe()
+  const [isLoading, setIsLoading] = useState(false)
+  const [currentStep, setCurrentStep] = useState<ModalStep>(null)
 
   if (!profile) {
     return <div>Não foi possível carregar os dados do usuário</div>
@@ -58,15 +74,9 @@ export function ClientRegister() {
 
   const companyId = profile.user.company_id
 
-  const { data } = useGetClientsAll()
+  const { data: clients } = useGetClientsAll()
 
-  const clients = data?.clients
-
-  const [openModalType, setOpenModalType] = useState(false)
-  const [openModalCPF, setOpenModalCPF] = useState(false)
-  const [openModalCNPJ, setOpenModalCNPJ] = useState(false)
-  const [openModalCEP, setOpenModalCEP] = useState(false)
-  const [openModalAddress, setOpenModalAddress] = useState(false)
+  const allClients = clients?.clients
 
   const {
     control: controlClient,
@@ -76,6 +86,7 @@ export function ClientRegister() {
     setValue: setValueClient,
     watch: watchClient,
   } = useForm<RegisterForm>({
+    resolver: zodResolver(signInForm),
     defaultValues: {
       type: "",
       name: "",
@@ -93,13 +104,19 @@ export function ClientRegister() {
     },
   })
 
-  const queryClient = useQueryClient() // Adicione esta linha
-
-  const { mutateAsync: post } = useMutation({
-    mutationFn: postClient,
-    onSuccess: () => {
-      // Invalidar a query 'clients' após remover com sucesso
-      queryClient.invalidateQueries({ queryKey: ["clients"] })
+  const mutation = usePostClientRegister({
+    mutation: {
+      onSuccess: () => {
+        toast.success("Cadastro realizado com sucesso!")
+        setCurrentStep(null)
+        resetClient()
+      },
+      onError: (error) => {
+        toast.error(
+          error instanceof Error ? error.message : "Erro ao realizar cadastro"
+        )
+        setIsLoading(false)
+      },
     },
   })
 
@@ -109,95 +126,132 @@ export function ClientRegister() {
   const cep = watchClient("cep")
 
   async function handleGetLink() {
-    const response = await inviteClient({ companyId })
-
     try {
+      setIsLoading(true)
+      const response = await inviteClient({ companyId })
       await navigator.clipboard.writeText(response)
       toast.success("Link copiado para a área de transferência! Válido por 48h")
     } catch (err) {
       console.error("Falha ao copiar link:", err)
       toast.error("Não foi possível copiar o link")
+    } finally {
+      setIsLoading(false)
     }
   }
 
   async function checkClient() {
-    if (clients) {
-      if (type === "física") {
-        const checkClientExists = clients.find((client) => client.cpf === cpf)
-        if (checkClientExists === undefined) {
-          setOpenModalType(false)
-          setOpenModalCPF(true)
-        } else {
-          toast.error("Esse cliente já está cadastrado.")
-        }
-      } else {
-        const checkClientExists = clients.find(
-          (client) => client.cnpj === cnpj?.replace(/[\(\)\s\-./\\]/g, "")
-        )
-        if (checkClientExists === undefined) {
-          const { data } = await api.get(
-            `api/v1/cnpj/${cnpj?.replace(/[\(\)\s\-./\\]/g, "")}`
+    if (!cpf && type === "física") {
+      toast.error("CPF é obrigatório")
+      return
+    }
+
+    if (!cnpj && type === "jurídica") {
+      toast.error("CNPJ é obrigatório")
+      return
+    }
+
+    try {
+      setIsLoading(true)
+      if (allClients) {
+        if (type === "física") {
+          const checkClientExists = allClients.find(
+            (client) => client.cpf === cpf
           )
-          if (data) {
-            const currentValues = getValuesClient()
-            resetClient({
-              ...currentValues,
-              company_name: data.nome,
-              email_address: data.email,
-              cep: data.cep.replace(/[.-]/g, ""),
-              address: data.logradouro,
-              address_number: data.numero,
-              neighborhood: data.bairro,
-              city: data.municipio,
-              state: data.uf,
-            })
+          if (checkClientExists === undefined) {
+            setCurrentStep("cpf")
+          } else {
+            toast.error("Esse cliente já está cadastrado.")
           }
-          getClients()
-          setOpenModalType(false)
-          setOpenModalCNPJ(true)
         } else {
-          toast.error("Esse cliente já está cadastrado.")
+          const cleanCNPJ = cnpj?.replace(/\D/g, "")
+          const checkClientExists = allClients.find(
+            (client) => client.cnpj === cleanCNPJ
+          )
+          if (checkClientExists === undefined) {
+            const { data } = await api.get(`api/v1/cnpj/${cleanCNPJ}`)
+            if (data) {
+              const currentValues = getValuesClient()
+              resetClient({
+                ...currentValues,
+                company_name: data.nome,
+                email_address: data.email,
+                cep: data.cep.replace(/\D/g, ""),
+                address: data.logradouro,
+                address_number: data.numero,
+                neighborhood: data.bairro,
+                city: data.municipio,
+                state: data.uf,
+              })
+            }
+            await getClients()
+            setCurrentStep("cnpj")
+          } else {
+            toast.error("Esse cliente já está cadastrado.")
+          }
         }
       }
+    } catch (error) {
+      toast.error("Erro ao verificar cliente")
+    } finally {
+      setIsLoading(false)
     }
   }
 
   async function getAddress() {
-    const { data } = await api.get(`/cep/ws/${cep}/json/`)
+    try {
+      setIsLoading(true)
+      const { data } = await api.get<ViaCepResponse>(`/cep/ws/${cep}/json/`)
 
-    if (data && data.logradouro) {
-      const currentValues = getValuesClient()
-      resetClient({
-        ...currentValues,
-        cep: data.cep,
-        address: data.logradouro,
-        neighborhood: data.bairro,
-        city: data.localidade,
-        state: data.uf,
-      })
+      if (!data.erro) {
+        const currentValues = getValuesClient()
+        resetClient({
+          ...currentValues,
+          cep: data.cep.replace(/\D/g, ""),
+          address: data.logradouro,
+          neighborhood: data.bairro,
+          city: data.localidade,
+          state: data.uf,
+        })
 
-      setOpenModalCEP(false)
-      setOpenModalAddress(true)
-    } else {
-      toast.error("CEP não encontrado")
+        setCurrentStep("address")
+      } else {
+        toast.error("CEP não encontrado")
+      }
+    } catch (error) {
+      toast.error("Erro ao buscar CEP")
+    } finally {
+      setIsLoading(false)
     }
   }
 
-  async function handleSubmit(data: RegisterForm) {
+  async function handleSubmit(formData: RegisterForm) {
     try {
-      await post({ ...data })
-      toast.success("Cadastro realizado com sucesso!")
-      setOpenModalAddress(false)
+      setIsLoading(true)
+      const cleanedData = {
+        ...formData,
+        company_name: formData.company_name || "",
+        cnpj: formData.cnpj?.replace(/\D/g, "") || "",
+        cpf: formData.cpf?.replace(/\D/g, "") || "",
+        phone: formData.phone.replace(/\D/g, ""),
+      }
+
+      await mutation.mutateAsync({
+        data: cleanedData,
+      })
     } catch (error) {
-      toast.error(
-        error instanceof Error ? error.message : "Erro ao realizar cadastro"
-      )
+      // O erro já está sendo tratado no onError do hook
+      console.error("Erro inesperado:", error)
+    } finally {
+      setIsLoading(false)
     }
   }
 
   return (
     <div className="flex gap-2">
-      <Drawer open={openModalType} onOpenChange={setOpenModalType}>
+      <Drawer
+        open={currentStep === "type"}
+        onOpenChange={(open) => !open && setCurrentStep(null)}
+      >
         <DrawerTrigger asChild>
           <Button className="w-[240px]">+ Novo Cliente</Button>
         </DrawerTrigger>
@@ -311,7 +365,10 @@ export function ClientRegister() {
         </DrawerContent>
       </Drawer>
 
-      <Drawer open={openModalCPF} onOpenChange={setOpenModalCPF}>
+      <Drawer
+        open={currentStep === "cpf"}
+        onOpenChange={(open) => !open && setCurrentStep(null)}
+      >
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
             <DrawerHeader>
@@ -369,8 +426,7 @@ export function ClientRegister() {
             <DrawerFooter>
               <Button
                 onClick={() => {
-                  setOpenModalCPF(false)
-                  setOpenModalCEP(true)
+                  setCurrentStep("cep")
                 }}
               >
                 Próximo
@@ -380,7 +436,10 @@ export function ClientRegister() {
         </DrawerContent>
       </Drawer>
 
-      <Drawer open={openModalCNPJ} onOpenChange={setOpenModalCNPJ}>
+      <Drawer
+        open={currentStep === "cnpj"}
+        onOpenChange={(open) => !open && setCurrentStep(null)}
+      >
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
             <DrawerHeader>
@@ -452,8 +511,7 @@ export function ClientRegister() {
             <DrawerFooter>
               <Button
                 onClick={() => {
-                  setOpenModalCNPJ(false)
-                  setOpenModalCEP(true)
+                  setCurrentStep("cep")
                 }}
               >
                 Próximo
@@ -463,7 +521,10 @@ export function ClientRegister() {
         </DrawerContent>
       </Drawer>
 
-      <Drawer open={openModalCEP} onOpenChange={setOpenModalCEP}>
+      <Drawer
+        open={currentStep === "cep"}
+        onOpenChange={(open) => !open && setCurrentStep(null)}
+      >
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
             <DrawerHeader>
@@ -497,7 +558,10 @@ export function ClientRegister() {
         </DrawerContent>
       </Drawer>
 
-      <Drawer open={openModalAddress} onOpenChange={setOpenModalAddress}>
+      <Drawer
+        open={currentStep === "address"}
+        onOpenChange={(open) => !open && setCurrentStep(null)}
+      >
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
             <DrawerHeader>
@@ -603,8 +667,11 @@ export function ClientRegister() {
             </div>
 
             <DrawerFooter>
-              <Button onClick={handleSubmitClient(handleSubmit)}>
-                Cadastrar
+              <Button
+                onClick={handleSubmitClient(handleSubmit)}
+                disabled={mutation.isPending || isLoading}
+              >
+                {mutation.isPending ? "Cadastrando..." : "Cadastrar"}
               </Button>
             </DrawerFooter>
           </div>
@@ -614,7 +681,11 @@ export function ClientRegister() {
       <TooltipProvider>
         <Tooltip>
           <TooltipTrigger asChild>
-            <Button onClick={handleGetLink} variant={"secondary"}>
+            <Button
+              onClick={handleGetLink}
+              variant="secondary"
+              disabled={isLoading}
+            >
               <Link />
             </Button>
           </TooltipTrigger>
@@ -625,4 +696,4 @@ export function ClientRegister() {
       </TooltipProvider>
     </div>
   )
-}
+})
