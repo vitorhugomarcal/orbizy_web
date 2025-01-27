@@ -5,6 +5,7 @@ import type {
   PostClientRegisterMutationResponse,
   PostClientRegister400,
   PostClientRegister401,
+  PostClientRegister404,
 } from '../models/ClientsController/PostClientRegister.ts'
 import type { UseMutationOptions } from '@tanstack/react-query'
 import { useMutation } from '@tanstack/react-query'
@@ -25,7 +26,7 @@ export async function postClientRegister(
 
   const res = await request<
     PostClientRegisterMutationResponse,
-    ResponseErrorConfig<PostClientRegister400 | PostClientRegister401>,
+    ResponseErrorConfig<PostClientRegister400 | PostClientRegister401 | PostClientRegister404>,
     PostClientRegisterMutationRequest
   >({ method: 'POST', url: `/client/register`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
@@ -39,7 +40,7 @@ export function usePostClientRegister(
   options: {
     mutation?: UseMutationOptions<
       PostClientRegisterMutationResponse,
-      ResponseErrorConfig<PostClientRegister400 | PostClientRegister401>,
+      ResponseErrorConfig<PostClientRegister400 | PostClientRegister401 | PostClientRegister404>,
       { data: PostClientRegisterMutationRequest }
     >
     client?: Partial<RequestConfig<PostClientRegisterMutationRequest>> & { client?: typeof client }
@@ -50,7 +51,7 @@ export function usePostClientRegister(
 
   return useMutation<
     PostClientRegisterMutationResponse,
-    ResponseErrorConfig<PostClientRegister400 | PostClientRegister401>,
+    ResponseErrorConfig<PostClientRegister400 | PostClientRegister401 | PostClientRegister404>,
     { data: PostClientRegisterMutationRequest }
   >({
     mutationFn: async ({ data }) => {

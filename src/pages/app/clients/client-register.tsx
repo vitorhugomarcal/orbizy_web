@@ -207,10 +207,17 @@ export const ClientRegister = memo(function ClientRegister() {
       setIsLoading(true)
       const cleanedData = {
         ...formData,
-        company_name: formData.company_name || "",
-        cnpj: formData.cnpj?.replace(/\D/g, "") || "",
-        cpf: formData.cpf?.replace(/\D/g, "") || "",
-        phone: formData.phone.replace(/\D/g, ""),
+        phone: formData.phone.replace(/\D/g, ""), // Always include the phone number
+        ...(formData.type === "jurídica"
+          ? {
+              company_name: formData.company_name || "",
+              cnpj: formData.cnpj?.replace(/\D/g, "") || "",
+            }
+          : formData.type === "física"
+            ? {
+                cpf: formData.cpf?.replace(/\D/g, "") || "",
+              }
+            : {}),
       }
 
       console.log(cleanedData)

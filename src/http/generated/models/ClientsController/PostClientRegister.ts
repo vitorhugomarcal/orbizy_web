@@ -93,6 +93,20 @@ export type PostClientRegister401 = {
   message: string
 }
 
+/**
+ * @description Company not found
+ */
+export type PostClientRegister404 = {
+  /**
+   * @type string
+   */
+  code: string
+  /**
+   * @type string
+   */
+  message: string
+}
+
 export type PostClientRegisterMutationRequest = {
   /**
    * @type string
@@ -153,5 +167,5 @@ export type PostClientRegisterMutationResponse = PostClientRegister201
 export type PostClientRegisterMutation = {
   Response: PostClientRegister201
   Request: PostClientRegisterMutationRequest
-  Errors: PostClientRegister400 | PostClientRegister401
+  Errors: PostClientRegister400 | PostClientRegister401 | PostClientRegister404
 }

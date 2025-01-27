@@ -45,6 +45,7 @@ export type {
   PostClientRegister201,
   PostClientRegister400,
   PostClientRegister401,
+  PostClientRegister404,
   PostClientRegisterMutationRequest,
   PostClientRegisterMutationResponse,
   PostClientRegisterMutation,
