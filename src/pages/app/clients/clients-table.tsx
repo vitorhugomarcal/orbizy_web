@@ -53,7 +53,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { useGetClientsAll } from "@/http/generated"
-import { formatPhone } from "@/ultils/formatPhone"
+import { formatPhone } from "@/utils/formatPhone"
 import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 

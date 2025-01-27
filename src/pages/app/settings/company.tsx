@@ -2,9 +2,9 @@ import { getCompany } from "@/api/get-Company"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Skeleton } from "@/components/ui/skeleton"
-import { formatCNPJ } from "@/ultils/formatCNPJ"
-import { formatCPF } from "@/ultils/formatCPF"
-import { formatPhone } from "@/ultils/formatPhone"
+import { formatCNPJ } from "@/utils/formatCNPJ"
+import { formatCPF } from "@/utils/formatCPF"
+import { formatPhone } from "@/utils/formatPhone"
 import { useQuery } from "@tanstack/react-query"
 
 export function Company() {

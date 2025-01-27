@@ -24,9 +24,9 @@ import {
   type PostClientRegisterMutationRequest,
 } from "@/http/generated"
 import { api } from "@/lib/axios"
-import { formatCNPJ } from "@/ultils/formatCNPJ"
-import { formatCPF } from "@/ultils/formatCPF"
-import { formatPhone } from "@/ultils/formatPhone"
+import { formatCNPJ } from "@/utils/formatCNPJ"
+import { formatCPF } from "@/utils/formatCPF"
+import { formatPhone } from "@/utils/formatPhone"
 import { Link } from "lucide-react"
 import { memo, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
@@ -103,10 +103,16 @@ export const ClientRegister = memo(function ClientRegister() {
   const cep = watchClient("cep")
 
   async function handleGetLink() {
+    const companyInfo = profile?.user.Company
+
+    if (!companyInfo) {
+      toast.error("Não foi possível carregar dados da empresa")
+      return
+    }
     try {
       setIsLoading(true)
       const response = await inviteClient({
-        companyId: profile!.user.company_id,
+        companyId: companyInfo.id,
       })
       await navigator.clipboard.writeText(response)
       toast.success("Link copiado para a área de transferência! Válido por 48h")
@@ -129,11 +135,18 @@ export const ClientRegister = memo(function ClientRegister() {
       return
     }
 
+    const clientsInfo = clients?.clients
+
+    if (!clientsInfo) {
+      toast.error("Não foi possível carregar clientes cadastrados")
+      return
+    }
+
     try {
       setIsLoading(true)
-      if (clients?.clients) {
+      if (clientsInfo) {
         if (type === "física") {
-          const checkClientExists = clients.clients.find(
+          const checkClientExists = clientsInfo.find(
             (client) => client.cpf === cpf?.replace(/\D/g, "")
           )
           if (checkClientExists === undefined) {
@@ -143,7 +156,7 @@ export const ClientRegister = memo(function ClientRegister() {
           }
         } else {
           const cleanCNPJ = cnpj?.replace(/\D/g, "")
-          const checkClientExists = clients.clients.find(
+          const checkClientExists = clientsInfo.find(
             (client) => client.cnpj === cleanCNPJ
           )
           if (checkClientExists === undefined) {

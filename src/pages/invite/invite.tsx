@@ -1,18 +1,17 @@
-import { z } from "zod"
 import { Helmet } from "react-helmet-async"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
+import { z } from "zod"
 
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 
-import { useMutation, useQuery } from "@tanstack/react-query"
 import NewLogo from "@/assets/newLogo"
+import { useMutation, useQuery } from "@tanstack/react-query"
 
-import { ModeToggle } from "@/components/mode-toggle"
-import { useNavigate, useSearchParams } from "react-router"
-import { InvitedRegister } from "@/api/client/invited-register"
 import { checkInvite } from "@/api/check-invite"
+import { InvitedRegister } from "@/api/client/invited-register"
+import { ModeToggle } from "@/components/mode-toggle"
 import {
   Drawer,
   DrawerClose,
@@ -23,11 +22,12 @@ import {
   DrawerTitle,
   DrawerTrigger,
 } from "@/components/ui/drawer"
-import { formatCPF } from "@/ultils/formatCPF"
-import { formatCNPJ } from "@/ultils/formatCNPJ"
-import { useState } from "react"
-import { formatPhone } from "@/ultils/formatPhone"
 import { api } from "@/lib/axios"
+import { formatCNPJ } from "@/utils/formatCNPJ"
+import { formatCPF } from "@/utils/formatCPF"
+import { formatPhone } from "@/utils/formatPhone"
+import { useState } from "react"
+import { useNavigate, useSearchParams } from "react-router"
 
 const signInForm = z.object({
   type: z.string(),
@@ -274,8 +274,8 @@ export function Invite() {
                         selectedType === "física"
                           ? setOpenModalCPF(true)
                           : selectedType === "jurídica"
-                          ? checkClient()
-                          : toast.error("Selecione o tipo de contrato")
+                            ? checkClient()
+                            : toast.error("Selecione o tipo de contrato")
                       }}
                     >
                       Próximo
