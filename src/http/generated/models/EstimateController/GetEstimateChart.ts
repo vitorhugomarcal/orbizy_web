@@ -1,5 +1,5 @@
 /**
- * @description Success
+ * @description Estatísticas dos meses obtidas com sucesso
  */
 export type GetEstimateChart200 = {
   /**
@@ -32,7 +32,7 @@ export type GetEstimateChart401 = {
 }
 
 /**
- * @description Not Found
+ * @description Orçamentos não encontrados
  */
 export type GetEstimateChart404 = {
   /**
