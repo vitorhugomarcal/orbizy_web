@@ -47,11 +47,6 @@ export const ClientRegister = memo(function ClientRegister() {
   const { data: profile } = useGetMe()
   const [isLoading, setIsLoading] = useState(false)
   const [currentStep, setCurrentStep] = useState<ModalStep>(null)
-
-  if (!profile) {
-    return <div>Não foi possível carregar os dados do usuário</div>
-  }
-
   const { data: clients } = useGetClientsAll()
 
   const {
@@ -103,16 +98,15 @@ export const ClientRegister = memo(function ClientRegister() {
   const cep = watchClient("cep")
 
   async function handleGetLink() {
-    const companyInfo = profile?.user.Company
-
-    if (!companyInfo) {
-      toast.error("Não foi possível carregar dados da empresa")
+    if (!profile?.user.company_id) {
+      toast.error("ID da empresa não encontrado")
       return
     }
+
     try {
       setIsLoading(true)
       const response = await inviteClient({
-        companyId: companyInfo.id,
+        companyId: profile.user.company_id,
       })
       await navigator.clipboard.writeText(response)
       toast.success("Link copiado para a área de transferência! Válido por 48h")
@@ -135,18 +129,11 @@ export const ClientRegister = memo(function ClientRegister() {
       return
     }
 
-    const clientsInfo = clients?.clients
-
-    if (!clientsInfo) {
-      toast.error("Não foi possível carregar clientes cadastrados")
-      return
-    }
-
     try {
       setIsLoading(true)
-      if (clientsInfo) {
+      if (clients?.clients) {
         if (type === "física") {
-          const checkClientExists = clientsInfo.find(
+          const checkClientExists = clients.clients.find(
             (client) => client.cpf === cpf?.replace(/\D/g, "")
           )
           if (checkClientExists === undefined) {
@@ -156,7 +143,7 @@ export const ClientRegister = memo(function ClientRegister() {
           }
         } else {
           const cleanCNPJ = cnpj?.replace(/\D/g, "")
-          const checkClientExists = clientsInfo.find(
+          const checkClientExists = clients.clients.find(
             (client) => client.cnpj === cleanCNPJ
           )
           if (checkClientExists === undefined) {
@@ -234,6 +221,10 @@ export const ClientRegister = memo(function ClientRegister() {
     } finally {
       setIsLoading(false)
     }
+  }
+
+  if (!profile) {
+    return <div>Não foi possível carregar os dados do usuário</div>
   }
 
   return (
