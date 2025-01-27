@@ -220,11 +220,13 @@ export const ClientRegister = memo(function ClientRegister() {
             : {}),
       }
 
-      console.log(cleanedData)
-
-      await mutation.mutateAsync({
+      const response = await mutation.mutateAsync({
         data: cleanedData,
       })
+
+      console.log(response)
+      console.log(response.client)
+      console.log(response.message)
     } catch (error) {
       console.error("Erro inesperado:", error)
     } finally {
