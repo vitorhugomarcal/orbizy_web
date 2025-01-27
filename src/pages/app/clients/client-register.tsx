@@ -221,7 +221,21 @@ export const ClientRegister = memo(function ClientRegister() {
       }
 
       await mutation.mutateAsync({
-        data: cleanedData,
+        data: {
+          type: cleanedData.type,
+          cpf: cleanedData.cpf,
+          cnpj: cleanedData.cnpj,
+          name: cleanedData.name,
+          email_address: cleanedData.email_address,
+          company_name: cleanedData.company_name,
+          phone: cleanedData.phone,
+          cep: cleanedData.cep,
+          address: cleanedData.address,
+          address_number: cleanedData.address_number,
+          neighborhood: cleanedData.neighborhood,
+          city: cleanedData.city,
+          state: cleanedData.state,
+        },
       })
     } catch (error) {
       console.error("Erro inesperado:", error)
