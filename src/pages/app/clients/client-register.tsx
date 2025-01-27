@@ -205,11 +205,6 @@ export const ClientRegister = memo(function ClientRegister() {
   async function handleSubmit(formData: PostClientRegisterMutationRequest) {
     try {
       setIsLoading(true)
-      // const cleanedData = {
-      //   ...formData,
-      //   phone: formData.phone.replace(/\D/g, ""), // Always include the phone number//////
-      // }
-
       await mutation.mutateAsync({
         data: formData,
       })
@@ -436,7 +431,7 @@ export const ClientRegister = memo(function ClientRegister() {
                 control={controlClient}
                 render={({ field: { onChange, onBlur, value } }) => (
                   <Input
-                    value={value}
+                    value={value || ""}
                     onBlur={onBlur}
                     placeholder="Nome da empresa"
                     onChange={(e) => {
