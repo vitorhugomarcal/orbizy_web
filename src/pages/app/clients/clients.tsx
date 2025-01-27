@@ -9,7 +9,7 @@ import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { Helmet } from "react-helmet-async"
 // import { SupplierTable } from "./supplier-table"
 
-export function Supplier() {
+export function Clients() {
   return (
     <SidebarInset>
       <Helmet title="Clientes" />
