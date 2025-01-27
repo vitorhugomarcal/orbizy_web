@@ -1,5 +1,5 @@
 import { getInvoices, type GetInvoiceProps } from "@/api/get-Invoices"
-import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Skeleton } from "@/components/ui/skeleton"
 import { useQuery } from "@tanstack/react-query"
 import { ChevronsDown, ChevronsUp, PiggyBank } from "lucide-react"

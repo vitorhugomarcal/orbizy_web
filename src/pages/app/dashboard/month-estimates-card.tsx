@@ -7,8 +7,6 @@ import { ReceiptText } from "lucide-react"
 export function MonthEstimatesCard() {
   const { data, isLoading } = useGetEstimateMonth()
 
-  console.log("MONTH ESTIMATE=> ", data)
-
   return (
     <Card>
       <CardHeader className="flex-row items-center justify-between space-y-0 pb-2">
