@@ -227,6 +227,8 @@ export const ClientRegister = memo(function ClientRegister() {
     return <div>Não foi possível carregar os dados do usuário</div>
   }
 
+  console.log(currentStep)
+
   return (
     <div className="flex gap-2">
       <Drawer
