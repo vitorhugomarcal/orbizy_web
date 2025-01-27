@@ -23,17 +23,17 @@ export type PostClientRegister201 = {
      */
     name: string
     /**
-     * @type string
+     * @type string | undefined
      */
-    company_name: string
+    company_name?: string
     /**
-     * @type string
+     * @type string | undefined
      */
-    cpf: string
+    cpf?: string
     /**
-     * @type string
+     * @type string | undefined
      */
-    cnpj: string
+    cnpj?: string
     /**
      * @type string
      */
@@ -121,17 +121,17 @@ export type PostClientRegisterMutationRequest = {
    */
   name: string
   /**
-   * @type string
+   * @type string | undefined
    */
-  company_name: string
+  company_name?: string
   /**
-   * @type string
+   * @type string | undefined
    */
-  cpf: string
+  cpf?: string
   /**
-   * @type string
+   * @type string | undefined
    */
-  cnpj: string
+  cnpj?: string
   /**
    * @type string
    */
