@@ -63,19 +63,19 @@ export interface TableProps {
   name: string
   phone: string
   email: string
-  type: string
-  cpf: string
-  cnpj: string
-  company_name: string
-  email_address: string
-  cep: string
-  address: string
-  address_number: string
-  neighborhood: string
-  city: string
-  state: string
-  company_id: string
-  createdAt: string
+  type?: string
+  cpf?: string
+  cnpj?: string
+  company_name?: string
+  email_address?: string
+  cep?: string
+  address?: string
+  address_number?: string
+  neighborhood?: string
+  city?: string
+  state?: string
+  company_id?: string
+  createdAt?: string
 }
 
 export const columns: ColumnDef<TableProps>[] = [
@@ -260,6 +260,8 @@ export function ClientsTable() {
   }
 
   const clientsData = data?.clients
+
+  console.log("DATA CLIENT =>", clientsData)
 
   const transformedData: TableProps[] = React.useMemo(() => {
     if (!clientsData) return []
