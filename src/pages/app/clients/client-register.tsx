@@ -21,7 +21,6 @@ import {
   useGetClientsAll,
   useGetMe,
   usePostClientRegister,
-  type PostClientRegisterMutationRequest,
 } from "@/http/generated"
 import { api } from "@/lib/axios"
 import { formatCNPJ } from "@/utils/formatCNPJ"
@@ -43,6 +42,22 @@ interface ViaCepResponse {
   erro?: boolean
 }
 
+type FormValues = {
+  type: string
+  email_address: string
+  name: string
+  company_name: string
+  cpf: string
+  cnpj: string
+  phone: string
+  cep: string
+  address: string
+  address_number: string
+  neighborhood: string
+  state: string
+  city: string
+}
+
 export const ClientRegister = memo(function ClientRegister() {
   const { data: profile } = useGetMe()
   const [isLoading, setIsLoading] = useState(false)
@@ -56,7 +71,7 @@ export const ClientRegister = memo(function ClientRegister() {
     getValues: getValuesClient,
     setValue: setValueClient,
     watch: watchClient,
-  } = useForm<PostClientRegisterMutationRequest>({
+  } = useForm<FormValues>({
     defaultValues: {
       type: "",
       name: "",
@@ -186,8 +201,8 @@ export const ClientRegister = memo(function ClientRegister() {
 
   const { mutate } = usePostClientRegister({
     mutation: {
-      onSuccess: (data) => {
-        console.log("Cliente registrado com sucesso:", data)
+      onSuccess: () => {
+        toast.success("Cliente registrado com sucesso:")
       },
       onError: (error) => {
         console.error("Erro ao registrar cliente:", error)
@@ -196,8 +211,8 @@ export const ClientRegister = memo(function ClientRegister() {
     },
   })
 
-  function handleSubmit(formData: PostClientRegisterMutationRequest) {
-    mutate({ data: formData })
+  function handleSubmit(data: FormValues) {
+    mutate({ data })
   }
 
   if (!profile) {
