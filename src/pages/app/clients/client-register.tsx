@@ -82,8 +82,10 @@ export const ClientRegister = memo(function ClientRegister() {
         resetClient()
       },
       onError: (error) => {
-        if ("code" in error) {
-          toast.error(error.statusText)
+        console.error("Mutation error:", error)
+
+        if (error && typeof error === "object" && "code" in error) {
+          toast.error(error.statusText || "Erro desconhecido")
         } else {
           toast.error("Erro ao realizar cadastro")
         }
