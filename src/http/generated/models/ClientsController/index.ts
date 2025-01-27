@@ -18,14 +18,14 @@ export type {
 } from './GetClientsByClientId.ts'
 export type { GetClientsMonth200, GetClientsMonth401, GetClientsMonth404, GetClientsMonthQueryResponse, GetClientsMonthQuery } from './GetClientsMonth.ts'
 export type {
-  PostClientRegister201,
-  PostClientRegister400,
-  PostClientRegister401,
-  PostClientRegister404,
-  PostClientRegisterMutationRequest,
-  PostClientRegisterMutationResponse,
-  PostClientRegisterMutation,
-} from './PostClientRegister.ts'
+  PostClientCreate201,
+  PostClientCreate400,
+  PostClientCreate401,
+  PostClientCreate404,
+  PostClientCreateMutationRequest,
+  PostClientCreateMutationResponse,
+  PostClientCreateMutation,
+} from './PostClientCreate.ts'
 export type {
   PutClientUpdateByClientIdPathParams,
   PutClientUpdateByClientId200,

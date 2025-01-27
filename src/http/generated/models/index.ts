@@ -42,14 +42,14 @@ export type {
   GetClientsMonthQuery,
 } from './ClientsController/GetClientsMonth.ts'
 export type {
-  PostClientRegister201,
-  PostClientRegister400,
-  PostClientRegister401,
-  PostClientRegister404,
-  PostClientRegisterMutationRequest,
-  PostClientRegisterMutationResponse,
-  PostClientRegisterMutation,
-} from './ClientsController/PostClientRegister.ts'
+  PostClientCreate201,
+  PostClientCreate400,
+  PostClientCreate401,
+  PostClientCreate404,
+  PostClientCreateMutationRequest,
+  PostClientCreateMutationResponse,
+  PostClientCreateMutation,
+} from './ClientsController/PostClientCreate.ts'
 export type {
   PutClientUpdateByClientIdPathParams,
   PutClientUpdateByClientId200,

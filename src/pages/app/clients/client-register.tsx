@@ -20,7 +20,7 @@ import {
 import {
   useGetClientsAll,
   useGetMe,
-  usePostClientRegister,
+  usePostClientCreate,
 } from "@/http/generated"
 import { api } from "@/lib/axios"
 import { formatCNPJ } from "@/utils/formatCNPJ"
@@ -199,7 +199,7 @@ export const ClientRegister = memo(function ClientRegister() {
     }
   }
 
-  const { mutate } = usePostClientRegister({
+  const { mutate } = usePostClientCreate({
     mutation: {
       onSuccess: () => {
         toast.success("Cliente registrado com sucesso:")

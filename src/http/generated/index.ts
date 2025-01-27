@@ -25,7 +25,7 @@ export type { GetSupplierCompanyQueryKey } from './hooks/useGetSupplierCompany.t
 export type { GetSupplierCompanyBySupplierIdQueryKey } from './hooks/useGetSupplierCompanyBySupplierId.ts'
 export type { GetUnitsQueryKey } from './hooks/useGetUnits.ts'
 export type { PostAuthMagicLinkMutationKey } from './hooks/usePostAuthMagicLink.ts'
-export type { PostClientRegisterMutationKey } from './hooks/usePostClientRegister.ts'
+export type { PostClientCreateMutationKey } from './hooks/usePostClientCreate.ts'
 export type { PostCompanyRegisterMutationKey } from './hooks/usePostCompanyRegister.ts'
 export type { PostEstimateCreateByClientIdMutationKey } from './hooks/usePostEstimateCreateByClientId.ts'
 export type { PostEstimateItensCreateByEstimateIdMutationKey } from './hooks/usePostEstimateItensCreateByEstimateId.ts'
@@ -94,14 +94,14 @@ export type {
   GetClientsMonthQuery,
 } from './models/ClientsController/GetClientsMonth.ts'
 export type {
-  PostClientRegister201,
-  PostClientRegister400,
-  PostClientRegister401,
-  PostClientRegister404,
-  PostClientRegisterMutationRequest,
-  PostClientRegisterMutationResponse,
-  PostClientRegisterMutation,
-} from './models/ClientsController/PostClientRegister.ts'
+  PostClientCreate201,
+  PostClientCreate400,
+  PostClientCreate401,
+  PostClientCreate404,
+  PostClientCreateMutationRequest,
+  PostClientCreateMutationResponse,
+  PostClientCreateMutation,
+} from './models/ClientsController/PostClientCreate.ts'
 export type {
   PutClientUpdateByClientIdPathParams,
   PutClientUpdateByClientId200,
@@ -452,7 +452,7 @@ export {
 } from './hooks/useGetSupplierCompanyBySupplierId.ts'
 export { getUnitsQueryKey, getUnits, getUnitsQueryOptions, useGetUnits } from './hooks/useGetUnits.ts'
 export { postAuthMagicLinkMutationKey, postAuthMagicLink, usePostAuthMagicLink } from './hooks/usePostAuthMagicLink.ts'
-export { postClientRegisterMutationKey, postClientRegister, usePostClientRegister } from './hooks/usePostClientRegister.ts'
+export { postClientCreateMutationKey, postClientCreate, usePostClientCreate } from './hooks/usePostClientCreate.ts'
 export { postCompanyRegisterMutationKey, postCompanyRegister, usePostCompanyRegister } from './hooks/usePostCompanyRegister.ts'
 export {
   postEstimateCreateByClientIdMutationKey,

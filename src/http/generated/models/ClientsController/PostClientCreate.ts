@@ -1,7 +1,7 @@
 /**
  * @description Cliente cadastrado com sucesso
  */
-export type PostClientRegister201 = {
+export type PostClientCreate201 = {
   /**
    * @type string
    */
@@ -11,11 +11,7 @@ export type PostClientRegister201 = {
 /**
  * @description Cliente já cadastrado
  */
-export type PostClientRegister400 = {
-  /**
-   * @type string
-   */
-  code: string
+export type PostClientCreate400 = {
   /**
    * @type string
    */
@@ -25,11 +21,7 @@ export type PostClientRegister400 = {
 /**
  * @description Unauthorized
  */
-export type PostClientRegister401 = {
-  /**
-   * @type string
-   */
-  code: string
+export type PostClientCreate401 = {
   /**
    * @type string
    */
@@ -39,18 +31,14 @@ export type PostClientRegister401 = {
 /**
  * @description Company not found
  */
-export type PostClientRegister404 = {
-  /**
-   * @type string
-   */
-  code: string
+export type PostClientCreate404 = {
   /**
    * @type string
    */
   message: string
 }
 
-export type PostClientRegisterMutationRequest = {
+export type PostClientCreateMutationRequest = {
   /**
    * @type string
    */
@@ -63,9 +51,18 @@ export type PostClientRegisterMutationRequest = {
    * @type string
    */
   name: string
-  company_name: string | null
-  cpf: string | null
-  cnpj: string | null
+  /**
+   * @type string | undefined
+   */
+  company_name?: string
+  /**
+   * @type string | undefined
+   */
+  cpf?: string
+  /**
+   * @type string | undefined
+   */
+  cnpj?: string
   /**
    * @type string
    */
@@ -96,10 +93,10 @@ export type PostClientRegisterMutationRequest = {
   city: string
 }
 
-export type PostClientRegisterMutationResponse = PostClientRegister201
+export type PostClientCreateMutationResponse = PostClientCreate201
 
-export type PostClientRegisterMutation = {
-  Response: PostClientRegister201
-  Request: PostClientRegisterMutationRequest
-  Errors: PostClientRegister400 | PostClientRegister401 | PostClientRegister404
+export type PostClientCreateMutation = {
+  Response: PostClientCreate201
+  Request: PostClientCreateMutationRequest
+  Errors: PostClientCreate400 | PostClientCreate401 | PostClientCreate404
 }
