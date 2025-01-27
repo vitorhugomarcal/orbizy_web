@@ -7,7 +7,7 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { Helmet } from "react-helmet-async"
-import { ClientsTable } from "./clients-table"
+// import { ClientsTable } from "./clients-table"
 
 import { ClientRegister } from "./client-register"
 
@@ -31,7 +31,7 @@ export function Clients() {
         <ClientRegister />
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
-        <ClientsTable />
+        {/* <ClientsTable /> */}
       </div>
     </SidebarInset>
   )
