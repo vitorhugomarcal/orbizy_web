@@ -205,37 +205,13 @@ export const ClientRegister = memo(function ClientRegister() {
   async function handleSubmit(formData: PostClientRegisterMutationRequest) {
     try {
       setIsLoading(true)
-      const cleanedData = {
-        ...formData,
-        phone: formData.phone.replace(/\D/g, ""), // Always include the phone number
-        ...(formData.type === "jurídica"
-          ? {
-              company_name: formData.company_name || "",
-              cnpj: formData.cnpj?.replace(/\D/g, "") || "",
-            }
-          : formData.type === "física"
-            ? {
-                cpf: formData.cpf?.replace(/\D/g, "") || "",
-              }
-            : {}),
-      }
+      // const cleanedData = {
+      //   ...formData,
+      //   phone: formData.phone.replace(/\D/g, ""), // Always include the phone number//////
+      // }
 
       await mutation.mutateAsync({
-        data: {
-          type: cleanedData.type,
-          cpf: cleanedData.cpf,
-          cnpj: cleanedData.cnpj,
-          name: cleanedData.name,
-          email_address: cleanedData.email_address,
-          company_name: cleanedData.company_name,
-          phone: cleanedData.phone,
-          cep: cleanedData.cep,
-          address: cleanedData.address,
-          address_number: cleanedData.address_number,
-          neighborhood: cleanedData.neighborhood,
-          city: cleanedData.city,
-          state: cleanedData.state,
-        },
+        data: formData,
       })
     } catch (error) {
       console.error("Erro inesperado:", error)
