@@ -19,8 +19,6 @@ export function MonthTotalCard() {
       )
     : 0
 
-  console.log(revenueAmount)
-
   const overdueAmount = 0
   const resultAmount = revenueAmount - overdueAmount
 

@@ -6,7 +6,7 @@ export type { DeleteItensRemoveByItemIdMutationKey } from './hooks/useDeleteIten
 export type { DeleteSupplierRemoveBySupplierIdMutationKey } from './hooks/useDeleteSupplierRemoveBySupplierId.ts'
 export type { DeleteUnitRemoveByUnitIdMutationKey } from './hooks/useDeleteUnitRemoveByUnitId.ts'
 export type { GetAuthVerifyQueryKey } from './hooks/useGetAuthVerify.ts'
-export type { GetClientsQueryKey } from './hooks/useGetClients.ts'
+export type { GetClientsAllQueryKey } from './hooks/useGetClientsAll.ts'
 export type { GetClientsByClientIdQueryKey } from './hooks/useGetClientsByClientId.ts'
 export type { GetClientsMonthQueryKey } from './hooks/useGetClientsMonth.ts'
 export type { GetCompanyQueryKey } from './hooks/useGetCompany.ts'
@@ -70,7 +70,13 @@ export type {
   DeleteClientRemoveByClientIdMutationResponse,
   DeleteClientRemoveByClientIdMutation,
 } from './models/ClientsController/DeleteClientRemoveByClientId.ts'
-export type { GetClients200, GetClients401, GetClients404, GetClientsQueryResponse, GetClientsQuery } from './models/ClientsController/GetClients.ts'
+export type {
+  GetClientsAll200,
+  GetClientsAll401,
+  GetClientsAll404,
+  GetClientsAllQueryResponse,
+  GetClientsAllQuery,
+} from './models/ClientsController/GetClientsAll.ts'
 export type {
   GetClientsByClientIdPathParams,
   GetClientsByClientId200,
@@ -396,7 +402,7 @@ export {
 } from './hooks/useDeleteSupplierRemoveBySupplierId.ts'
 export { deleteUnitRemoveByUnitIdMutationKey, deleteUnitRemoveByUnitId, useDeleteUnitRemoveByUnitId } from './hooks/useDeleteUnitRemoveByUnitId.ts'
 export { getAuthVerifyQueryKey, getAuthVerify, getAuthVerifyQueryOptions, useGetAuthVerify } from './hooks/useGetAuthVerify.ts'
-export { getClientsQueryKey, getClients, getClientsQueryOptions, useGetClients } from './hooks/useGetClients.ts'
+export { getClientsAllQueryKey, getClientsAll, getClientsAllQueryOptions, useGetClientsAll } from './hooks/useGetClientsAll.ts'
 export {
   getClientsByClientIdQueryKey,
   getClientsByClientId,

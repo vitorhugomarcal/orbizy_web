@@ -24,7 +24,7 @@ export type {
   DeleteClientRemoveByClientIdMutationResponse,
   DeleteClientRemoveByClientIdMutation,
 } from './ClientsController/DeleteClientRemoveByClientId.ts'
-export type { GetClients200, GetClients401, GetClients404, GetClientsQueryResponse, GetClientsQuery } from './ClientsController/GetClients.ts'
+export type { GetClientsAll200, GetClientsAll401, GetClientsAll404, GetClientsAllQueryResponse, GetClientsAllQuery } from './ClientsController/GetClientsAll.ts'
 export type {
   GetClientsByClientIdPathParams,
   GetClientsByClientId200,

@@ -18,12 +18,12 @@ export interface GetClientProps {
   email_address: string
   createdAt: Date
   error: string
-  invoice: {
+  estimate: {
     id: string
     company_id: string
     createdAt: Date
     status: string
-    invoice_number: string
+    estimate_number: string
     notes: string
     sub_total: number
     total: number

@@ -1,11 +1,7 @@
 /**
- * @description Clients retrieved successfully
+ * @description Orçamentos encontrados
  */
-export type GetClients200 = {
-  /**
-   * @type string
-   */
-  message: string
+export type GetClientsAll200 = {
   /**
    * @type array
    */
@@ -18,26 +14,17 @@ export type GetClients200 = {
      * @type string
      */
     type: string
-    /**
-     * @type string
-     */
-    email_address: string
+    cpf: string | null
+    cnpj: string | null
     /**
      * @type string
      */
     name: string
+    company_name: string | null
     /**
      * @type string
      */
-    company_name: string
-    /**
-     * @type string
-     */
-    cpf: string
-    /**
-     * @type string
-     */
-    cnpj: string
+    email_address: string
     /**
      * @type string
      */
@@ -61,11 +48,16 @@ export type GetClients200 = {
     /**
      * @type string
      */
-    state: string
+    city: string
     /**
      * @type string
      */
-    city: string
+    state: string
+    company_id: string | null
+    /**
+     * @type string
+     */
+    createdAt: string
     /**
      * @type array
      */
@@ -74,6 +66,22 @@ export type GetClients200 = {
        * @type string
        */
       id: string
+      /**
+       * @type string
+       */
+      status: string
+      /**
+       * @type number
+       */
+      total: number
+      /**
+       * @type number
+       */
+      sub_total: number
+      /**
+       * @type string
+       */
+      createdAt: string
     }[]
   }[]
 }
@@ -81,7 +89,7 @@ export type GetClients200 = {
 /**
  * @description Unauthorized
  */
-export type GetClients401 = {
+export type GetClientsAll401 = {
   /**
    * @type string
    */
@@ -89,18 +97,18 @@ export type GetClients401 = {
 }
 
 /**
- * @description Clients not found
+ * @description Orçamentos não encontrados
  */
-export type GetClients404 = {
+export type GetClientsAll404 = {
   /**
    * @type string
    */
   message: string
 }
 
-export type GetClientsQueryResponse = GetClients200
+export type GetClientsAllQueryResponse = GetClientsAll200
 
-export type GetClientsQuery = {
-  Response: GetClients200
-  Errors: GetClients401 | GetClients404
+export type GetClientsAllQuery = {
+  Response: GetClientsAll200
+  Errors: GetClientsAll401 | GetClientsAll404
 }

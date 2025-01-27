@@ -13,7 +13,6 @@ import {
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
 import * as React from "react"
 
-import { getClients, type GetClientProps } from "@/api/client/get-Clients"
 import { removeClient } from "@/api/client/remove-Client"
 import {
   AlertDialog,
@@ -53,16 +52,30 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
+import { useGetClientsAll } from "@/http/generated"
 import { formatPhone } from "@/ultils/formatPhone"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { toast } from "sonner"
 
-export interface TableProps extends GetClientProps {
+export interface TableProps {
   id: string
   amount: number
   name: string
   phone: string
   email: string
+  type: string
+  cpf?: string
+  cnpj?: string
+  company_name?: string
+  email_address: string
+  cep: string
+  address: string
+  address_number: string
+  neighborhood: string
+  city: string
+  state: string
+  company_id: string
+  createdAt: string
 }
 
 export const columns: ColumnDef<TableProps>[] = [
@@ -239,39 +252,39 @@ export function ClientsTable() {
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
-  const { data: clients, isLoading } = useQuery({
-    queryKey: ["clients"],
-    queryFn: getClients,
-  })
+  const { data, isLoading } = useGetClientsAll()
+
+  const clientsData = data?.clients
+
+  if (!clientsData) return []
 
   const transformedData: TableProps[] = React.useMemo(() => {
-    if (!clients) return []
+    if (!clientsData) return []
 
-    return clients.map((client: GetClientProps) => ({
-      error: client.error,
+    return clientsData.map((client) => ({
       createdAt: client.createdAt,
-      company_id: client.company_id,
+      company_id: client.company_id || "",
       email_address: client.email_address,
       type: client.type,
-      cnpj: client.cnpj,
+      cnpj: client.cnpj || "",
       city: client.city,
       cep: client.cep,
       address: client.address,
       neighborhood: client.neighborhood,
       address_number: client.address_number,
-      company_name: client.company_name,
-      cpf: client.cpf,
+      company_name: client.company_name || "",
+      cpf: client.cpf || "",
       state: client.state,
-      invoice: client.invoice,
+      estimate: client.estimate,
       id: client.id,
       name: client.name,
       email: client.email_address,
       phone: formatPhone(client.phone),
-      amount: client.invoice.reduce((acc, invoice) => {
-        return acc + Number(invoice.total)
+      amount: client.estimate.reduce((acc, estimate) => {
+        return acc + Number(estimate.total)
       }, 0),
     }))
-  }, [clients])
+  }, [clientsData])
 
   const table = useReactTable({
     data: transformedData,

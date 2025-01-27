@@ -6,7 +6,7 @@ export type {
   DeleteClientRemoveByClientIdMutationResponse,
   DeleteClientRemoveByClientIdMutation,
 } from './DeleteClientRemoveByClientId.ts'
-export type { GetClients200, GetClients401, GetClients404, GetClientsQueryResponse, GetClientsQuery } from './GetClients.ts'
+export type { GetClientsAll200, GetClientsAll401, GetClientsAll404, GetClientsAllQueryResponse, GetClientsAllQuery } from './GetClientsAll.ts'
 export type {
   GetClientsByClientIdPathParams,
   GetClientsByClientId200,
