@@ -29,14 +29,12 @@ import { useNavigate } from "react-router"
 
 export interface ProfileProps {
   user: {
+    id: string
     name: string
     email: string
-    id: string
-    role: "MASTER" | "BASIC"
-    type: "basic" | "pro" | "team"
-    company_id: string | null
-    createdAt: Date
-    avatar: "/avatars/shadcn.jpg"
+    role: string
+    type: string
+    company_id: string
   }
 }
 

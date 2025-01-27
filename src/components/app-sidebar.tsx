@@ -1,4 +1,3 @@
-import * as React from "react"
 import {
   Banknote,
   BookUser,
@@ -18,7 +17,9 @@ import {
   UserPlus,
   Users,
 } from "lucide-react"
+import * as React from "react"
 
+import NewLogo from "@/assets/newLogo"
 import { NavMain } from "@/components/nav-main"
 import { NavProjects } from "@/components/nav-projects"
 import { NavSecondary } from "@/components/nav-secondary"
@@ -32,10 +33,8 @@ import {
   SidebarMenuButton,
   SidebarMenuItem,
 } from "@/components/ui/sidebar"
+import { useGetMe } from "@/http/generated"
 import { ModeToggle } from "./mode-toggle"
-import { useQuery } from "@tanstack/react-query"
-import { getProfile } from "@/api/get-Profile"
-import NewLogo from "@/assets/newLogo"
 
 const data = {
   navMain: [
@@ -134,10 +133,7 @@ const data = {
 }
 
 export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
-  const { data: profile } = useQuery({
-    queryKey: ["profile"],
-    queryFn: getProfile,
-  })
+  const { data: profile } = useGetMe()
 
   if (!profile) return null
 
@@ -163,7 +159,7 @@ export function AppSidebar({ ...props }: React.ComponentProps<typeof Sidebar>) {
         <NavSecondary items={data.navSecondary} className="mt-auto" />
       </SidebarContent>
       <SidebarFooter>
-        <NavUser user={profile} />
+        <NavUser user={profile.user} />
       </SidebarFooter>
     </Sidebar>
   )
