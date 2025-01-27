@@ -1,6 +1,11 @@
 import client from '../../client.ts'
 import type { RequestConfig, ResponseErrorConfig } from '../../client.ts'
-import type { GetEstimateMonthQueryResponse, GetEstimateMonth401, GetEstimateMonth404 } from '../models/EstimateController/GetEstimateMonth.ts'
+import type {
+  GetEstimateMonthQueryResponse,
+  GetEstimateMonth401,
+  GetEstimateMonth404,
+  GetEstimateMonth500,
+} from '../models/EstimateController/GetEstimateMonth.ts'
 import type { QueryKey, QueryObserverOptions, UseQueryResult } from '@tanstack/react-query'
 import { queryOptions, useQuery } from '@tanstack/react-query'
 
@@ -15,7 +20,7 @@ export type GetEstimateMonthQueryKey = ReturnType<typeof getEstimateMonthQueryKe
 export async function getEstimateMonth(config: Partial<RequestConfig> & { client?: typeof client } = {}) {
   const { client: request = client, ...requestConfig } = config
 
-  const res = await request<GetEstimateMonthQueryResponse, ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404>, unknown>({
+  const res = await request<GetEstimateMonthQueryResponse, ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404 | GetEstimateMonth500>, unknown>({
     method: 'GET',
     url: `/estimate/month`,
     baseURL: 'https://api.orbizy.app',
@@ -28,7 +33,7 @@ export function getEstimateMonthQueryOptions(config: Partial<RequestConfig> & { 
   const queryKey = getEstimateMonthQueryKey()
   return queryOptions<
     GetEstimateMonthQueryResponse,
-    ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404>,
+    ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404 | GetEstimateMonth500>,
     GetEstimateMonthQueryResponse,
     typeof queryKey
   >({
@@ -51,7 +56,13 @@ export function useGetEstimateMonth<
 >(
   options: {
     query?: Partial<
-      QueryObserverOptions<GetEstimateMonthQueryResponse, ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404>, TData, TQueryData, TQueryKey>
+      QueryObserverOptions<
+        GetEstimateMonthQueryResponse,
+        ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404 | GetEstimateMonth500>,
+        TData,
+        TQueryData,
+        TQueryKey
+      >
     >
     client?: Partial<RequestConfig> & { client?: typeof client }
   } = {},
@@ -63,7 +74,7 @@ export function useGetEstimateMonth<
     ...(getEstimateMonthQueryOptions(config) as unknown as QueryObserverOptions),
     queryKey,
     ...(queryOptions as unknown as Omit<QueryObserverOptions, 'queryKey'>),
-  }) as UseQueryResult<TData, ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404>> & { queryKey: TQueryKey }
+  }) as UseQueryResult<TData, ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404 | GetEstimateMonth500>> & { queryKey: TQueryKey }
 
   query.queryKey = queryKey as TQueryKey
 

@@ -32,9 +32,19 @@ export type GetEstimateMonth404 = {
   message: string
 }
 
+/**
+ * @description Erro ao calcular as estatísticas do mês
+ */
+export type GetEstimateMonth500 = {
+  /**
+   * @type string
+   */
+  message: string
+}
+
 export type GetEstimateMonthQueryResponse = GetEstimateMonth200
 
 export type GetEstimateMonthQuery = {
   Response: GetEstimateMonth200
-  Errors: GetEstimateMonth401 | GetEstimateMonth404
+  Errors: GetEstimateMonth401 | GetEstimateMonth404 | GetEstimateMonth500
 }
