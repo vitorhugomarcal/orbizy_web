@@ -1,5 +1,4 @@
 import { getClients } from "@/api/client/get-Clients"
-import { getProfile } from "@/api/get-Profile"
 import { inviteClient } from "@/api/client/invite-client"
 import { postClient } from "@/api/client/post-Client"
 import { Button } from "@/components/ui/button"
@@ -20,16 +19,17 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
+import { useGetClientsAll, useGetMe } from "@/http/generated"
+import { api } from "@/lib/axios"
 import { formatCNPJ } from "@/ultils/formatCNPJ"
 import { formatCPF } from "@/ultils/formatCPF"
-import { useMutation, useQuery, useQueryClient } from "@tanstack/react-query"
+import { formatPhone } from "@/ultils/formatPhone"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Link } from "lucide-react"
 import { useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
 import { z } from "zod"
-import { formatPhone } from "@/ultils/formatPhone"
-import { api } from "@/lib/axios"
 
 const signInForm = z.object({
   type: z.string(),
@@ -50,21 +50,17 @@ const signInForm = z.object({
 type RegisterForm = z.infer<typeof signInForm>
 
 export function ClientRegister() {
-  const { data: profile } = useQuery({
-    queryKey: ["profile"],
-    queryFn: getProfile,
-  })
+  const { data: profile } = useGetMe()
 
   if (!profile) {
     return <div>Não foi possível carregar os dados do usuário</div>
   }
 
-  const companyId = profile.company.id
+  const companyId = profile.user.company_id
 
-  const { data: clients } = useQuery({
-    queryKey: ["client"],
-    queryFn: getClients,
-  })
+  const { data } = useGetClientsAll()
+
+  const clients = data?.clients
 
   const [openModalType, setOpenModalType] = useState(false)
   const [openModalCPF, setOpenModalCPF] = useState(false)
