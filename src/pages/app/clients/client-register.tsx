@@ -236,7 +236,9 @@ export const ClientRegister = memo(function ClientRegister() {
         onOpenChange={(open) => !open && setCurrentStep(null)}
       >
         <DrawerTrigger asChild>
-          <Button className="w-[240px]">+ Novo Cliente</Button>
+          <Button className="w-[240px]" onClick={() => setCurrentStep("type")}>
+            + Novo Cliente
+          </Button>
         </DrawerTrigger>
         <DrawerContent>
           <div className="mx-auto w-full max-w-sm">
