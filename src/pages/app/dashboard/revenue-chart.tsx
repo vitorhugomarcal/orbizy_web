@@ -76,7 +76,7 @@ export function RevenueChart() {
                   }
                 />
                 <Bar
-                  dataKey="R$"
+                  dataKey="monthTotal"
                   fill={color.orange[500]}
                   radius={8}
                   animationDuration={2000}
