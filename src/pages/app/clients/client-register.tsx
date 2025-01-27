@@ -74,26 +74,6 @@ export const ClientRegister = memo(function ClientRegister() {
     },
   })
 
-  const mutation = usePostClientRegister({
-    mutation: {
-      onSuccess: () => {
-        toast.success("Cadastro realizado com sucesso!")
-        setCurrentStep(null)
-        resetClient()
-      },
-      onError: (error) => {
-        console.error("Mutation error:", error)
-
-        if (error && typeof error === "object" && "code" in error) {
-          toast.error(error.statusText || "Erro desconhecido")
-        } else {
-          toast.error("Erro ao realizar cadastro")
-        }
-        setIsLoading(false)
-      },
-    },
-  })
-
   const cnpj = watchClient("cnpj")
   const cpf = watchClient("cpf")
   const type = watchClient("type")
@@ -204,17 +184,21 @@ export const ClientRegister = memo(function ClientRegister() {
     }
   }
 
-  async function handleSubmit(formData: PostClientRegisterMutationRequest) {
-    try {
-      setIsLoading(true)
-      await mutation.mutateAsync({
-        data: formData,
-      })
-    } catch (error) {
-      console.error("Erro inesperado:", error)
-    } finally {
-      setIsLoading(false)
-    }
+  const { mutate } = usePostClientRegister({
+    mutation: {
+      onSuccess: (data) => {
+        console.log("Cliente registrado com sucesso:", data)
+      },
+      onError: (error) => {
+        console.error("Erro ao registrar cliente:", error)
+      },
+    },
+  })
+
+  const handleSubmit = (formData: PostClientRegisterMutationRequest) => {
+    const data = formData
+
+    mutate({ data })
   }
 
   if (!profile) {
@@ -648,9 +632,9 @@ export const ClientRegister = memo(function ClientRegister() {
             <DrawerFooter>
               <Button
                 onClick={handleSubmitClient(handleSubmit)}
-                disabled={mutation.isPending || isLoading}
+                disabled={isLoading}
               >
-                {mutation.isPending ? "Cadastrando..." : "Cadastrar"}
+                Cadastrar
               </Button>
             </DrawerFooter>
           </div>
