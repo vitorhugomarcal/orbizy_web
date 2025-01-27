@@ -1,4 +1,3 @@
-import { getClients } from "@/api/client/get-Clients"
 import { inviteClient } from "@/api/client/invite-client"
 import { Button } from "@/components/ui/button"
 import {
@@ -22,35 +21,16 @@ import {
   useGetClientsAll,
   useGetMe,
   usePostClientRegister,
+  type PostClientRegisterMutationRequest,
 } from "@/http/generated"
 import { api } from "@/lib/axios"
 import { formatCNPJ } from "@/ultils/formatCNPJ"
 import { formatCPF } from "@/ultils/formatCPF"
 import { formatPhone } from "@/ultils/formatPhone"
-import { zodResolver } from "@hookform/resolvers/zod"
 import { Link } from "lucide-react"
 import { memo, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
 import { toast } from "sonner"
-import { z } from "zod"
-
-const signInForm = z.object({
-  type: z.string(),
-  email_address: z.string().email(),
-  name: z.string().min(1, "Nome é obrigatório"),
-  company_name: z.string().optional(),
-  cpf: z.string().length(11, "CPF inválido").optional(),
-  cnpj: z.string().length(14, "CNPJ inválido").optional(),
-  phone: z.string().min(1, "Telefone é obrigatório"),
-  cep: z.string().length(8, "CEP inválido"),
-  address: z.string().min(1, "Endereço é obrigatório"),
-  address_number: z.string().min(1, "Número é obrigatório"),
-  neighborhood: z.string().min(1, "Bairro é obrigatório"),
-  state: z.string().length(2, "Estado inválido"),
-  city: z.string().min(1, "Cidade é obrigatória"),
-})
-
-type RegisterForm = z.infer<typeof signInForm>
 
 type ModalStep = "type" | "cpf" | "cnpj" | "cep" | "address" | null
 
@@ -72,11 +52,7 @@ export const ClientRegister = memo(function ClientRegister() {
     return <div>Não foi possível carregar os dados do usuário</div>
   }
 
-  const companyId = profile.user.company_id
-
   const { data: clients } = useGetClientsAll()
-
-  const allClients = clients?.clients
 
   const {
     control: controlClient,
@@ -85,8 +61,7 @@ export const ClientRegister = memo(function ClientRegister() {
     getValues: getValuesClient,
     setValue: setValueClient,
     watch: watchClient,
-  } = useForm<RegisterForm>({
-    resolver: zodResolver(signInForm),
+  } = useForm<PostClientRegisterMutationRequest>({
     defaultValues: {
       type: "",
       name: "",
@@ -112,9 +87,11 @@ export const ClientRegister = memo(function ClientRegister() {
         resetClient()
       },
       onError: (error) => {
-        toast.error(
-          error instanceof Error ? error.message : "Erro ao realizar cadastro"
-        )
+        if ("code" in error) {
+          toast.error(error.statusText)
+        } else {
+          toast.error("Erro ao realizar cadastro")
+        }
         setIsLoading(false)
       },
     },
@@ -128,7 +105,9 @@ export const ClientRegister = memo(function ClientRegister() {
   async function handleGetLink() {
     try {
       setIsLoading(true)
-      const response = await inviteClient({ companyId })
+      const response = await inviteClient({
+        companyId: profile!.user.company_id,
+      })
       await navigator.clipboard.writeText(response)
       toast.success("Link copiado para a área de transferência! Válido por 48h")
     } catch (err) {
@@ -152,10 +131,10 @@ export const ClientRegister = memo(function ClientRegister() {
 
     try {
       setIsLoading(true)
-      if (allClients) {
+      if (clients?.clients) {
         if (type === "física") {
-          const checkClientExists = allClients.find(
-            (client) => client.cpf === cpf
+          const checkClientExists = clients.clients.find(
+            (client) => client.cpf === cpf?.replace(/\D/g, "")
           )
           if (checkClientExists === undefined) {
             setCurrentStep("cpf")
@@ -164,7 +143,7 @@ export const ClientRegister = memo(function ClientRegister() {
           }
         } else {
           const cleanCNPJ = cnpj?.replace(/\D/g, "")
-          const checkClientExists = allClients.find(
+          const checkClientExists = clients.clients.find(
             (client) => client.cnpj === cleanCNPJ
           )
           if (checkClientExists === undefined) {
@@ -183,7 +162,6 @@ export const ClientRegister = memo(function ClientRegister() {
                 state: data.uf,
               })
             }
-            await getClients()
             setCurrentStep("cnpj")
           } else {
             toast.error("Esse cliente já está cadastrado.")
@@ -224,7 +202,7 @@ export const ClientRegister = memo(function ClientRegister() {
     }
   }
 
-  async function handleSubmit(formData: RegisterForm) {
+  async function handleSubmit(formData: PostClientRegisterMutationRequest) {
     try {
       setIsLoading(true)
       const cleanedData = {
@@ -239,7 +217,6 @@ export const ClientRegister = memo(function ClientRegister() {
         data: cleanedData,
       })
     } catch (error) {
-      // O erro já está sendo tratado no onError do hook
       console.error("Erro inesperado:", error)
     } finally {
       setIsLoading(false)
