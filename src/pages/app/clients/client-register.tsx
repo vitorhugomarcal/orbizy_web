@@ -191,14 +191,13 @@ export const ClientRegister = memo(function ClientRegister() {
       },
       onError: (error) => {
         console.error("Erro ao registrar cliente:", error)
+        toast.error("Erro ao registrar cliente:")
       },
     },
   })
 
-  const handleSubmit = (formData: PostClientRegisterMutationRequest) => {
-    const data = formData
-
-    mutate({ data })
+  function handleSubmit(formData: PostClientRegisterMutationRequest) {
+    mutate({ data: formData })
   }
 
   if (!profile) {
