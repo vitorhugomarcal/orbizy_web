@@ -213,6 +213,8 @@ export const ClientRegister = memo(function ClientRegister() {
         phone: formData.phone.replace(/\D/g, ""),
       }
 
+      console.log(cleanedData)
+
       await mutation.mutateAsync({
         data: cleanedData,
       })
