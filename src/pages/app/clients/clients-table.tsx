@@ -64,9 +64,9 @@ export interface TableProps {
   phone: string
   email: string
   type: string
-  cpf?: string
-  cnpj?: string
-  company_name?: string
+  cpf: string
+  cnpj: string
+  company_name: string
   email_address: string
   cep: string
   address: string
@@ -174,6 +174,7 @@ export const columns: ColumnDef<TableProps>[] = [
         try {
           await remove(clientId)
           toast.success("Cliente removido!")
+          setOpenDialog(false)
         } catch (error) {
           toast.error(
             error instanceof Error ? error.message : "Erro ao remover cliente."
@@ -252,11 +253,13 @@ export function ClientsTable() {
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
-  const { data, isLoading } = useGetClientsAll()
+  const { data, isLoading, error } = useGetClientsAll()
+
+  if (error) {
+    return <div>Erro ao carregar dados: {error.statusText}</div>
+  }
 
   const clientsData = data?.clients
-
-  if (!clientsData) return []
 
   const transformedData: TableProps[] = React.useMemo(() => {
     if (!clientsData) return []
@@ -280,9 +283,9 @@ export function ClientsTable() {
       name: client.name,
       email: client.email_address,
       phone: formatPhone(client.phone),
-      amount: client.estimate.reduce((acc, estimate) => {
-        return acc + Number(estimate.total)
-      }, 0),
+      amount: client.estimate?.reduce((acc, estimate) => {
+        return acc + Number(estimate?.total)
+      }, 0 || 0),
     }))
   }, [clientsData])
 
