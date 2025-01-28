@@ -216,11 +216,19 @@ export const ClientRegister = memo(function ClientRegister() {
         setCurrentStep(null)
       },
       onError: (error: any) => {
-        // Adicione tipagem explícita
-        console.error("Erro completo:", error) // Log do erro completo
+        console.error("Erro completo:", error)
 
-        const errorMessage =
-          error?.data?.message || error?.message || "Erro ao registrar cliente"
+        let errorMessage = "Erro ao registrar cliente"
+
+        try {
+          if (error.response?.data?.message) {
+            errorMessage = error.response.data.message
+          } else if (error.message) {
+            errorMessage = error.message
+          }
+        } catch (e) {
+          console.error("Erro ao processar mensagem de erro:", e)
+        }
 
         toast.error(errorMessage)
       },
@@ -228,31 +236,68 @@ export const ClientRegister = memo(function ClientRegister() {
   })
 
   function handleSubmit(data: FormValues) {
-    if (
-      !data.name ||
-      !data.email_address ||
-      !data.phone ||
-      !data.address_number
-    ) {
-      toast.error("Preencha todos os campos obrigatórios")
+    // Validação mais rigorosa dos campos
+    const requiredFields = {
+      type: data.type,
+      name: data.name,
+      email_address: data.email_address,
+      phone: data.phone,
+      cep: data.cep,
+      address: data.address,
+      address_number: data.address_number,
+      neighborhood: data.neighborhood,
+      state: data.state,
+      city: data.city,
+    }
+
+    // Verifica se algum campo obrigatório está faltando
+    const missingFields = Object.entries(requiredFields)
+      .filter(([_, value]) => !value)
+      .map(([key]) => key)
+
+    if (missingFields.length > 0) {
+      toast.error(`Campos obrigatórios faltando: ${missingFields.join(", ")}`)
       return
     }
 
-    // Limpar formatação dos dados
+    // Prepara o objeto de dados limpo
     const cleanedData = {
-      ...data,
-      cpf: data.cpf?.replace(/\D/g, ""),
-      cnpj: data.cnpj?.replace(/\D/g, ""),
-      phone: data.phone?.replace(/\D/g, ""),
-      cep: data.cep?.replace(/\D/g, ""),
+      type: data.type,
+      name: data.name.trim(),
+      email_address: data.email_address.trim(),
+      phone: data.phone.replace(/\D/g, ""),
+      cep: data.cep.replace(/\D/g, ""),
+      cpf: data.type === "física" ? data.cpf.replace(/\D/g, "") : "",
+      cnpj: data.type === "jurídica" ? data.cnpj.replace(/\D/g, "") : "",
+      company_name: data.type === "jurídica" ? data.company_name : "",
+      address: data.address.trim(),
+      address_number: data.address_number.trim(),
+      neighborhood: data.neighborhood.trim(),
+      state: data.state.trim(),
+      city: data.city.trim(),
     }
 
-    console.log("Dados a serem enviados:", cleanedData) // Log dos dados antes do envio
+    // Adiciona campos opcionais apenas se existirem
+    if (data.type === "física" && data.cpf) {
+      cleanedData.cpf = data.cpf.replace(/\D/g, "")
+    }
 
-    try {
+    if (data.type === "jurídica") {
+      if (data.cnpj) {
+        cleanedData.cnpj = data.cnpj.replace(/\D/g, "")
+      }
+      if (data.company_name) {
+        cleanedData.company_name = data.company_name.trim()
+      }
+    }
+
+    console.log("Dados a serem enviados:", cleanedData)
+
+    // Envia apenas se todos os dados estiverem válidos
+    if (Object.values(cleanedData).every((value) => value !== undefined)) {
       mutate({ data: cleanedData })
-    } catch (err) {
-      console.error("Erro na mutação:", err) // Log de qualquer erro na mutação
+    } else {
+      toast.error("Dados inválidos. Verifique todos os campos.")
     }
   }
 
