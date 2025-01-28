@@ -75,9 +75,9 @@ export const ClientRegister = memo(function ClientRegister() {
     defaultValues: {
       type: "",
       name: "",
-      company_name: "",
-      cpf: "",
-      cnpj: "",
+      company_name: undefined,
+      cpf: undefined,
+      cnpj: undefined,
       email_address: "",
       phone: "",
       cep: "",
@@ -267,8 +267,8 @@ export const ClientRegister = memo(function ClientRegister() {
       email_address: data.email_address.trim(),
       phone: data.phone.replace(/\D/g, ""),
       cep: data.cep.replace(/\D/g, ""),
-      cpf: data.type === "física" ? data.cpf.replace(/\D/g, "") : undefined,
-      cnpj: data.type === "jurídica" ? data.cnpj.replace(/\D/g, "") : undefined,
+      cpf: data.type === "física" ? data.cpf : undefined,
+      cnpj: data.type === "jurídica" ? data.cnpj : undefined,
       company_name: data.type === "jurídica" ? data.company_name : undefined,
       address: data.address.trim(),
       address_number: data.address_number.trim(),
@@ -278,18 +278,18 @@ export const ClientRegister = memo(function ClientRegister() {
     }
 
     // Adiciona campos opcionais apenas se existirem
-    if (data.type === "física" && data.cpf) {
-      cleanedData.cpf = data.cpf.replace(/\D/g, "")
-    }
+    // if (data.type === "física" && data.cpf) {
+    //   cleanedData.cpf = data.cpf.replace(/\D/g, "")
+    // }
 
-    if (data.type === "jurídica") {
-      if (data.cnpj) {
-        cleanedData.cnpj = data.cnpj.replace(/\D/g, "")
-      }
-      if (data.company_name) {
-        cleanedData.company_name = data.company_name.trim()
-      }
-    }
+    // if (data.type === "jurídica") {
+    //   if (data.cnpj) {
+    //     cleanedData.cnpj = data.cnpj.replace(/\D/g, "")
+    //   }
+    //   if (data.company_name) {
+    //     cleanedData.company_name = data.company_name.trim()
+    //   }
+    // }
 
     console.log("Dados a serem enviados:", cleanedData)
 
