@@ -43,7 +43,7 @@ interface ViaCepResponse {
 }
 
 type FormValues = {
-  type: string
+  type: "física" | "jurídica" | ""
   email_address: string
   name: string
   company_name: string
@@ -130,8 +130,9 @@ export const ClientRegister = memo(function ClientRegister() {
       setIsLoading(true)
       if (clients?.clients) {
         if (type === "física") {
+          const cleanCPF = cpf?.replace(/\D/g, "")
           const checkClientExists = clients.clients.find(
-            (client) => client.cpf === cpf?.replace(/\D/g, "")
+            (client) => client.cpf === cleanCPF
           )
           if (checkClientExists === undefined) {
             setCurrentStep("cpf")
@@ -173,9 +174,17 @@ export const ClientRegister = memo(function ClientRegister() {
   }
 
   async function getAddress() {
+    if (!cep || cep.length < 8) {
+      toast.error("CEP inválido")
+      return
+    }
+
     try {
       setIsLoading(true)
-      const { data } = await api.get<ViaCepResponse>(`/cep/ws/${cep}/json/`)
+      const cleanCEP = cep.replace(/\D/g, "")
+      const { data } = await api.get<ViaCepResponse>(
+        `/cep/ws/${cleanCEP}/json/`
+      )
 
       if (!data.erro) {
         const currentValues = getValuesClient()
@@ -202,24 +211,49 @@ export const ClientRegister = memo(function ClientRegister() {
   const { mutate } = usePostClientCreate({
     mutation: {
       onSuccess: () => {
-        toast.success("Cliente registrado com sucesso:")
+        toast.success("Cliente registrado com sucesso")
+        resetClient()
+        setCurrentStep(null)
       },
       onError: (error) => {
         console.error("Erro ao registrar cliente:", error)
-        toast.error("Erro ao registrar cliente:")
+        if (error.status) {
+          toast.error(error.data.message)
+        } else {
+          toast.error("Erro ao registrar cliente")
+        }
       },
     },
   })
 
   function handleSubmit(data: FormValues) {
-    mutate({ data })
+    // Validar campos obrigatórios
+    if (
+      !data.name ||
+      !data.email_address ||
+      !data.phone ||
+      !data.address_number
+    ) {
+      toast.error("Preencha todos os campos obrigatórios")
+      return
+    }
+
+    // Limpar formatação dos dados
+    const cleanedData = {
+      ...data,
+      cpf: data.cpf?.replace(/\D/g, ""),
+      cnpj: data.cnpj?.replace(/\D/g, ""),
+      phone: data.phone?.replace(/\D/g, ""),
+      cep: data.cep?.replace(/\D/g, ""),
+    }
+
+    console.log("Dados do formulário:", cleanedData)
+    mutate({ data: cleanedData })
   }
 
   if (!profile) {
     return <div>Não foi possível carregar os dados do usuário</div>
   }
-
-  console.log(currentStep)
 
   return (
     <div className="flex gap-2">
