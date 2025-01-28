@@ -21,6 +21,7 @@ import {
   useGetClientsAll,
   useGetMe,
   usePostClientCreate,
+  type PostClientCreateMutationRequest,
 } from "@/http/generated"
 import { api } from "@/lib/axios"
 import { formatCNPJ } from "@/utils/formatCNPJ"
@@ -261,15 +262,12 @@ export const ClientRegister = memo(function ClientRegister() {
     }
 
     // Prepara o objeto de dados limpo
-    const cleanedData = {
+    const cleanedData: PostClientCreateMutationRequest = {
       type: data.type,
       name: data.name.trim(),
       email_address: data.email_address.trim(),
       phone: data.phone.replace(/\D/g, ""),
       cep: data.cep.replace(/\D/g, ""),
-      cpf: data.cpf,
-      cnpj: data.cnpj,
-      company_name: data.company_name,
       address: data.address.trim(),
       address_number: data.address_number.trim(),
       neighborhood: data.neighborhood.trim(),
@@ -278,18 +276,18 @@ export const ClientRegister = memo(function ClientRegister() {
     }
 
     // Adiciona campos opcionais apenas se existirem
-    // if (data.type === "física" && data.cpf) {
-    //   cleanedData.cpf = data.cpf.replace(/\D/g, "")
-    // }
+    if (data.type === "física" && data.cpf) {
+      cleanedData.cpf = data.cpf.replace(/\D/g, "")
+    }
 
-    // if (data.type === "jurídica") {
-    //   if (data.cnpj) {
-    //     cleanedData.cnpj = data.cnpj.replace(/\D/g, "")
-    //   }
-    //   if (data.company_name) {
-    //     cleanedData.company_name = data.company_name.trim()
-    //   }
-    // }
+    if (data.type === "jurídica") {
+      if (data.cnpj) {
+        cleanedData.cnpj = data.cnpj.replace(/\D/g, "")
+      }
+      if (data.company_name) {
+        cleanedData.company_name = data.company_name.trim()
+      }
+    }
 
     console.log("Dados a serem enviados:", cleanedData)
 
@@ -300,7 +298,6 @@ export const ClientRegister = memo(function ClientRegister() {
       toast.error("Dados inválidos. Verifique todos os campos.")
     }
   }
-
   if (!profile) {
     return <div>Não foi possível carregar os dados do usuário</div>
   }
