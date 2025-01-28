@@ -215,19 +215,19 @@ export const ClientRegister = memo(function ClientRegister() {
         resetClient()
         setCurrentStep(null)
       },
-      onError: (error) => {
-        console.error("Erro ao registrar cliente:", error)
-        if (error.status) {
-          toast.error(error.data.message)
-        } else {
-          toast.error("Erro ao registrar cliente")
-        }
+      onError: (error: any) => {
+        // Adicione tipagem explícita
+        console.error("Erro completo:", error) // Log do erro completo
+
+        const errorMessage =
+          error?.data?.message || error?.message || "Erro ao registrar cliente"
+
+        toast.error(errorMessage)
       },
     },
   })
 
   function handleSubmit(data: FormValues) {
-    // Validar campos obrigatórios
     if (
       !data.name ||
       !data.email_address ||
@@ -247,8 +247,13 @@ export const ClientRegister = memo(function ClientRegister() {
       cep: data.cep?.replace(/\D/g, ""),
     }
 
-    console.log("Dados do formulário:", cleanedData)
-    mutate({ data: cleanedData })
+    console.log("Dados a serem enviados:", cleanedData) // Log dos dados antes do envio
+
+    try {
+      mutate({ data: cleanedData })
+    } catch (err) {
+      console.error("Erro na mutação:", err) // Log de qualquer erro na mutação
+    }
   }
 
   if (!profile) {
