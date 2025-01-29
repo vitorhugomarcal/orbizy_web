@@ -263,23 +263,7 @@ export const ClientRegister = memo(function ClientRegister() {
       }
     }
 
-    mutate({
-      data: {
-        type: "física",
-        email_address: "teste@teste.com",
-        name: "teste",
-        company_name: "",
-        cpf: "12312312322",
-        cnpj: "",
-        phone: "11111111111",
-        cep: "05591030",
-        address: "Bouzan",
-        address_number: "34",
-        neighborhood: "Bonfa",
-        state: "SP",
-        city: "São Paulo",
-      },
-    })
+    mutate({ data })
   }
 
   if (!profile) {
