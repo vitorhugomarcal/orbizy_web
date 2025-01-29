@@ -17,7 +17,7 @@ interface ClientData {
 }
 
 export async function postClient(data: ClientData) {
-  const response = await api.post("/client/register", data)
+  const response = await api.post("/client/create", data)
 
   return response.data
 }
