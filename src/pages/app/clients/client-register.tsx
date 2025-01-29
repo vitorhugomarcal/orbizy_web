@@ -61,9 +61,12 @@ type FormValues = {
 
 export const ClientRegister = memo(function ClientRegister() {
   const { data: profile } = useGetMe()
+  const { data: clients } = useGetClientsAll()
+
   const [isLoading, setIsLoading] = useState(false)
   const [currentStep, setCurrentStep] = useState<ModalStep>(null)
-  const { data: clients } = useGetClientsAll()
+
+  const { mutate } = usePostClientCreate()
 
   const {
     control: controlClient,
@@ -209,32 +212,32 @@ export const ClientRegister = memo(function ClientRegister() {
     }
   }
 
-  const { mutate } = usePostClientCreate({
-    mutation: {
-      onSuccess: () => {
-        toast.success("Cliente registrado com sucesso")
-        resetClient()
-        setCurrentStep(null)
-      },
-      onError: (error: any) => {
-        console.error("Erro completo:", error)
+  // const { mutate } = usePostClientCreate({
+  //   mutation: {
+  //     onSuccess: () => {
+  //       toast.success("Cliente registrado com sucesso")
+  //       resetClient()
+  //       setCurrentStep(null)
+  //     },
+  //     onError: (error: any) => {
+  //       console.error("Erro completo:", error)
 
-        let errorMessage = "Erro ao registrar cliente"
+  //       let errorMessage = "Erro ao registrar cliente"
 
-        try {
-          if (error.response?.data?.message) {
-            errorMessage = error.response.data.message
-          } else if (error.message) {
-            errorMessage = error.message
-          }
-        } catch (e) {
-          console.error("Erro ao processar mensagem de erro:", e)
-        }
+  //       try {
+  //         if (error.response?.data?.message) {
+  //           errorMessage = error.response.data.message
+  //         } else if (error.message) {
+  //           errorMessage = error.message
+  //         }
+  //       } catch (e) {
+  //         console.error("Erro ao processar mensagem de erro:", e)
+  //       }
 
-        toast.error(errorMessage)
-      },
-    },
-  })
+  //       toast.error(errorMessage)
+  //     },
+  //   },
+  // })
 
   const handleSubmit = (data: FormValues) => {
     const cleanedData: PostClientCreateMutationRequest = {
