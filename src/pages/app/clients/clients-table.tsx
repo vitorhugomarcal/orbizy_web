@@ -161,12 +161,28 @@ export const columns: ColumnDef<TableProps>[] = [
       const [openDialog, setOpenDialog] = React.useState(false)
       const [openDetails, setOpenDetails] = React.useState(false)
 
-      const queryClient = useQueryClient() // Adicione esta linha
+      const queryClient = useQueryClient()
 
       const { mutateAsync: remove } = useMutation({
         mutationFn: removeClient,
-        onSuccess: () => {
+        onSuccess: async (clientId) => {
           queryClient.invalidateQueries({ queryKey: ["clients"] })
+
+          // Atualiza os dados imediatamente no cache (otimistic update)
+          queryClient.setQueryData(["clients"], (oldData: any) => ({
+            ...oldData,
+            clients: oldData.clients.filter(
+              (client: any) => client.id !== clientId
+            ),
+          }))
+
+          toast.success("Cliente removido!")
+          setOpenDialog(false)
+        },
+        onError: (error) => {
+          toast.error(
+            error instanceof Error ? error.message : "Erro ao remover cliente."
+          )
         },
       })
 
@@ -260,8 +276,6 @@ export function ClientsTable() {
   }
 
   const clientsData = data?.clients
-
-  console.log("DATA CLIENT =>", clientsData)
 
   const transformedData: TableProps[] = React.useMemo(() => {
     if (!clientsData) return []
