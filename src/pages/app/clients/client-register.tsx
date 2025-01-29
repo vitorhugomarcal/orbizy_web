@@ -236,32 +236,7 @@ export const ClientRegister = memo(function ClientRegister() {
     },
   })
 
-  function handleSubmit(data: FormValues) {
-    // Validação mais rigorosa dos campos
-    const requiredFields = {
-      type: data.type,
-      name: data.name,
-      email_address: data.email_address,
-      phone: data.phone,
-      cep: data.cep,
-      address: data.address,
-      address_number: data.address_number,
-      neighborhood: data.neighborhood,
-      state: data.state,
-      city: data.city,
-    }
-
-    // Verifica se algum campo obrigatório está faltando
-    const missingFields = Object.entries(requiredFields)
-      .filter(([_, value]) => !value)
-      .map(([key]) => key)
-
-    if (missingFields.length > 0) {
-      toast.error(`Campos obrigatórios faltando: ${missingFields.join(", ")}`)
-      return
-    }
-
-    // Prepara o objeto de dados limpo
+  const handleSubmit = (data: FormValues) => {
     const cleanedData: PostClientCreateMutationRequest = {
       type: data.type,
       name: data.name.trim(),
@@ -275,7 +250,6 @@ export const ClientRegister = memo(function ClientRegister() {
       city: data.city.trim(),
     }
 
-    // Adiciona campos opcionais apenas se existirem
     if (data.type === "física" && data.cpf) {
       cleanedData.cpf = data.cpf.replace(/\D/g, "")
     }
@@ -289,15 +263,9 @@ export const ClientRegister = memo(function ClientRegister() {
       }
     }
 
-    console.log("Dados a serem enviados:", cleanedData)
-
-    // Envia apenas se todos os dados estiverem válidos
-    if (Object.values(cleanedData).every((value) => value !== undefined)) {
-      mutate({ data: cleanedData })
-    } else {
-      toast.error("Dados inválidos. Verifique todos os campos.")
-    }
+    mutate({ data: cleanedData })
   }
+
   if (!profile) {
     return <div>Não foi possível carregar os dados do usuário</div>
   }
