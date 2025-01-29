@@ -1,5 +1,5 @@
 /**
- * @description Cliente cadastrado com sucesso
+ * @description Cliente criado com sucesso
  */
 export type PostClientCreate201 = {
   /**
@@ -9,7 +9,7 @@ export type PostClientCreate201 = {
 }
 
 /**
- * @description Cliente já cadastrado
+ * @description Dados inválidos ou cliente já existe
  */
 export type PostClientCreate400 = {
   /**
@@ -19,7 +19,7 @@ export type PostClientCreate400 = {
 }
 
 /**
- * @description Unauthorized
+ * @description Não autorizado
  */
 export type PostClientCreate401 = {
   /**
@@ -29,7 +29,7 @@ export type PostClientCreate401 = {
 }
 
 /**
- * @description Company not found
+ * @description Empresa não encontrada
  */
 export type PostClientCreate404 = {
   /**

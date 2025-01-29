@@ -15,7 +15,7 @@ export const postClientCreateMutationKey = () => [{ url: '/client/create' }] as 
 export type PostClientCreateMutationKey = ReturnType<typeof postClientCreateMutationKey>
 
 /**
- * @description Register a new client (individual or corporate)
+ * @description Cadastra um novo cliente (pessoa física ou jurídica)
  * {@link /client/create}
  */
 export async function postClientCreate(
@@ -33,7 +33,7 @@ export async function postClientCreate(
 }
 
 /**
- * @description Register a new client (individual or corporate)
+ * @description Cadastra um novo cliente (pessoa física ou jurídica)
  * {@link /client/create}
  */
 export function usePostClientCreate(
