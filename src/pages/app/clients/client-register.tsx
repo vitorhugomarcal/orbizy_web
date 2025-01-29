@@ -1,4 +1,5 @@
 import { inviteClient } from "@/api/client/invite-client"
+import { postClient } from "@/api/client/post-Client"
 import { Button } from "@/components/ui/button"
 import {
   Drawer,
@@ -17,16 +18,12 @@ import {
   TooltipProvider,
   TooltipTrigger,
 } from "@/components/ui/tooltip"
-import {
-  useGetClientsAll,
-  useGetMe,
-  usePostClientCreate,
-  type PostClientCreateMutationRequest,
-} from "@/http/generated"
+import { useGetClientsAll, useGetMe } from "@/http/generated"
 import { api } from "@/lib/axios"
 import { formatCNPJ } from "@/utils/formatCNPJ"
 import { formatCPF } from "@/utils/formatCPF"
 import { formatPhone } from "@/utils/formatPhone"
+import { useMutation, useQueryClient } from "@tanstack/react-query"
 import { Link } from "lucide-react"
 import { memo, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
@@ -66,7 +63,14 @@ export const ClientRegister = memo(function ClientRegister() {
   const [isLoading, setIsLoading] = useState(false)
   const [currentStep, setCurrentStep] = useState<ModalStep>(null)
 
-  const { mutate } = usePostClientCreate()
+  const queryClient = useQueryClient() // Adicione esta linha
+
+  const { mutateAsync: post } = useMutation({
+    mutationFn: postClient,
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["clients"] })
+    },
+  })
 
   const {
     control: controlClient,
@@ -239,34 +243,16 @@ export const ClientRegister = memo(function ClientRegister() {
   //   },
   // })
 
-  const handleSubmit = (data: FormValues) => {
-    const cleanedData: PostClientCreateMutationRequest = {
-      type: data.type,
-      name: data.name.trim(),
-      email_address: data.email_address.trim(),
-      phone: data.phone.replace(/\D/g, ""),
-      cep: data.cep.replace(/\D/g, ""),
-      address: data.address.trim(),
-      address_number: data.address_number.trim(),
-      neighborhood: data.neighborhood.trim(),
-      state: data.state.trim(),
-      city: data.city.trim(),
+  async function handleSubmit(data: FormValues) {
+    try {
+      await post({ ...data })
+      toast.success("Cadastro realizado com sucesso!")
+      setCurrentStep(null)
+    } catch (error) {
+      toast.error(
+        error instanceof Error ? error.message : "Erro ao realizar cadastro"
+      )
     }
-
-    if (data.type === "física" && data.cpf) {
-      cleanedData.cpf = data.cpf.replace(/\D/g, "")
-    }
-
-    if (data.type === "jurídica") {
-      if (data.cnpj) {
-        cleanedData.cnpj = data.cnpj.replace(/\D/g, "")
-      }
-      if (data.company_name) {
-        cleanedData.company_name = data.company_name.trim()
-      }
-    }
-
-    mutate({ data })
   }
 
   if (!profile) {
