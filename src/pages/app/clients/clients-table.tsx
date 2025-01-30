@@ -165,17 +165,12 @@ export const columns: ColumnDef<TableProps>[] = [
 
       const { mutateAsync: remove } = useMutation({
         mutationFn: removeClient,
-        onSuccess: () => {
-          // Invalida a query específica de clientes
-          queryClient.invalidateQueries({ queryKey: ["clients"] })
-
-          // Atualiza os dados imediatamente no cache
-          queryClient.setQueryData(["clients"], (oldData: any) => ({
-            ...oldData,
-            clients: oldData.clients.filter((c: any) => c.id !== client.id),
-          }))
-
-          toast.success("Cliente removido!")
+        onSuccess: async () => {
+          await queryClient.refetchQueries({
+            queryKey: ["clients"],
+            type: "active",
+          })
+          toast.success("Cliente removido com sucesso!")
           setOpenDialog(false)
         },
         onError: (error) => {
