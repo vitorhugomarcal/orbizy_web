@@ -54,7 +54,7 @@ import {
 } from "@/components/ui/table"
 import { useGetClientsAll } from "@/http/generated"
 import { formatPhone } from "@/utils/formatPhone"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
 
 export interface TableProps {
@@ -78,187 +78,169 @@ export interface TableProps {
   createdAt?: string
 }
 
-export const columns: ColumnDef<TableProps>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+function getColumns({
+  removeClientMutation,
+}: {
+  removeClientMutation: (id: string) => Promise<any>
+}): ColumnDef<TableProps>[] {
+  return [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: "name",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Nome
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("name")}</div>
+      ),
+    },
+    {
+      accessorKey: "email",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Email
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("email")}</div>
+      ),
+    },
+    {
+      accessorKey: "phone",
+      header: () => <div className="text-right">Telefone</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-medium">{row.getValue("phone")}</div>
+      ),
+    },
+    {
+      accessorKey: "amount",
+      header: () => <div className="text-right">Total</div>,
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue("amount"))
+
+        const formatted = new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(Number(amount))
+
+        return <div className="text-right font-medium">{formatted}</div>
+      },
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const client = row.original
+        const [openDialog, setOpenDialog] = React.useState(false)
+        const [openDetails, setOpenDetails] = React.useState(false)
+
+        async function handleSubmit(clientId: string) {
+          try {
+            await removeClientMutation(clientId)
+            setOpenDialog(false)
+          } catch {
+            // Erro já tratado no onError do mutation
+          }
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Nome
-          <ArrowUpDown />
-        </Button>
-      )
+
+        return (
+          <>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Abrir</span>
+                  <MoreHorizontal />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem onClick={() => setOpenDetails(true)}>
+                  Detalhes
+                </DropdownMenuItem>
+                <DropdownMenuItem onClick={() => setOpenDialog(true)}>
+                  Excluir
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
+              <AlertDialogContent>
+                <AlertDialogHeader>
+                  <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+                  <AlertDialogDescription>
+                    Esta ação não pode ser desfeita. Isso excluirá
+                    permanentemente o cliente e removerá os dados dos nossos
+                    servidores.
+                  </AlertDialogDescription>
+                </AlertDialogHeader>
+                <AlertDialogFooter>
+                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
+                  <AlertDialogAction onClick={() => handleSubmit(client.id)}>
+                    Continuar
+                  </AlertDialogAction>
+                </AlertDialogFooter>
+              </AlertDialogContent>
+            </AlertDialog>
+
+            <Drawer open={openDetails} onOpenChange={setOpenDetails}>
+              <DrawerContent>
+                <div className="mx-auto w-full max-w-sm">
+                  <DrawerHeader>
+                    <DrawerTitle>{client.name}</DrawerTitle>
+                    <DrawerDescription>
+                      {client.address}, {client.address_number}
+                    </DrawerDescription>
+                  </DrawerHeader>
+                  <div className="grid gap-4 py-4"></div>
+                  <DrawerFooter>
+                    <Button>Submit</Button>
+                    <DrawerClose asChild>
+                      <Button variant="outline">Cancel</Button>
+                    </DrawerClose>
+                  </DrawerFooter>
+                </div>
+              </DrawerContent>
+            </Drawer>
+          </>
+        )
+      },
     },
-    cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "phone",
-    header: () => <div className="text-right">Telefone</div>,
-    cell: ({ row }) => (
-      <div className="text-right font-medium">{row.getValue("phone")}</div>
-    ),
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-right">Total</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(Number(amount))
-
-      return <div className="text-right font-medium">{formatted}</div>
-    },
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const client = row.original
-      const [openDialog, setOpenDialog] = React.useState(false)
-      const [openDetails, setOpenDetails] = React.useState(false)
-
-      const queryClient = useQueryClient()
-
-      const { mutateAsync: remove } = useMutation({
-        mutationFn: removeClient,
-        onMutate: async () => {
-          // Cancela quaisquer refetches em andamento
-          await queryClient.cancelQueries({ queryKey: ["clients"] })
-
-          // Salva o estado anterior
-          const previousClients = queryClient.getQueryData(["clients"])
-
-          return { previousClients }
-        },
-        onError: (err, _, context) => {
-          // Em caso de erro, reverte para o estado anterior
-          queryClient.setQueryData(["clients"], context?.previousClients)
-          toast.error(
-            err instanceof Error ? err.message : "Erro ao remover cliente."
-          )
-        },
-        onSettled: () => {
-          // Independente do resultado, refetch os dados
-          queryClient.invalidateQueries({ queryKey: ["clients"] })
-        },
-      })
-
-      async function handleSubmit(clientId: string) {
-        try {
-          await remove(clientId)
-          setOpenDialog(false)
-        } catch (error) {
-          toast.error(
-            error instanceof Error ? error.message : "Erro ao remover cliente."
-          )
-        }
-      }
-
-      return (
-        <>
-          <DropdownMenu>
-            <DropdownMenuTrigger asChild>
-              <Button variant="ghost" className="h-8 w-8 p-0">
-                <span className="sr-only">Abrir</span>
-                <MoreHorizontal />
-              </Button>
-            </DropdownMenuTrigger>
-            <DropdownMenuContent align="end">
-              <DropdownMenuItem onClick={() => setOpenDetails(true)}>
-                Detalhes
-              </DropdownMenuItem>
-              <DropdownMenuItem onClick={() => setOpenDialog(true)}>
-                Excluir
-              </DropdownMenuItem>
-            </DropdownMenuContent>
-          </DropdownMenu>
-
-          <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
-            <AlertDialogContent>
-              <AlertDialogHeader>
-                <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
-                <AlertDialogDescription>
-                  Esta ação não pode ser desfeita. Isso excluirá permanentemente
-                  o cliente e removerá os dados dos nossos servidores.
-                </AlertDialogDescription>
-              </AlertDialogHeader>
-              <AlertDialogFooter>
-                <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                <AlertDialogAction onClick={() => handleSubmit(client.id)}>
-                  Continuar
-                </AlertDialogAction>
-              </AlertDialogFooter>
-            </AlertDialogContent>
-          </AlertDialog>
-
-          <Drawer open={openDetails} onOpenChange={setOpenDetails}>
-            <DrawerContent>
-              <div className="mx-auto w-full max-w-sm">
-                <DrawerHeader>
-                  <DrawerTitle>{client.name}</DrawerTitle>
-                  <DrawerDescription>
-                    {client.address}, {client.address_number}
-                  </DrawerDescription>
-                </DrawerHeader>
-                <div className="grid gap-4 py-4"></div>
-                <DrawerFooter>
-                  <Button>Submit</Button>
-                  <DrawerClose asChild>
-                    <Button variant="outline">Cancel</Button>
-                  </DrawerClose>
-                </DrawerFooter>
-              </div>
-            </DrawerContent>
-          </Drawer>
-        </>
-      )
-    },
-  },
-]
+  ]
+}
 
 export function ClientsTable() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -269,7 +251,21 @@ export function ClientsTable() {
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
-  const { data, isLoading, error } = useGetClientsAll()
+  // const queryClient = useQueryClient()
+  const { data, isLoading, error, refetch } = useGetClientsAll()
+
+  const { mutateAsync: removeClientMutation } = useMutation({
+    mutationFn: removeClient,
+    onSuccess: async () => {
+      await refetch() // Refetch explícito após sucesso
+      toast.success("Cliente removido com sucesso!")
+    },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Erro ao remover cliente."
+      )
+    },
+  })
 
   if (error) {
     return <div>Erro ao carregar dados: {error.statusText}</div>
@@ -304,6 +300,11 @@ export function ClientsTable() {
       }, 0 || 0),
     }))
   }, [clientsData])
+
+  const columns = React.useMemo(
+    () => getColumns({ removeClientMutation }),
+    [removeClientMutation]
+  )
 
   const table = useReactTable({
     data: transformedData,
