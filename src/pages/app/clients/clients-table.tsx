@@ -165,15 +165,14 @@ export const columns: ColumnDef<TableProps>[] = [
 
       const { mutateAsync: remove } = useMutation({
         mutationFn: removeClient,
-        onSuccess: async (clientId) => {
+        onSuccess: () => {
+          // Invalida a query específica de clientes
           queryClient.invalidateQueries({ queryKey: ["clients"] })
 
-          // Atualiza os dados imediatamente no cache (otimistic update)
+          // Atualiza os dados imediatamente no cache
           queryClient.setQueryData(["clients"], (oldData: any) => ({
             ...oldData,
-            clients: oldData.clients.filter(
-              (client: any) => client.id !== clientId
-            ),
+            clients: oldData.clients.filter((c: any) => c.id !== client.id),
           }))
 
           toast.success("Cliente removido!")
