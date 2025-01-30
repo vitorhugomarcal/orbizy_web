@@ -165,25 +165,31 @@ export const columns: ColumnDef<TableProps>[] = [
 
       const { mutateAsync: remove } = useMutation({
         mutationFn: removeClient,
-        onSuccess: async () => {
-          await queryClient.refetchQueries({
-            queryKey: ["clients"],
-            type: "active",
-          })
-          toast.success("Cliente removido com sucesso!")
-          setOpenDialog(false)
+        onMutate: async () => {
+          // Cancela quaisquer refetches em andamento
+          await queryClient.cancelQueries({ queryKey: ["clients"] })
+
+          // Salva o estado anterior
+          const previousClients = queryClient.getQueryData(["clients"])
+
+          return { previousClients }
         },
-        onError: (error) => {
+        onError: (err, _, context) => {
+          // Em caso de erro, reverte para o estado anterior
+          queryClient.setQueryData(["clients"], context?.previousClients)
           toast.error(
-            error instanceof Error ? error.message : "Erro ao remover cliente."
+            err instanceof Error ? err.message : "Erro ao remover cliente."
           )
+        },
+        onSettled: () => {
+          // Independente do resultado, refetch os dados
+          queryClient.invalidateQueries({ queryKey: ["clients"] })
         },
       })
 
       async function handleSubmit(clientId: string) {
         try {
           await remove(clientId)
-          toast.success("Cliente removido!")
           setOpenDialog(false)
         } catch (error) {
           toast.error(
