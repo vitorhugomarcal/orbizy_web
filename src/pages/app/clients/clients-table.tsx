@@ -27,15 +27,6 @@ import {
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
-  Drawer,
-  DrawerClose,
-  DrawerContent,
-  DrawerDescription,
-  DrawerFooter,
-  DrawerHeader,
-  DrawerTitle,
-} from "@/components/ui/drawer"
-import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
   DropdownMenuContent,
@@ -56,8 +47,9 @@ import { useGetClientsAll } from "@/http/generated"
 import { formatPhone } from "@/utils/formatPhone"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
+import { ClientDetails } from "./client-details"
 
-export interface TableProps {
+export interface TablePropsClient {
   id: string
   amount: number
   name: string
@@ -82,7 +74,7 @@ function getColumns({
   removeClientMutation,
 }: {
   removeClientMutation: (id: string) => Promise<any>
-}): ColumnDef<TableProps>[] {
+}): ColumnDef<TablePropsClient>[] {
   return [
     {
       id: "select",
@@ -216,25 +208,7 @@ function getColumns({
               </AlertDialogContent>
             </AlertDialog>
 
-            <Drawer open={openDetails} onOpenChange={setOpenDetails}>
-              <DrawerContent>
-                <div className="mx-auto w-full max-w-sm">
-                  <DrawerHeader>
-                    <DrawerTitle>{client.name}</DrawerTitle>
-                    <DrawerDescription>
-                      {client.address}, {client.address_number}
-                    </DrawerDescription>
-                  </DrawerHeader>
-                  <div className="grid gap-4 py-4"></div>
-                  <DrawerFooter>
-                    <Button>Submit</Button>
-                    <DrawerClose asChild>
-                      <Button variant="outline">Cancel</Button>
-                    </DrawerClose>
-                  </DrawerFooter>
-                </div>
-              </DrawerContent>
-            </Drawer>
+            <ClientDetails client={client} openDetails={openDetails} />
           </>
         )
       },
@@ -273,7 +247,7 @@ export function ClientsTable() {
 
   const clientsData = data?.clients
 
-  const transformedData: TableProps[] = React.useMemo(() => {
+  const transformedData: TablePropsClient[] = React.useMemo(() => {
     if (!clientsData) return []
 
     return clientsData.map((client) => ({
