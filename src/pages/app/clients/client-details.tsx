@@ -1,7 +1,6 @@
 import { Button } from "@/components/ui/button"
 import {
   Drawer,
-  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -34,13 +33,14 @@ export const ClientDetails = ({ client, openDetails }: Props) => {
             <div>
               <h1>Dados</h1>
             </div>
+            <div>
+              <h1>Dados</h1>
+            </div>
           </div>
         </DrawerHeader>
+
         <DrawerFooter>
-          <Button>Submit</Button>
-          <DrawerClose>
-            <Button variant="outline">Cancel</Button>
-          </DrawerClose>
+          <Button onClick={() => openDetails === false}>Fechar</Button>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
