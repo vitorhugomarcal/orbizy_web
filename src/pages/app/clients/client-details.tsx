@@ -8,6 +8,8 @@ import {
   DrawerHeader,
   DrawerTitle,
 } from "@/components/ui/drawer"
+import { Input } from "@/components/ui/input"
+import { Separator } from "@/components/ui/separator"
 import { TablePropsClient } from "./clients-table"
 
 type Props = React.ComponentProps<typeof Drawer> & {
@@ -22,9 +24,9 @@ export const ClientDetails = ({ client, openDetails, ...rest }: Props) => {
         <DrawerHeader>
           <DrawerTitle>{client.name}</DrawerTitle>
           <DrawerDescription>
-            {client.address}, {client.address_number}
+            <Separator />
           </DrawerDescription>
-          <div className=" flex-col gap-2 grid grid-cols-4">
+          <div className=" flex-col gap-2 grid grid-cols-3">
             <div>
               <h1>Orçamentos</h1>
             </div>
@@ -36,6 +38,20 @@ export const ClientDetails = ({ client, openDetails, ...rest }: Props) => {
             </div>
             <div>
               <h1>Dados</h1>
+              <div className=" flex flex-col gap-2 my-4 mx-4">
+                <Input
+                  value={client.name}
+                  disabled
+                  placeholder="Nome do cliente"
+                  className="w-1/4"
+                />
+                <Input
+                  value={client.email_address}
+                  disabled
+                  placeholder="Email do cliente"
+                  className="w-1/4"
+                />
+              </div>
             </div>
           </div>
         </DrawerHeader>
