@@ -23,7 +23,7 @@ import { api } from "@/lib/axios"
 import { formatCNPJ } from "@/utils/formatCNPJ"
 import { formatCPF } from "@/utils/formatCPF"
 import { formatPhone } from "@/utils/formatPhone"
-import { useMutation, useQueryClient } from "@tanstack/react-query"
+import { useMutation } from "@tanstack/react-query"
 import { Link } from "lucide-react"
 import { memo, useState } from "react"
 import { Controller, useForm } from "react-hook-form"
@@ -58,17 +58,20 @@ type FormValues = {
 
 export const ClientRegister = memo(function ClientRegister() {
   const { data: profile } = useGetMe()
-  const { data: clients } = useGetClientsAll()
+  const { data: clients, refetch } = useGetClientsAll()
 
   const [isLoading, setIsLoading] = useState(false)
   const [currentStep, setCurrentStep] = useState<ModalStep>(null)
 
-  const queryClient = useQueryClient() // Adicione esta linha
-
   const { mutateAsync: post } = useMutation({
     mutationFn: postClient,
-    onSuccess: () => {
-      queryClient.invalidateQueries({ queryKey: ["clients"] })
+    onSuccess: async () => {
+      await refetch()
+    },
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Erro ao adicionar o cliente."
+      )
     },
   })
 
@@ -215,33 +218,6 @@ export const ClientRegister = memo(function ClientRegister() {
       setIsLoading(false)
     }
   }
-
-  // const { mutate } = usePostClientCreate({
-  //   mutation: {
-  //     onSuccess: () => {
-  //       toast.success("Cliente registrado com sucesso")
-  //       resetClient()
-  //       setCurrentStep(null)
-  //     },
-  //     onError: (error: any) => {
-  //       console.error("Erro completo:", error)
-
-  //       let errorMessage = "Erro ao registrar cliente"
-
-  //       try {
-  //         if (error.response?.data?.message) {
-  //           errorMessage = error.response.data.message
-  //         } else if (error.message) {
-  //           errorMessage = error.message
-  //         }
-  //       } catch (e) {
-  //         console.error("Erro ao processar mensagem de erro:", e)
-  //       }
-
-  //       toast.error(errorMessage)
-  //     },
-  //   },
-  // })
 
   async function handleSubmit(data: FormValues) {
     try {
