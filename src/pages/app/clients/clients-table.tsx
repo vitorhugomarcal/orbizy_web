@@ -208,7 +208,11 @@ function getColumns({
               </AlertDialogContent>
             </AlertDialog>
 
-            <ClientDetails client={client} openDetails={openDetails} />
+            <ClientDetails
+              client={client}
+              openDetails={openDetails}
+              onOpenChange={setOpenDetails}
+            />
           </>
         )
       },

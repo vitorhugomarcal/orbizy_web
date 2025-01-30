@@ -1,6 +1,7 @@
 import { Button } from "@/components/ui/button"
 import {
   Drawer,
+  DrawerClose,
   DrawerContent,
   DrawerDescription,
   DrawerFooter,
@@ -9,14 +10,14 @@ import {
 } from "@/components/ui/drawer"
 import { TablePropsClient } from "./clients-table"
 
-type Props = {
+type Props = React.ComponentProps<typeof Drawer> & {
   client: TablePropsClient
   openDetails: boolean
 }
 
-export const ClientDetails = ({ client, openDetails }: Props) => {
+export const ClientDetails = ({ client, openDetails, ...rest }: Props) => {
   return (
-    <Drawer open={openDetails} onOpenChange={(open) => !open}>
+    <Drawer open={openDetails} {...rest}>
       <DrawerContent>
         <DrawerHeader>
           <DrawerTitle>{client.name}</DrawerTitle>
@@ -40,7 +41,9 @@ export const ClientDetails = ({ client, openDetails }: Props) => {
         </DrawerHeader>
 
         <DrawerFooter>
-          <Button onClick={() => openDetails === false}>Fechar</Button>
+          <DrawerClose asChild>
+            <Button>Fechar</Button>
+          </DrawerClose>
         </DrawerFooter>
       </DrawerContent>
     </Drawer>
