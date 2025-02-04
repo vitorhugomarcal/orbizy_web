@@ -26,7 +26,7 @@ export async function postInvitedClientRegister(
     PostInvitedClientRegisterMutationResponse,
     ResponseErrorConfig<PostInvitedClientRegister400>,
     PostInvitedClientRegisterMutationRequest
-  >({ method: 'POST', url: `/invited/client/register`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
+  >({ method: 'POST', url: `/invited/client/register`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
 }
 

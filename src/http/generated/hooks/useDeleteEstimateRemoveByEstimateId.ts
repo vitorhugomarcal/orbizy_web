@@ -27,7 +27,7 @@ export async function deleteEstimateRemoveByEstimateId(
     DeleteEstimateRemoveByEstimateIdMutationResponse,
     ResponseErrorConfig<DeleteEstimateRemoveByEstimateId401 | DeleteEstimateRemoveByEstimateId404>,
     unknown
-  >({ method: 'DELETE', url: `/estimate/remove/${estimateId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
+  >({ method: 'DELETE', url: `/estimate/remove/${estimateId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
   return res.data
 }
 

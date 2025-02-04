@@ -21,7 +21,7 @@ export async function putMeUpdate(
   const res = await request<PutMeUpdateMutationResponse, ResponseErrorConfig<PutMeUpdate401>, PutMeUpdateMutationRequest>({
     method: 'PUT',
     url: `/me/update`,
-    baseURL: 'http://192.168.1.81:3333',
+    baseURL: 'https://api.orbizy.app',
     data,
     ...requestConfig,
   })

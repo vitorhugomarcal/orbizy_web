@@ -29,7 +29,7 @@ export async function getClientsByClientId(
     GetClientsByClientIdQueryResponse,
     ResponseErrorConfig<GetClientsByClientId400 | GetClientsByClientId401 | GetClientsByClientId404>,
     unknown
-  >({ method: 'GET', url: `/clients/${clientId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
+  >({ method: 'GET', url: `/clients/${clientId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
   return res.data
 }
 

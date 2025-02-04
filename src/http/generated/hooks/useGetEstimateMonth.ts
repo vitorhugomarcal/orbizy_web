@@ -23,7 +23,7 @@ export async function getEstimateMonth(config: Partial<RequestConfig> & { client
   const res = await request<GetEstimateMonthQueryResponse, ResponseErrorConfig<GetEstimateMonth401 | GetEstimateMonth404 | GetEstimateMonth500>, unknown>({
     method: 'GET',
     url: `/estimate/month`,
-    baseURL: 'http://192.168.1.81:3333',
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

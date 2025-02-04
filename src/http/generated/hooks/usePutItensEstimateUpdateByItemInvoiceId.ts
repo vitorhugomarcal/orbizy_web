@@ -29,7 +29,7 @@ export async function putItensEstimateUpdateByItemInvoiceId(
     PutItensEstimateUpdateByItemInvoiceIdMutationResponse,
     ResponseErrorConfig<PutItensEstimateUpdateByItemInvoiceId401 | PutItensEstimateUpdateByItemInvoiceId404>,
     PutItensEstimateUpdateByItemInvoiceIdMutationRequest
-  >({ method: 'PUT', url: `/itens/estimate/update/${itemInvoiceId}`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
+  >({ method: 'PUT', url: `/itens/estimate/update/${itemInvoiceId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
 }
 

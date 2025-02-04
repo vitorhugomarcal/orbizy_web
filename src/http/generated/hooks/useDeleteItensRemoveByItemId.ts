@@ -27,7 +27,7 @@ export async function deleteItensRemoveByItemId(
     DeleteItensRemoveByItemIdMutationResponse,
     ResponseErrorConfig<DeleteItensRemoveByItemId401 | DeleteItensRemoveByItemId404>,
     unknown
-  >({ method: 'DELETE', url: `/itens/remove/${itemId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
+  >({ method: 'DELETE', url: `/itens/remove/${itemId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
   return res.data
 }
 

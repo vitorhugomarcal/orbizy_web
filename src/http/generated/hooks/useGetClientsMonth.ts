@@ -18,7 +18,7 @@ export async function getClientsMonth(config: Partial<RequestConfig> & { client?
   const res = await request<GetClientsMonthQueryResponse, ResponseErrorConfig<GetClientsMonth401 | GetClientsMonth404>, unknown>({
     method: 'GET',
     url: `/clients/month`,
-    baseURL: 'http://192.168.1.81:3333',
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

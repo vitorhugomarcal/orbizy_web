@@ -18,7 +18,7 @@ export async function getCompany(config: Partial<RequestConfig> & { client?: typ
   const res = await request<GetCompanyQueryResponse, ResponseErrorConfig<GetCompany400 | GetCompany401>, unknown>({
     method: 'GET',
     url: `/company`,
-    baseURL: 'http://192.168.1.81:3333',
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

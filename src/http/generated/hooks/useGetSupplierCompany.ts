@@ -18,7 +18,7 @@ export async function getSupplierCompany(config: Partial<RequestConfig> & { clie
   const res = await request<GetSupplierCompanyQueryResponse, ResponseErrorConfig<GetSupplierCompany401 | GetSupplierCompany404>, unknown>({
     method: 'GET',
     url: `/supplier/company`,
-    baseURL: 'http://192.168.1.81:3333',
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

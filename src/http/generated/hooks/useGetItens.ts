@@ -18,7 +18,7 @@ export async function getItens(config: Partial<RequestConfig> & { client?: typeo
   const res = await request<GetItensQueryResponse, ResponseErrorConfig<GetItens401 | GetItens404>, unknown>({
     method: 'GET',
     url: `/itens`,
-    baseURL: 'http://192.168.1.81:3333',
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

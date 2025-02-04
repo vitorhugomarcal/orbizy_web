@@ -29,7 +29,7 @@ export async function getSupplierCompanyBySupplierId(
     GetSupplierCompanyBySupplierIdQueryResponse,
     ResponseErrorConfig<GetSupplierCompanyBySupplierId400 | GetSupplierCompanyBySupplierId401 | GetSupplierCompanyBySupplierId404>,
     unknown
-  >({ method: 'GET', url: `/supplier/company/${supplierId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
+  >({ method: 'GET', url: `/supplier/company/${supplierId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
   return res.data
 }
 

@@ -28,7 +28,7 @@ export async function postAuthMagicLink(
     PostAuthMagicLinkMutationResponse,
     ResponseErrorConfig<PostAuthMagicLink400 | PostAuthMagicLink404 | PostAuthMagicLink429>,
     PostAuthMagicLinkMutationRequest
-  >({ method: 'POST', url: `/auth/magic-link`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
+  >({ method: 'POST', url: `/auth/magic-link`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
 }
 

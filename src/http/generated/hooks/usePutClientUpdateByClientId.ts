@@ -30,7 +30,7 @@ export async function putClientUpdateByClientId(
     PutClientUpdateByClientIdMutationResponse,
     ResponseErrorConfig<PutClientUpdateByClientId400 | PutClientUpdateByClientId401 | PutClientUpdateByClientId404>,
     PutClientUpdateByClientIdMutationRequest
-  >({ method: 'PUT', url: `/client/update/${clientId}`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
+  >({ method: 'PUT', url: `/client/update/${clientId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
 }
 

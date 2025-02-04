@@ -18,7 +18,7 @@ export async function getSignout(config: Partial<RequestConfig> & { client?: typ
   const res = await request<GetSignoutQueryResponse, ResponseErrorConfig<Error>, unknown>({
     method: 'GET',
     url: `/signout`,
-    baseURL: 'http://192.168.1.81:3333',
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

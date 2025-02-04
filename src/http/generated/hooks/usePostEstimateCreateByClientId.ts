@@ -29,7 +29,7 @@ export async function postEstimateCreateByClientId(
     PostEstimateCreateByClientIdMutationResponse,
     ResponseErrorConfig<PostEstimateCreateByClientId401 | PostEstimateCreateByClientId404>,
     PostEstimateCreateByClientIdMutationRequest
-  >({ method: 'POST', url: `/estimate/create/${clientId}`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
+  >({ method: 'POST', url: `/estimate/create/${clientId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
 }
 

@@ -27,7 +27,7 @@ export async function postUnitCompanyCreate(
     PostUnitCompanyCreateMutationResponse,
     ResponseErrorConfig<PostUnitCompanyCreate400 | PostUnitCompanyCreate401>,
     PostUnitCompanyCreateMutationRequest
-  >({ method: 'POST', url: `/unit/company/create`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
+  >({ method: 'POST', url: `/unit/company/create`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
 }
 

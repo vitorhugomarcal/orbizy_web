@@ -28,7 +28,7 @@ export async function postInviteClientByCompanyId(
     PostInviteClientByCompanyIdMutationResponse,
     ResponseErrorConfig<PostInviteClientByCompanyId400 | PostInviteClientByCompanyId404 | PostInviteClientByCompanyId429>,
     unknown
-  >({ method: 'POST', url: `/invite/client/${companyId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
+  >({ method: 'POST', url: `/invite/client/${companyId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
   return res.data
 }
 

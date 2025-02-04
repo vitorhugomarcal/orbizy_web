@@ -30,7 +30,7 @@ export async function putCompanyUpdateByCompanyId(
     PutCompanyUpdateByCompanyIdMutationResponse,
     ResponseErrorConfig<PutCompanyUpdateByCompanyId400 | PutCompanyUpdateByCompanyId401 | PutCompanyUpdateByCompanyId404>,
     PutCompanyUpdateByCompanyIdMutationRequest
-  >({ method: 'PUT', url: `/company/update/${companyId}`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
+  >({ method: 'PUT', url: `/company/update/${companyId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
 }
 

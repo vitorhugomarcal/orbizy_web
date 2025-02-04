@@ -43,8 +43,12 @@ export default defineConfig(() => {
         },
         suspense: false,
         client: {
+          baseURL:
+            process.env.NODE_ENV === "dev"
+              ? "http://192.168.1.81:3333"
+              : "https://api.orbizy.app",
           // baseURL: "https://api.orbizy.app",
-          baseURL: "http://192.168.1.81:3333",
+          // baseURL: "http://192.168.1.81:3333",
           importPath: "../../client.ts",
         },
       }),

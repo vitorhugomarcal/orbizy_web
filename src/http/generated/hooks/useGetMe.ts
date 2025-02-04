@@ -18,7 +18,7 @@ export async function getMe(config: Partial<RequestConfig> & { client?: typeof c
   const res = await request<GetMeQueryResponse, ResponseErrorConfig<GetMe401>, unknown>({
     method: 'GET',
     url: `/me`,
-    baseURL: 'http://192.168.1.81:3333',
+    baseURL: 'https://api.orbizy.app',
     ...requestConfig,
   })
   return res.data

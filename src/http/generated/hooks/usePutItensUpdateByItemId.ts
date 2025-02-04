@@ -29,7 +29,7 @@ export async function putItensUpdateByItemId(
     PutItensUpdateByItemIdMutationResponse,
     ResponseErrorConfig<PutItensUpdateByItemId401 | PutItensUpdateByItemId404>,
     PutItensUpdateByItemIdMutationRequest
-  >({ method: 'PUT', url: `/itens/update/${itemId}`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
+  >({ method: 'PUT', url: `/itens/update/${itemId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
   return res.data
 }
 
