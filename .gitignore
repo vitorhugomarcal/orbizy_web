@@ -7,9 +7,9 @@ yarn-error.log*
 pnpm-debug.log*
 lerna-debug.log*
 
+src/http/generated
 node_modules
 dist
-src/http/generated
 dist-ssr
 *.local
 .env.local
