@@ -6,7 +6,9 @@ import { pluginTs } from "@kubb/plugin-ts"
 import { env } from "./src/env"
 
 const API_URL =
-  env.NODE_ENV === "dev" ? "http://192.168.1.81:3333" : "https://api.orbizy.app"
+  env.VITE_ENV === "development"
+    ? "http://192.168.1.81:3333"
+    : "https://api.orbizy.app"
 
 export default defineConfig(() => {
   return {

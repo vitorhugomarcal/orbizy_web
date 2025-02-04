@@ -1,8 +1,9 @@
-import path from "node:path"
 import react from "@vitejs/plugin-react"
+import path from "node:path"
 import { defineConfig } from "vite"
 
 export default defineConfig({
+  mode: process.env.VITE_ENV === "production" ? "production" : "development",
   plugins: [react()],
   base: "/",
   resolve: {
