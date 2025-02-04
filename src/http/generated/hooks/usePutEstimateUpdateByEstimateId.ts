@@ -29,7 +29,7 @@ export async function putEstimateUpdateByEstimateId(
     PutEstimateUpdateByEstimateIdMutationResponse,
     ResponseErrorConfig<PutEstimateUpdateByEstimateId401 | PutEstimateUpdateByEstimateId404>,
     PutEstimateUpdateByEstimateIdMutationRequest
-  >({ method: 'PUT', url: `/estimate/update/${estimateId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  >({ method: 'PUT', url: `/estimate/update/${estimateId}`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
   return res.data
 }
 

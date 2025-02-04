@@ -27,7 +27,7 @@ export async function deleteClientRemoveByClientId(
     DeleteClientRemoveByClientIdMutationResponse,
     ResponseErrorConfig<DeleteClientRemoveByClientId400 | DeleteClientRemoveByClientId401>,
     unknown
-  >({ method: 'DELETE', url: `/client/remove/${clientId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
+  >({ method: 'DELETE', url: `/client/remove/${clientId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
   return res.data
 }
 

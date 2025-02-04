@@ -30,7 +30,7 @@ export async function putSupplierUpdateBySupplierId(
     PutSupplierUpdateBySupplierIdMutationResponse,
     ResponseErrorConfig<PutSupplierUpdateBySupplierId400 | PutSupplierUpdateBySupplierId401 | PutSupplierUpdateBySupplierId404>,
     PutSupplierUpdateBySupplierIdMutationRequest
-  >({ method: 'PUT', url: `/supplier/update/${supplierId}`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  >({ method: 'PUT', url: `/supplier/update/${supplierId}`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
   return res.data
 }
 

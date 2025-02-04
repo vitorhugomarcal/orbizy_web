@@ -27,7 +27,7 @@ export async function getEstimateByEstimateId(
   const res = await request<GetEstimateByEstimateIdQueryResponse, ResponseErrorConfig<GetEstimateByEstimateId401 | GetEstimateByEstimateId404>, unknown>({
     method: 'GET',
     url: `/estimate/${estimateId}`,
-    baseURL: 'https://api.orbizy.app',
+    baseURL: 'http://192.168.1.81:3333',
     ...requestConfig,
   })
   return res.data

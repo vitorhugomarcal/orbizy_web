@@ -27,7 +27,7 @@ export async function postCompanyRegister(
     PostCompanyRegisterMutationResponse,
     ResponseErrorConfig<PostCompanyRegister400 | PostCompanyRegister401>,
     PostCompanyRegisterMutationRequest
-  >({ method: 'POST', url: `/company/register`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  >({ method: 'POST', url: `/company/register`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
   return res.data
 }
 

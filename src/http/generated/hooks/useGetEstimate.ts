@@ -18,7 +18,7 @@ export async function getEstimate(config: Partial<RequestConfig> & { client?: ty
   const res = await request<GetEstimateQueryResponse, ResponseErrorConfig<GetEstimate401 | GetEstimate404>, unknown>({
     method: 'GET',
     url: `/estimate`,
-    baseURL: 'https://api.orbizy.app',
+    baseURL: 'http://192.168.1.81:3333',
     ...requestConfig,
   })
   return res.data

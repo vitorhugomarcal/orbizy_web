@@ -27,7 +27,7 @@ export async function getInviteValidateByCode(
   const res = await request<GetInviteValidateByCodeQueryResponse, ResponseErrorConfig<GetInviteValidateByCode400 | GetInviteValidateByCode429>, unknown>({
     method: 'GET',
     url: `/invite/validate/${code}`,
-    baseURL: 'https://api.orbizy.app',
+    baseURL: 'http://192.168.1.81:3333',
     ...requestConfig,
   })
   return res.data

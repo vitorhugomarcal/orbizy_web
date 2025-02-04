@@ -52,6 +52,10 @@ jobs:
       - name: Create .env.production
         run: |
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env.production
+          echo "NODE_ENV=${{ secrets.NODE_ENV }}" > .env.production
+
+      - name: Create kubb
+        run: pnpm generate
 
       - name: Build project
         run: pnpm build

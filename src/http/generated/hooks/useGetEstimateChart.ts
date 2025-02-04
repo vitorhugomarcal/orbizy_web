@@ -18,7 +18,7 @@ export async function getEstimateChart(config: Partial<RequestConfig> & { client
   const res = await request<GetEstimateChartQueryResponse, ResponseErrorConfig<GetEstimateChart401 | GetEstimateChart404>, unknown>({
     method: 'GET',
     url: `/estimate/chart`,
-    baseURL: 'https://api.orbizy.app',
+    baseURL: 'http://192.168.1.81:3333',
     ...requestConfig,
   })
   return res.data

@@ -3,6 +3,10 @@ import { defineConfig } from "@kubb/core"
 import { pluginOas } from "@kubb/plugin-oas"
 import { pluginReactQuery } from "@kubb/plugin-react-query"
 import { pluginTs } from "@kubb/plugin-ts"
+import { env } from "./src/env"
+
+const API_URL =
+  env.NODE_ENV === "dev" ? "http://192.168.1.81:3333" : "https://api.orbizy.app"
 
 export default defineConfig(() => {
   return {
@@ -43,12 +47,7 @@ export default defineConfig(() => {
         },
         suspense: false,
         client: {
-          baseURL:
-            process.env.NODE_ENV === "dev"
-              ? "http://192.168.1.81:3333"
-              : "https://api.orbizy.app",
-          // baseURL: "https://api.orbizy.app",
-          // baseURL: "http://192.168.1.81:3333",
+          baseURL: API_URL,
           importPath: "../../client.ts",
         },
       }),

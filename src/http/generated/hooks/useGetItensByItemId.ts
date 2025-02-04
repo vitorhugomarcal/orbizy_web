@@ -23,7 +23,7 @@ export async function getItensByItemId(itemId: GetItensByItemIdPathParams['itemI
   const res = await request<GetItensByItemIdQueryResponse, ResponseErrorConfig<GetItensByItemId401 | GetItensByItemId404>, unknown>({
     method: 'GET',
     url: `/itens/${itemId}`,
-    baseURL: 'https://api.orbizy.app',
+    baseURL: 'http://192.168.1.81:3333',
     ...requestConfig,
   })
   return res.data

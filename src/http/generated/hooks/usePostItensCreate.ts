@@ -28,7 +28,7 @@ export async function postItensCreate(
     PostItensCreateMutationResponse,
     ResponseErrorConfig<PostItensCreate400 | PostItensCreate401 | PostItensCreate404>,
     PostItensCreateMutationRequest
-  >({ method: 'POST', url: `/itens/create`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  >({ method: 'POST', url: `/itens/create`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
   return res.data
 }
 

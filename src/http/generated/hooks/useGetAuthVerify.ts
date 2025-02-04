@@ -18,7 +18,7 @@ export async function getAuthVerify(params: GetAuthVerifyQueryParams, config: Pa
   const res = await request<GetAuthVerifyQueryResponse, ResponseErrorConfig<GetAuthVerify401>, unknown>({
     method: 'GET',
     url: `/auth/verify`,
-    baseURL: 'https://api.orbizy.app',
+    baseURL: 'http://192.168.1.81:3333',
     params,
     ...requestConfig,
   })

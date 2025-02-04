@@ -28,7 +28,7 @@ export async function deleteSupplierRemoveBySupplierId(
     DeleteSupplierRemoveBySupplierIdMutationResponse,
     ResponseErrorConfig<DeleteSupplierRemoveBySupplierId400 | DeleteSupplierRemoveBySupplierId401 | DeleteSupplierRemoveBySupplierId404>,
     unknown
-  >({ method: 'DELETE', url: `/supplier/remove/${supplierId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
+  >({ method: 'DELETE', url: `/supplier/remove/${supplierId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
   return res.data
 }
 

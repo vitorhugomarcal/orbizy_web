@@ -28,7 +28,7 @@ export async function postClientCreate(
     PostClientCreateMutationResponse,
     ResponseErrorConfig<PostClientCreate400 | PostClientCreate401 | PostClientCreate404>,
     PostClientCreateMutationRequest
-  >({ method: 'POST', url: `/client/create`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  >({ method: 'POST', url: `/client/create`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
   return res.data
 }
 
