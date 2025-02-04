@@ -1,25 +1,23 @@
-import { getCompany } from "@/api/get-Company"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Skeleton } from "@/components/ui/skeleton"
+import { useGetCompany } from "@/http/generated"
 import { formatCNPJ } from "@/utils/formatCNPJ"
 import { formatCPF } from "@/utils/formatCPF"
 import { formatPhone } from "@/utils/formatPhone"
-import { useQuery } from "@tanstack/react-query"
 
 export function Company() {
-  const { data: company, isLoading } = useQuery({
-    queryKey: ["company"],
-    queryFn: getCompany,
-  })
+  const { data, isLoading } = useGetCompany()
 
-  console.log(company)
+  const company = data?.company
+
+  if (!company) return null
 
   return (
     <div>
       <div className="max-w-[420px] text-muted-foreground space-y-2">
         <h1 className="text-lg font-semibold text-primary tracking-tight">
-          Infomações da empresa
+          Informações da empresa
         </h1>
         <p className="text-sm font-light text-muted-foreground">
           Informações sobre sua empresa que serão exibidas em Faturas,
@@ -37,7 +35,7 @@ export function Company() {
               id="company_name"
               type="text"
               disabled
-              placeholder={company?.company_name}
+              placeholder={company.company_name}
             />
           )}
         </div>
@@ -51,9 +49,9 @@ export function Company() {
               type="text"
               disabled
               placeholder={
-                company?.cnpj.length === 14
-                  ? formatCNPJ(company.cnpj)
-                  : formatCPF(company!.cnpj)
+                company.cnpj.length === 11
+                  ? formatCPF(company.cnpj)
+                  : formatCNPJ(company.cnpj)
               }
             />
           )}
@@ -67,7 +65,7 @@ export function Company() {
               id="phone"
               disabled
               type="text"
-              placeholder={formatPhone(company!.phone)}
+              placeholder={formatPhone(company.phone)}
             />
           )}
         </div>

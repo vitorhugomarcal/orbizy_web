@@ -27,7 +27,7 @@ export async function deleteCompanyRemoveByCompanyId(
     DeleteCompanyRemoveByCompanyIdMutationResponse,
     ResponseErrorConfig<DeleteCompanyRemoveByCompanyId400 | DeleteCompanyRemoveByCompanyId401>,
     unknown
-  >({ method: 'DELETE', url: `/company/remove/${companyId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
+  >({ method: 'DELETE', url: `/company/remove/${companyId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
   return res.data
 }
 

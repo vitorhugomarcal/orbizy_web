@@ -27,7 +27,7 @@ export async function postSupplierRegister(
     PostSupplierRegisterMutationResponse,
     ResponseErrorConfig<PostSupplierRegister400 | PostSupplierRegister401>,
     PostSupplierRegisterMutationRequest
-  >({ method: 'POST', url: `/supplier/register`, baseURL: 'https://api.orbizy.app', data, ...requestConfig })
+  >({ method: 'POST', url: `/supplier/register`, baseURL: 'http://192.168.1.81:3333', data, ...requestConfig })
   return res.data
 }
 

@@ -113,14 +113,67 @@ export const ClientRegister = memo(function ClientRegister() {
 
     try {
       setIsLoading(true)
+
+      // Tenta gerar o link de convite
       const response = await inviteClient({
         companyId: profile.user.company_id,
       })
-      await navigator.clipboard.writeText(response)
-      toast.success("Link copiado para a área de transferência! Válido por 48h")
+
+      // Verifica se a resposta é válida
+      if (!response) {
+        throw new Error("Resposta inválida do servidor")
+      }
+
+      // Tenta copiar para o clipboard
+      try {
+        await navigator.clipboard.writeText(response)
+        toast.success(
+          "Link copiado para a área de transferência! Válido por 48h"
+        )
+      } catch (clipboardError) {
+        // Fallback se a API do clipboard falhar
+        const textarea = document.createElement("textarea")
+        textarea.value = response
+        textarea.style.position = "fixed"
+        textarea.style.opacity = "0"
+        document.body.appendChild(textarea)
+        textarea.select()
+
+        try {
+          document.execCommand("copy")
+          toast.success(
+            "Link copiado para a área de transferência! Válido por 48h"
+          )
+        } catch (fallbackError) {
+          console.error("Falha no fallback de cópia:", fallbackError)
+          toast.error(
+            "Não foi possível copiar o link automaticamente. Por favor, copie manualmente.",
+            {
+              action: {
+                label: "Copiar",
+                onClick: () => navigator.clipboard.writeText(response),
+              },
+            }
+          )
+        } finally {
+          document.body.removeChild(textarea)
+        }
+      }
     } catch (err) {
-      console.error("Falha ao copiar link:", err)
-      toast.error("Não foi possível copiar o link")
+      console.error("Falha ao gerar/copiar link:", err)
+
+      // Mensagens de erro mais específicas baseadas no tipo de erro
+      if (err instanceof Error) {
+        if (err.message.includes("network") || err.message.includes("fetch")) {
+          toast.error(
+            "Erro de conexão. Verifique sua internet e tente novamente."
+          )
+        } else {
+          toast.error(`Não foi possível gerar o link: ${err.message}`)
+        }
+      } else {
+        toast.error("Ocorreu um erro inesperado ao gerar o link")
+      }
     } finally {
       setIsLoading(false)
     }
@@ -222,6 +275,21 @@ export const ClientRegister = memo(function ClientRegister() {
   async function handleSubmit(data: FormValues) {
     try {
       await post({ ...data })
+      resetClient({
+        type: "",
+        name: "",
+        company_name: "",
+        cpf: "",
+        cnpj: "",
+        email_address: "",
+        phone: "",
+        cep: "",
+        address: "",
+        address_number: "",
+        neighborhood: "",
+        city: "",
+        state: "",
+      })
       toast.success("Cadastro realizado com sucesso!")
       setCurrentStep(null)
     } catch (error) {

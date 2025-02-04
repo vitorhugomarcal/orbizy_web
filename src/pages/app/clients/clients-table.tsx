@@ -16,7 +16,6 @@ import * as React from "react"
 import { removeClient } from "@/api/client/remove-Client"
 import {
   AlertDialog,
-  AlertDialogAction,
   AlertDialogCancel,
   AlertDialogContent,
   AlertDialogDescription,
@@ -47,7 +46,6 @@ import { useGetClientsAll } from "@/http/generated"
 import { formatPhone } from "@/utils/formatPhone"
 import { useMutation } from "@tanstack/react-query"
 import { toast } from "sonner"
-import { ClientDetails } from "./client-details"
 
 export interface TablePropsClient {
   id: string
@@ -159,61 +157,86 @@ function getColumns({
       cell: ({ row }) => {
         const client = row.original
         const [openDialog, setOpenDialog] = React.useState(false)
-        const [openDetails, setOpenDetails] = React.useState(false)
+        const [isRemoving, setIsRemoving] = React.useState(false)
 
-        async function handleSubmit(clientId: string) {
+        const handleClose = React.useCallback(() => {
+          setOpenDialog(false)
+          // Force a small delay before cleanup
+          setTimeout(() => {
+            document.body.style.pointerEvents = ""
+            document.body.style.overflow = ""
+          }, 100)
+        }, [])
+
+        async function handleRemoveClient(clientId: string) {
           try {
+            setIsRemoving(true)
             await removeClientMutation(clientId)
-            setOpenDialog(false)
-          } catch {
-            // Erro já tratado no onError do mutation
+            toast.success("Cliente removido com sucesso!")
+          } catch (error) {
+            toast.error(
+              error instanceof Error
+                ? error.message
+                : "Erro ao remover cliente."
+            )
+          } finally {
+            setIsRemoving(false)
+            handleClose()
           }
         }
 
         return (
-          <>
+          <div className="relative">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">
                   <span className="sr-only">Abrir</span>
-                  <MoreHorizontal />
+                  <MoreHorizontal className="h-4 w-4" />
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end">
-                <DropdownMenuItem onClick={() => setOpenDetails(true)}>
-                  Detalhes
-                </DropdownMenuItem>
-                <DropdownMenuItem onClick={() => setOpenDialog(true)}>
+                <DropdownMenuItem
+                  onClick={() => setOpenDialog(true)}
+                  className="cursor-pointer"
+                >
                   Excluir
                 </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
-            <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
-              <AlertDialogContent>
-                <AlertDialogHeader>
-                  <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
-                  <AlertDialogDescription>
-                    Esta ação não pode ser desfeita. Isso excluirá
-                    permanentemente o cliente e removerá os dados dos nossos
-                    servidores.
-                  </AlertDialogDescription>
-                </AlertDialogHeader>
-                <AlertDialogFooter>
-                  <AlertDialogCancel>Cancelar</AlertDialogCancel>
-                  <AlertDialogAction onClick={() => handleSubmit(client.id)}>
-                    Continuar
-                  </AlertDialogAction>
-                </AlertDialogFooter>
-              </AlertDialogContent>
-            </AlertDialog>
-
-            <ClientDetails
-              client={client}
-              openDetails={openDetails}
-              onOpenChange={setOpenDetails}
-            />
-          </>
+            {openDialog && (
+              <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
+                <AlertDialogContent
+                  className="sm:max-w-[425px]"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Esta ação não pode ser desfeita. Isso excluirá
+                      permanentemente o cliente e removerá os dados dos nossos
+                      servidores.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel
+                      onClick={handleClose}
+                      disabled={isRemoving}
+                    >
+                      Cancelar
+                    </AlertDialogCancel>
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleRemoveClient(client.id)}
+                      disabled={isRemoving}
+                    >
+                      {isRemoving ? "Removendo..." : "Continuar"}
+                    </Button>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+          </div>
         )
       },
     },
@@ -234,10 +257,7 @@ export function ClientsTable() {
 
   const { mutateAsync: removeClientMutation } = useMutation({
     mutationFn: removeClient,
-    onSuccess: async () => {
-      await refetch() // Refetch explícito após sucesso
-      toast.success("Cliente removido com sucesso!")
-    },
+    onSuccess: async () => await refetch(),
     onError: (error) => {
       toast.error(
         error instanceof Error ? error.message : "Erro ao remover cliente."

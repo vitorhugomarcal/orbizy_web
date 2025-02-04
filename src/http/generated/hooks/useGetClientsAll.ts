@@ -18,7 +18,7 @@ export async function getClientsAll(config: Partial<RequestConfig> & { client?: 
   const res = await request<GetClientsAllQueryResponse, ResponseErrorConfig<GetClientsAll401 | GetClientsAll404>, unknown>({
     method: 'GET',
     url: `/clients/all`,
-    baseURL: 'https://api.orbizy.app',
+    baseURL: 'http://192.168.1.81:3333',
     ...requestConfig,
   })
   return res.data

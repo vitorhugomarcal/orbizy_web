@@ -28,7 +28,7 @@ export async function getItensEstimateByEstimateId(
     GetItensEstimateByEstimateIdQueryResponse,
     ResponseErrorConfig<GetItensEstimateByEstimateId401 | GetItensEstimateByEstimateId404>,
     unknown
-  >({ method: 'GET', url: `/itens/estimate/${estimateId}`, baseURL: 'https://api.orbizy.app', ...requestConfig })
+  >({ method: 'GET', url: `/itens/estimate/${estimateId}`, baseURL: 'http://192.168.1.81:3333', ...requestConfig })
   return res.data
 }
 
