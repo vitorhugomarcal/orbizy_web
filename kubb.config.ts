@@ -43,7 +43,7 @@ export default defineConfig(() => {
         },
         suspense: false,
         client: {
-          baseURL: process.env.VITE_API_URL,
+          baseURL: process.env.VITE_API_URL || "https://api.orbizy.app",
           importPath: "../../client.ts",
         },
       }),
