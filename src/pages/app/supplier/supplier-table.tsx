@@ -1,6 +1,3 @@
-"use client"
-
-import * as React from "react"
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,7 +11,18 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import * as React from "react"
 
+import { removeSupplier } from "@/api/supplier/remove-Supplier"
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
 import { Checkbox } from "@/components/ui/checkbox"
 import {
@@ -25,6 +33,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,
   TableBody,
@@ -33,103 +42,184 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { useQuery } from "@tanstack/react-query"
-import { Skeleton } from "@/components/ui/skeleton"
-import { getSuppliers, type GetSupplierProps } from "@/api/get-Suppliers"
+import { useGetSupplierAllCompany } from "@/http/generated"
+import { useMutation } from "@tanstack/react-query"
+import { toast } from "sonner"
 
-export type TableProps = {
+export interface TablePropsSupplier {
   id: string
-  name: string
   phone: string
-  email: string
+  cnpj?: string
+  company_name?: string
+  email_address?: string
+  cep?: string
+  address?: string
+  address_number?: string
+  neighborhood?: string
+  city?: string
+  state?: string
+  createdAt?: string
 }
 
-export const columns: ColumnDef<TableProps>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+function getColumns({
+  removeSupplierMutation,
+}: {
+  removeSupplierMutation: (id: string) => Promise<any>
+}): ColumnDef<TablePropsSupplier>[] {
+  return [
+    {
+      id: "select",
+      header: ({ table }) => (
+        <Checkbox
+          checked={
+            table.getIsAllPageRowsSelected() ||
+            (table.getIsSomePageRowsSelected() && "indeterminate")
+          }
+          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+          aria-label="Select all"
+        />
+      ),
+      cell: ({ row }) => (
+        <Checkbox
+          checked={row.getIsSelected()}
+          onCheckedChange={(value) => row.toggleSelected(!!value)}
+          aria-label="Select row"
+        />
+      ),
+      enableSorting: false,
+      enableHiding: false,
+    },
+    {
+      accessorKey: "company_name",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Fornecedor
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="capitalize">{row.getValue("company_name")}</div>
+      ),
+    },
+    {
+      accessorKey: "email_address",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Email
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="lowercase">{row.getValue("email_address")}</div>
+      ),
+    },
+    {
+      accessorKey: "phone",
+      header: () => <div className="text-right">Telefone</div>,
+      cell: ({ row }) => (
+        <div className="text-right font-medium">{row.getValue("phone")}</div>
+      ),
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const supplier = row.original
+        const [openDialog, setOpenDialog] = React.useState(false)
+        const [isRemoving, setIsRemoving] = React.useState(false)
+
+        const handleClose = React.useCallback(() => {
+          setOpenDialog(false)
+          setTimeout(() => {
+            document.body.style.pointerEvents = ""
+            document.body.style.overflow = ""
+          }, 100)
+        }, [])
+
+        async function handleRemoveSupplier(supplierId: string) {
+          try {
+            setIsRemoving(true)
+            await removeSupplierMutation(supplierId)
+            toast.success("Fornecedor removido com sucesso!")
+          } catch (error) {
+            toast.error(
+              error instanceof Error
+                ? error.message
+                : "Erro ao remover fornecedor."
+            )
+          } finally {
+            setIsRemoving(false)
+            handleClose()
+          }
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "name",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Fornecedor
-          <ArrowUpDown />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="capitalize">{row.getValue("name")}</div>,
-  },
-  {
-    accessorKey: "email",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Email
-          <ArrowUpDown />
-        </Button>
-      )
-    },
-    cell: ({ row }) => <div className="lowercase">{row.getValue("email")}</div>,
-  },
-  {
-    accessorKey: "phone",
-    header: () => <div className="text-right">Telefone</div>,
-    cell: ({ row }) => {
-      const phone = parseFloat(row.getValue("phone"))
-      return <div className="text-right font-medium">{phone}</div>
-    },
-  },
 
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original
+        return (
+          <div className="relative">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Abrir</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem
+                  onClick={() => setOpenDialog(true)}
+                  className="cursor-pointer"
+                >
+                  Excluir
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Abrir</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>Editar</DropdownMenuItem>
-            <DropdownMenuItem>Ver</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => payment}>Excluir</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
+            {openDialog && (
+              <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
+                <AlertDialogContent
+                  className="sm:max-w-[425px]"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Esta ação não pode ser desfeita. Isso excluirá
+                      permanentemente o cliente e removerá os dados dos nossos
+                      servidores.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel
+                      onClick={handleClose}
+                      disabled={isRemoving}
+                    >
+                      Cancelar
+                    </AlertDialogCancel>
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleRemoveSupplier(supplier.id)}
+                      disabled={isRemoving}
+                    >
+                      {isRemoving ? "Removendo..." : "Continuar"}
+                    </Button>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+          </div>
+        )
+      },
     },
-  },
-]
+  ]
+}
 
 export function SupplierTable() {
   const [sorting, setSorting] = React.useState<SortingState>([])
@@ -140,20 +230,47 @@ export function SupplierTable() {
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
-  const { data: suppliers, isLoading } = useQuery({
-    queryKey: ["suppliers"],
-    queryFn: getSuppliers,
+  const { data, isLoading, error, refetch } = useGetSupplierAllCompany()
+
+  const { mutateAsync: removeSupplierMutation } = useMutation({
+    mutationFn: removeSupplier,
+    onSuccess: async () => await refetch(),
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Erro ao remover fornecedor."
+      )
+    },
   })
 
-  const transformedData: TableProps[] = React.useMemo(() => {
-    if (!suppliers) return []
-    return suppliers.map((supplier: GetSupplierProps) => ({
+  if (error) {
+    return <div>Erro ao carregar dados: {error.statusText}</div>
+  }
+
+  const supplierData = data?.suppliers
+
+  const transformedData: TablePropsSupplier[] = React.useMemo(() => {
+    if (!supplierData) return []
+
+    return supplierData.map((supplier) => ({
       id: supplier.id,
-      name: supplier.company_name,
-      email: supplier.email_address,
       phone: supplier.phone,
+      cnpj: supplier.cnpj,
+      company_name: supplier.company_name,
+      email_address: supplier.email_address,
+      cep: supplier.cep,
+      address: supplier.address,
+      address_number: supplier.address_number,
+      neighborhood: supplier.neighborhood,
+      city: supplier.city,
+      state: supplier.state,
+      createdAt: supplier.createdAt,
     }))
-  }, [suppliers])
+  }, [supplierData])
+
+  const columns = React.useMemo(
+    () => getColumns({ removeSupplierMutation }),
+    [removeSupplierMutation]
+  )
 
   const table = useReactTable({
     data: transformedData,
@@ -179,9 +296,11 @@ export function SupplierTable() {
       <div className="flex items-center py-4">
         <Input
           placeholder="Buscar por fornecedor..."
-          value={(table.getColumn("name")?.getFilterValue() as string) ?? ""}
+          value={
+            (table.getColumn("company_name")?.getFilterValue() as string) ?? ""
+          }
           onChange={(event) =>
-            table.getColumn("name")?.setFilterValue(event.target.value)
+            table.getColumn("company_name")?.setFilterValue(event.target.value)
           }
           className="max-w-sm"
         />

@@ -7,8 +7,8 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { Helmet } from "react-helmet-async"
+import { SupplierRegister } from "./supplier-register"
 import { SupplierTable } from "./supplier-table"
-import { Button } from "@/components/ui/button"
 
 export function Supplier() {
   return (
@@ -20,20 +20,13 @@ export function Supplier() {
           <Separator orientation="vertical" className="mr-2 h-4" />
           <Breadcrumb>
             <BreadcrumbList>
-              {/* <BreadcrumbItem className="hidden md:block">
-                <BreadcrumbLink href="/">Dashboard</BreadcrumbLink>
-              </BreadcrumbItem>
-              <BreadcrumbSeparator className="hidden md:block" />
-              <BreadcrumbItem>
-                <BreadcrumbPage>Data Fetching</BreadcrumbPage>
-              </BreadcrumbItem> */}
               <BreadcrumbItem className="hidden md:block">
                 <BreadcrumbPage>Fornecedores</BreadcrumbPage>
               </BreadcrumbItem>
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <Button className="w-[240px]">+ Novo fornecedor</Button>
+        <SupplierRegister />
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <SupplierTable />
