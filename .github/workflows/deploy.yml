@@ -52,10 +52,9 @@ jobs:
       - name: Create .env.production
         run: |
           echo "VITE_API_URL=${{ secrets.VITE_API_URL }}" > .env.production
-          echo "VITE_ENV=${{ secrets.VITE_ENV }}" >> .env.production
 
       - name: Create kubb
-        run: pnpm generate
+        run: VITE_API_URL="https://api.orbizy.app" pnpm generate
 
       - name: Build project
         run: pnpm build

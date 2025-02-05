@@ -3,6 +3,7 @@ import { defineConfig } from "@kubb/core"
 import { pluginOas } from "@kubb/plugin-oas"
 import { pluginReactQuery } from "@kubb/plugin-react-query"
 import { pluginTs } from "@kubb/plugin-ts"
+import { env } from "./src/env"
 
 export default defineConfig(() => {
   return {
@@ -43,7 +44,7 @@ export default defineConfig(() => {
         },
         suspense: false,
         client: {
-          baseURL: process.env.VITE_API_URL || "https://api.orbizy.app",
+          baseURL: env.VITE_API_URL,
           importPath: "../../client.ts",
         },
       }),
