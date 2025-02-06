@@ -7,8 +7,8 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { SidebarInset, SidebarTrigger } from "@/components/ui/sidebar"
 import { Helmet } from "react-helmet-async"
+import { ItemRegister } from "./item-register"
 import { ItensTable } from "./itens-table"
-import { Button } from "@/components/ui/button"
 
 export function Itens() {
   return (
@@ -26,7 +26,7 @@ export function Itens() {
             </BreadcrumbList>
           </Breadcrumb>
         </div>
-        <Button className="w-[240px]">+ Novo Item</Button>
+        <ItemRegister />
       </header>
       <div className="flex flex-1 flex-col gap-4 p-4 pt-0">
         <ItensTable />

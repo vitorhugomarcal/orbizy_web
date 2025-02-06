@@ -11,6 +11,4 @@ const productionSchema = z.object({
 const envSchema =
   import.meta.env.MODE === "development" ? developmentSchema : productionSchema
 
-console.log("import.meta.env:", import.meta.env)
-
 export const env = envSchema.parse(import.meta.env)

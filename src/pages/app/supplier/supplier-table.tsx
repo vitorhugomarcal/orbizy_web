@@ -192,8 +192,8 @@ function getColumns({
                     <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
                     <AlertDialogDescription>
                       Esta ação não pode ser desfeita. Isso excluirá
-                      permanentemente o cliente e removerá os dados dos nossos
-                      servidores.
+                      permanentemente o fornecedor e removerá os dados dos
+                      nossos servidores.
                     </AlertDialogDescription>
                   </AlertDialogHeader>
                   <AlertDialogFooter>
