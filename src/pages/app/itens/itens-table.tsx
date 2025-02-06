@@ -24,7 +24,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -59,34 +58,36 @@ function getColumns({
   removeItemMutation: (id: string) => Promise<any>
 }): ColumnDef<TableProps>[] {
   return [
-    {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
+    // {
+    //   id: "select",
+    //   header: ({ table }) => (
+    //     <Checkbox
+    //       checked={
+    //         table.getIsAllPageRowsSelected() ||
+    //         (table.getIsSomePageRowsSelected() && "indeterminate")
+    //       }
+    //       onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
+    //       aria-label="Select all"
+    //       className="w-4 bg-red-400"
+    //     />
+    //   ),
+    //   cell: ({ row }) => (
+    //     <Checkbox
+    //       checked={row.getIsSelected()}
+    //       onCheckedChange={(value) => row.toggleSelected(!!value)}
+    //       aria-label="Select row"
+    //     />
+    //   ),
+    //   enableSorting: false,
+    //   enableHiding: false,
+    // },
     {
       accessorKey: "name",
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
+            className="flex w-full text-left"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Nome
@@ -95,7 +96,7 @@ function getColumns({
         )
       },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("name")}</div>
+        <div className="flex ml-4 text-left">{row.getValue("name")}</div>
       ),
     },
     {
@@ -104,6 +105,7 @@ function getColumns({
         return (
           <Button
             variant="ghost"
+            className="flex w-full"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Und. Medida
@@ -112,12 +114,14 @@ function getColumns({
         )
       },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("und")}</div>
+        <div className="text-center">{row.getValue("und")}</div>
       ),
     },
     {
       accessorKey: "price",
-      header: () => <div className="text-right">Valor</div>,
+      header: () => (
+        <div className="flex w-full text-center justify-center">Valor</div>
+      ),
       cell: ({ row }) => {
         const price = parseFloat(row.getValue("price"))
 
@@ -127,7 +131,11 @@ function getColumns({
           currency: "BRL",
         }).format(price)
 
-        return <div className="text-right font-medium">{formatted}</div>
+        return (
+          <div className="flex justify-center text-center font-medium">
+            {formatted}
+          </div>
+        )
       },
     },
     {
@@ -163,7 +171,7 @@ function getColumns({
         }
 
         return (
-          <div className="relative">
+          <div className="w-full flex justify-center">
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" className="h-8 w-8 p-0">

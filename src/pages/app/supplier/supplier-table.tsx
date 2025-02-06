@@ -24,7 +24,6 @@ import {
   AlertDialogTitle,
 } from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -68,33 +67,12 @@ function getColumns({
 }): ColumnDef<TablePropsSupplier>[] {
   return [
     {
-      id: "select",
-      header: ({ table }) => (
-        <Checkbox
-          checked={
-            table.getIsAllPageRowsSelected() ||
-            (table.getIsSomePageRowsSelected() && "indeterminate")
-          }
-          onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-          aria-label="Select all"
-        />
-      ),
-      cell: ({ row }) => (
-        <Checkbox
-          checked={row.getIsSelected()}
-          onCheckedChange={(value) => row.toggleSelected(!!value)}
-          aria-label="Select row"
-        />
-      ),
-      enableSorting: false,
-      enableHiding: false,
-    },
-    {
       accessorKey: "company_name",
       header: ({ column }) => {
         return (
           <Button
             variant="ghost"
+            className="flex w-full"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Fornecedor
@@ -103,7 +81,7 @@ function getColumns({
         )
       },
       cell: ({ row }) => (
-        <div className="capitalize">{row.getValue("company_name")}</div>
+        <div className="capitalize ml-4">{row.getValue("company_name")}</div>
       ),
     },
     {
@@ -112,6 +90,7 @@ function getColumns({
         return (
           <Button
             variant="ghost"
+            className="flex w-full"
             onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
           >
             Email
@@ -120,14 +99,18 @@ function getColumns({
         )
       },
       cell: ({ row }) => (
-        <div className="lowercase">{row.getValue("email_address")}</div>
+        <div className="lowercase flex w-full justify-center">
+          {row.getValue("email_address")}
+        </div>
       ),
     },
     {
       accessorKey: "phone",
-      header: () => <div className="text-right">Telefone</div>,
+      header: () => <div className="flex w-full justify-end">Telefone</div>,
       cell: ({ row }) => (
-        <div className="text-right font-medium">{row.getValue("phone")}</div>
+        <div className="flex w-full justify-end font-medium">
+          {row.getValue("phone")}
+        </div>
       ),
     },
     {
