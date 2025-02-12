@@ -1,7 +1,7 @@
 import { z } from "zod"
 
 const developmentSchema = z.object({
-  VITE_API_URL: z.string().url().default("http://192.168.1.81:3333"),
+  VITE_API_URL: z.string().url().default("http://192.168.1.127:3333"),
 })
 
 const productionSchema = z.object({

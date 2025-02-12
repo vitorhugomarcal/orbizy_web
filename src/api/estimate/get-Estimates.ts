@@ -1,13 +1,16 @@
 import { api } from "@/lib/axios"
+import type { GetClientProps } from "../client/get-Clients"
 
 export interface GetEstimatesProps {
-  status: string
   id: string
-  company_id: string
-  createdAt: Date
   estimate_number: string
+  status: string
   notes: string
-  supplier_id: string
+  sub_total: number
+  total: number
+  client_id: string
+  createdAt: Date
+  client: GetClientProps
 }
 export async function getEstimates() {
   const { data } = await api.get<GetEstimatesProps[]>("/estimate")

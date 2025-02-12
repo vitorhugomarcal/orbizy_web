@@ -1,6 +1,3 @@
-"use client"
-
-import * as React from "react"
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -14,9 +11,19 @@ import {
   useReactTable,
 } from "@tanstack/react-table"
 import { ArrowUpDown, ChevronDown, MoreHorizontal } from "lucide-react"
+import * as React from "react"
 
+import { removeEstimate } from "@/api/estimate/remove-Estimate"
+import {
+  AlertDialog,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+} from "@/components/ui/alert-dialog"
 import { Button } from "@/components/ui/button"
-import { Checkbox } from "@/components/ui/checkbox"
 import {
   DropdownMenu,
   DropdownMenuCheckboxItem,
@@ -25,6 +32,7 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Input } from "@/components/ui/input"
+import { Skeleton } from "@/components/ui/skeleton"
 import {
   Table,
   TableBody,
@@ -33,112 +41,226 @@ import {
   TableHeader,
   TableRow,
 } from "@/components/ui/table"
-import { Skeleton } from "@/components/ui/skeleton"
-import { useQuery } from "@tanstack/react-query"
-import { getInvoices, type GetInvoiceProps } from "@/api/get-Invoices"
+import { useGetEstimate } from "@/http/generated"
+import { useMutation } from "@tanstack/react-query"
+import { toast } from "sonner"
 
-export type TableData = {
+export type TablePropsEstimate = {
   id: string
-  invoice_number: string
-  client: string
+  estimate_number: string
   status: string
-  amount: number
+  notes?: string
+  sub_total?: number
+  total?: number
+  client_id?: string
+  createdAt?: string
+  client: string
+  company?: string
 }
 
-export const columns: ColumnDef<TableData>[] = [
-  {
-    id: "select",
-    header: ({ table }) => (
-      <Checkbox
-        checked={
-          table.getIsAllPageRowsSelected() ||
-          (table.getIsSomePageRowsSelected() && "indeterminate")
+function getColumns({
+  removeEstimateMutation,
+}: {
+  removeEstimateMutation: (id: string) => Promise<any>
+}): ColumnDef<TablePropsEstimate>[] {
+  return [
+    {
+      accessorKey: "estimate_number",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            className="flex w-full"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Número da proposta
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="capitalize ml-4">{row.getValue("estimate_number")}</div>
+      ),
+    },
+    {
+      accessorKey: "client",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            className="flex w-full"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Cliente
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="capitalize flex justify-center">
+          {row.getValue("client")}
+        </div>
+      ),
+    },
+    {
+      accessorKey: "company",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            className="flex w-full"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Empresa
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="capitalize flex justify-center">
+          {row.getValue("company")}
+        </div>
+      ),
+    },
+    {
+      accessorKey: "total",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            className="flex w-full"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Total
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => {
+        const amount = parseFloat(row.getValue("total"))
+
+        // Format the amount as a dollar amount
+        const formatted = new Intl.NumberFormat("pt-BR", {
+          style: "currency",
+          currency: "BRL",
+        }).format(amount)
+
+        return (
+          <div className="flex justify-center font-medium">{formatted}</div>
+        )
+      },
+    },
+    {
+      accessorKey: "status",
+      header: ({ column }) => {
+        return (
+          <Button
+            variant="ghost"
+            className="flex w-full"
+            onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
+          >
+            Status
+            <ArrowUpDown />
+          </Button>
+        )
+      },
+      cell: ({ row }) => (
+        <div className="capitalize flex justify-center">
+          {row.getValue("status")}
+        </div>
+      ),
+    },
+    {
+      id: "actions",
+      enableHiding: false,
+      cell: ({ row }) => {
+        const client = row.original
+        const [openDialog, setOpenDialog] = React.useState(false)
+        const [isRemoving, setIsRemoving] = React.useState(false)
+
+        const handleClose = React.useCallback(() => {
+          setOpenDialog(false)
+          // Force a small delay before cleanup
+          setTimeout(() => {
+            document.body.style.pointerEvents = ""
+            document.body.style.overflow = ""
+          }, 100)
+        }, [])
+
+        async function handleRemoveEstimate(estimateId: string) {
+          try {
+            setIsRemoving(true)
+            await removeEstimateMutation(estimateId)
+            toast.success("Orçamento removido com sucesso!")
+          } catch (error) {
+            toast.error(
+              error instanceof Error
+                ? error.message
+                : "Erro ao remover orçamento."
+            )
+          } finally {
+            setIsRemoving(false)
+            handleClose()
+          }
         }
-        onCheckedChange={(value) => table.toggleAllPageRowsSelected(!!value)}
-        aria-label="Select all"
-      />
-    ),
-    cell: ({ row }) => (
-      <Checkbox
-        checked={row.getIsSelected()}
-        onCheckedChange={(value) => row.toggleSelected(!!value)}
-        aria-label="Select row"
-      />
-    ),
-    enableSorting: false,
-    enableHiding: false,
-  },
-  {
-    accessorKey: "invoice_number",
-    header: ({ column }) => {
-      return (
-        <Button
-          variant="ghost"
-          onClick={() => column.toggleSorting(column.getIsSorted() === "asc")}
-        >
-          Número da proposta
-          <ArrowUpDown />
-        </Button>
-      )
+
+        return (
+          <div className="relative">
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <Button variant="ghost" className="h-8 w-8 p-0">
+                  <span className="sr-only">Abrir</span>
+                  <MoreHorizontal className="h-4 w-4" />
+                </Button>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent align="end">
+                <DropdownMenuItem
+                  onClick={() => setOpenDialog(true)}
+                  className="cursor-pointer"
+                >
+                  Excluir
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
+
+            {openDialog && (
+              <AlertDialog open={openDialog} onOpenChange={setOpenDialog}>
+                <AlertDialogContent
+                  className="sm:max-w-[425px]"
+                  onClick={(e) => e.stopPropagation()}
+                >
+                  <AlertDialogHeader>
+                    <AlertDialogTitle>Tem certeza?</AlertDialogTitle>
+                    <AlertDialogDescription>
+                      Esta ação não pode ser desfeita. Isso excluirá
+                      permanentemente o orçamento e removerá os dados dos nossos
+                      servidores.
+                    </AlertDialogDescription>
+                  </AlertDialogHeader>
+                  <AlertDialogFooter>
+                    <AlertDialogCancel
+                      onClick={handleClose}
+                      disabled={isRemoving}
+                    >
+                      Cancelar
+                    </AlertDialogCancel>
+                    <Button
+                      variant="destructive"
+                      onClick={() => handleRemoveEstimate(client.id)}
+                      disabled={isRemoving}
+                    >
+                      {isRemoving ? "Removendo..." : "Continuar"}
+                    </Button>
+                  </AlertDialogFooter>
+                </AlertDialogContent>
+              </AlertDialog>
+            )}
+          </div>
+        )
+      },
     },
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("invoice_number")}</div>
-    ),
-  },
-  {
-    accessorKey: "client",
-    header: () => <div className="text-left">Cliente</div>,
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("client")}</div>
-    ),
-  },
-  {
-    accessorKey: "amount",
-    header: () => <div className="text-left">Total</div>,
-    cell: ({ row }) => {
-      const amount = parseFloat(row.getValue("amount"))
-
-      // Format the amount as a dollar amount
-      const formatted = new Intl.NumberFormat("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-      }).format(amount)
-
-      return <div className="text-left font-medium">{formatted}</div>
-    },
-  },
-  {
-    accessorKey: "status",
-    header: "Status",
-    cell: ({ row }) => (
-      <div className="capitalize">{row.getValue("status")}</div>
-    ),
-  },
-  {
-    id: "actions",
-    enableHiding: false,
-    cell: ({ row }) => {
-      const payment = row.original
-
-      return (
-        <DropdownMenu>
-          <DropdownMenuTrigger asChild>
-            <Button variant="ghost" className="h-8 w-8 p-0">
-              <span className="sr-only">Abrir</span>
-              <MoreHorizontal />
-            </Button>
-          </DropdownMenuTrigger>
-          <DropdownMenuContent align="end">
-            <DropdownMenuItem>Editar</DropdownMenuItem>
-            <DropdownMenuItem>Ver</DropdownMenuItem>
-            <DropdownMenuItem onClick={() => payment}>Excluir</DropdownMenuItem>
-          </DropdownMenuContent>
-        </DropdownMenu>
-      )
-    },
-  },
-]
-
+  ]
+}
 export function EstimateTable() {
   const [sorting, setSorting] = React.useState<SortingState>([])
   const [columnFilters, setColumnFilters] = React.useState<ColumnFiltersState>(
@@ -148,21 +270,45 @@ export function EstimateTable() {
     React.useState<VisibilityState>({})
   const [rowSelection, setRowSelection] = React.useState({})
 
-  const { data: invoices, isLoading } = useQuery({
-    queryKey: ["invoices"],
-    queryFn: getInvoices,
+  const { data, isLoading, error, refetch } = useGetEstimate()
+
+  const { mutateAsync: removeEstimateMutation } = useMutation({
+    mutationFn: removeEstimate,
+    onSuccess: async () => await refetch(),
+    onError: (error) => {
+      toast.error(
+        error instanceof Error ? error.message : "Erro ao remover o orçamento."
+      )
+    },
   })
 
-  const transformedData: TableData[] = React.useMemo(() => {
-    if (!invoices) return []
-    return invoices.map((invoice: GetInvoiceProps) => ({
-      id: invoice.id,
-      invoice_number: invoice.invoice_number,
-      client: invoice.client.company_name || invoice.client.name,
-      amount: invoice.total,
-      status: invoice.status,
+  if (error) {
+    return <div>Erro ao carregar dados: {error.statusText}</div>
+  }
+
+  const estimateData = data?.estimates
+
+  const transformedData: TablePropsEstimate[] = React.useMemo(() => {
+    if (!estimateData) return []
+
+    return estimateData.map((estimate) => ({
+      id: estimate.id,
+      estimate_number: estimate.estimate_number,
+      status: estimate.status,
+      notes: estimate.notes,
+      sub_total: estimate.sub_total,
+      total: estimate.total,
+      client_id: estimate.client_id,
+      createdAt: estimate.createdAt,
+      client: estimate.client.name,
+      company: estimate.client.company_name,
     }))
-  }, [invoices])
+  }, [estimateData])
+
+  const columns = React.useMemo(
+    () => getColumns({ removeEstimateMutation }),
+    [removeEstimateMutation]
+  )
 
   const table = useReactTable({
     data: transformedData,
