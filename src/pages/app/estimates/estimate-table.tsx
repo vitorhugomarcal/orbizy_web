@@ -47,8 +47,8 @@ import { toast } from "sonner"
 
 export type TablePropsEstimate = {
   id: string
-  estimate_number: string
-  status: string
+  estimate_number?: string
+  status?: string
   notes?: string
   sub_total?: number
   total?: number
@@ -293,15 +293,15 @@ export function EstimateTable() {
 
     return estimateData.map((estimate) => ({
       id: estimate.id,
-      estimate_number: estimate.estimate_number,
-      status: estimate.status,
-      notes: estimate.notes,
-      sub_total: estimate.sub_total,
-      total: estimate.total,
-      client_id: estimate.client_id,
-      createdAt: estimate.createdAt,
-      client: estimate.client.name,
-      company: estimate.client.company_name,
+      estimate_number: estimate.estimate_number || "",
+      status: estimate.status || "",
+      notes: estimate.notes || "",
+      sub_total: estimate.sub_total || 0,
+      total: estimate.total || 0,
+      client_id: estimate.client_id || "",
+      createdAt: estimate.createdAt || "",
+      client: estimate.client.name || "",
+      company: estimate.client.company_name || "",
     }))
   }, [estimateData])
 
